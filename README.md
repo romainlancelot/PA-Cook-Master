@@ -1,3 +1,5 @@
-# PA-Cook-Master
-ça va être légendaire
-Tom.PHP
+# Cookmaster
+
+```docker-compose up --build```
+
+localhost:8080
