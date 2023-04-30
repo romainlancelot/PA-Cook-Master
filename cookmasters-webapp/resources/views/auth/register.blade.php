@@ -1,5 +1,6 @@
 @extends('layouts.auth-master')
 
+@section('title', 'Register')
 @section('content')
     <form method="post" action="{{ route('register.perform') }}">
 
