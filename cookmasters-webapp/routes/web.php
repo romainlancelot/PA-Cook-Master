@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,5 +41,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Logout Routes
          */
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
+
+        /**
+         * Account Routes
+         */
+        Route::get('/account', 'AccountController@show')->name('account.show');
     });
 });
