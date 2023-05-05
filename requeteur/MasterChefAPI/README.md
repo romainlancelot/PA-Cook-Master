@@ -4,7 +4,9 @@
 
 ## Requirements
 
-requirements
+linux distribution
+
+`chmod u+x requirements/install_dependencies.sh && ./requirements/install_dependencies.sh`
 
 ## Installation
 
