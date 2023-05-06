@@ -3,17 +3,20 @@ CC	= gcc
 SRC =	$(wildcard src/*.c)	\
 
 BIN	= bin/run
-BUILD = build
+LIB_MY	=	lib/my
+INCLUDE	=	include/
 
 OBJ =$(SRC:.c=.o)
 DEP =$(OBJ:.o=.d)  # one dependency file for each source
 
-CFLAGS = -MMD `pkg-config --cflags gtk+-3.0`    # option to generate a .d file during compilation
-LDFLAGS = -lm
-LIBS = `pkg-config --libs gtk+-3.0`
+CFLAGS = -MMD `pkg-config --cflags gtk+-3.0`    # -MMD option to generate a .d file during compilation
+LIBS = `pkg-config --libs gtk+-3.0` -l my
+CPPFLAGS	+=	-I./$(INCLUDE)
+LDFLAGS	=	-L ./lib -l my -lm
 
 $(BIN):	$(OBJ)
-	$(CC) -o $@	$^ $(LDFLAGS) $(LIBS)
+	make -C ./lib/my
+	$(CC) -o $@	$^ $(LDFLAGS) $(LIBS) $(LDFLAGS)
 	@echo "Compiling "$@
 	@echo "Build successful!"
 
@@ -21,8 +24,13 @@ $(BIN):	$(OBJ)
 
 .PHONY: clean
 clean:
+	make clean -C ./lib/my
 	rm -f $(OBJ) $(BIN)
 
 .PHONY: cleandep
 cleandep:
+	make fclean -C lib/my
 	rm -f $(DEP)
+
+.PHONY: fclean
+fclean: cleandep clean

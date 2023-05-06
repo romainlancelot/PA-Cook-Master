@@ -1,4 +1,6 @@
 #include <gtk/gtk.h>
+#include <stdio.h>
+#include "my.h"
 
 void on_send_button_clicked(GtkButton *button, gpointer user_data) {
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(user_data));
@@ -38,6 +40,7 @@ int main(int argc, char *argv[]) {
     gtk_widget_show_all(window);
 
     gtk_main();
-
+    printf("%i", my_strlen("adam"));
+    
     return 0;
 }
