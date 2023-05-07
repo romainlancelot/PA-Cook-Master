@@ -10,7 +10,7 @@ utiliser cette url d'api de pokemon pour test
 https://pokeapi.co/api/v2/pokemon/ditto
 il ya que la methode get qui march
 et les api avec les autorisation d'api key ne marche pas egalement
-    
+
 ## Requirements
 
 linux distribution
