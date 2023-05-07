@@ -1,36 +1,54 @@
-CC	= gcc
+CC	=	gcc
+SRC	=	$(wildcard src/main.c) \
+		$(wildcard src/gtk/gtk.c)	\
+		$(wildcard src/curl/curl.c)	\
 
-SRC =	$(wildcard src/*.c)	\
-
-BIN	= bin/run
+BIN	=	bin/run
 LIB_MY	=	lib/my
+
 INCLUDE	=	include/
 
-OBJ =$(SRC:.c=.o)
-DEP =$(OBJ:.o=.d)  # one dependency file for each source
+OBJ = $(addprefix build/, $(notdir $(SRC:.c=.o)))
+DEP = $(addprefix build/, $(notdir $(SRC:.c=.d)))
 
-CFLAGS = -MMD `pkg-config --cflags gtk+-3.0`    # -MMD option to generate a .d file during compilation
+CFLAGS = -MMD `pkg-config --cflags gtk+-3.0`
 LIBS = `pkg-config --libs gtk+-3.0` -l my
-CPPFLAGS	+=	-I./$(INCLUDE)
-LDFLAGS	=	-L ./lib -l my -lm
+CPPFLAGS += -I./$(INCLUDE)
+LDFLAGS = -L ./lib -l my -lm -lcjson -lcurl
 
-$(BIN):	$(OBJ)
+$(BIN): $(OBJ)
 	make -C ./lib/my
-	$(CC) -o $@	$^ $(LDFLAGS) $(LIBS) $(LDFLAGS)
-	@echo "Compiling "$@
+	$(CC) -o $@ $^ $(LDFLAGS) $(LIBS) $(LDFLAGS)
 	@echo "Build successful!"
 
--include $(DEP)   # include all dep files in the makefile
+build/%.o: src/%.c
+	$(CC) -c -o $@ $< $(CFLAGS) $(CPPFLAGS)
+
+build/%.o: src/gtk/%.c
+	$(CC) -c -o $@ $< $(CFLAGS) $(CPPFLAGS)
+
+build/%.o: src/curl/%.c
+	$(CC) -c -o $@ $< $(CFLAGS) $(CPPFLAGS)
+
+-include $(DEP)
+
+.PHONY: all
+all: $(BIN)
 
 .PHONY: clean
 clean:
 	make clean -C ./lib/my
-	rm -f $(OBJ) $(BIN)
+	rm -f $(BIN)
 
 .PHONY: cleandep
 cleandep:
 	make fclean -C lib/my
 	rm -f $(DEP)
+	rm -f $(OBJ)
 
 .PHONY: fclean
 fclean: cleandep clean
+
+.PRECIOUS: build/%.d
+build/%.d: src/%.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -MT '$(patsubst src/%.c,build/%.o,$<)' -MF $@ -MM $<

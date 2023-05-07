@@ -6,18 +6,18 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 # Update package lists and upgrade system
-if [[ $(command -v apt-get) ]]; then
-  echo -e "${GREEN}Updating package lists...${NC}"
-  sudo apt-get update && sudo apt-get upgrade
-elif [[ $(command -v dnf) ]]; then
-  echo -e "${GREEN}Updating package lists...${NC}"
-  sudo dnf update
-elif [[ $(command -v yum) ]]; then
-  echo -e "${GREEN}Updating package lists...${NC}"
-  sudo yum update
-else
-  echo -e "${RED}Unsupported package manager. Please update your system manually.${NC}"
-fi
+# if [[ $(command -v apt-get) ]]; then
+#   echo -e "${GREEN}Updating package lists...${NC}"
+#   sudo apt-get update && sudo apt-get upgrade
+# elif [[ $(command -v dnf) ]]; then
+#   echo -e "${GREEN}Updating package lists...${NC}"
+#   sudo dnf update
+# elif [[ $(command -v yum) ]]; then
+#   echo -e "${GREEN}Updating package lists...${NC}"
+#   sudo yum update
+# else
+#   echo -e "${RED}Unsupported package manager. Please update your system manually.${NC}"
+# fi
 
 # Install GCC compiler
 if [[ $(command -v gcc) ]]; then
@@ -70,6 +70,42 @@ else
     sudo yum install gtk3-devel
   else
     echo -e "${RED}Unsupported package manager. Please install GTK+3.0 manually.${NC}"
+  fi
+fi
+
+# Install cURL library and development files
+if [[ $(pkg-config --modversion libcurl) ]]; then
+  echo -e "${GREEN}cURL library already installed.${NC}"
+else
+  if [[ $(command -v apt-get) ]]; then
+    echo -e "${GREEN}Installing cURL library and development files...${NC}"
+    sudo apt-get install libcurl4-openssl-dev
+  elif [[ $(command -v dnf) ]]; then
+    echo -e "${GREEN}Installing cURL library and development files...${NC}"
+    sudo dnf install libcurl-devel
+  elif [[ $(command -v yum) ]]; then
+    echo -e "${GREEN}Installing cURL library and development files...${NC}"
+    sudo yum install libcurl-devel
+  else
+    echo -e "${RED}Unsupported package manager. Please install cURL manually.${NC}"
+  fi
+fi
+
+# Install cJSON library and development files
+if [[ $(pkg-config --modversion cjson) ]]; then
+  echo -e "${GREEN}cJSON library already installed.${NC}"
+else
+  if [[ $(command -v apt-get) ]]; then
+    echo -e "${GREEN}Installing cJSON library and development files...${NC}"
+    sudo apt-get install libcjson-dev
+  elif [[ $(command -v dnf) ]]; then
+    echo -e "${GREEN}Installing cJSON library and development files...${NC}"
+    sudo dnf install cJSON-devel
+  elif [[ $(command -v yum) ]]; then
+    echo -e "${GREEN}Installing cJSON library and development files...${NC}"
+    sudo yum install cJSON-devel
+  else
+    echo -e "${RED}Unsupported package manager. Please install cJSON manually.${NC}"
   fi
 fi
 
