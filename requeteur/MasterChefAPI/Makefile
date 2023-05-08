@@ -1,6 +1,7 @@
 CC	=	gcc
 SRC	=	$(wildcard src/main.c) \
 		$(wildcard src/gtk/gtk.c)	\
+		$(wildcard src/gtk/notification.c)	\
 		$(wildcard src/curl/curl.c)	\
 
 BIN	=	bin/run
@@ -12,9 +13,9 @@ OBJ = $(addprefix build/, $(notdir $(SRC:.c=.o)))
 DEP = $(addprefix build/, $(notdir $(SRC:.c=.d)))
 
 CFLAGS = -MMD `pkg-config --cflags gtk+-3.0`
-LIBS = `pkg-config --libs gtk+-3.0` -l my
+LIBS = `pkg-config --libs gtk+-3.0` -l my `pkg-config --libs libnotify`
 CPPFLAGS += -I./$(INCLUDE)
-LDFLAGS = -L ./lib -l my -lm -lcjson -lcurl
+LDFLAGS = -L ./lib -l my -lm -lcjson -lcurl -lnotify
 
 $(BIN): $(OBJ)
 	make -C ./lib/my

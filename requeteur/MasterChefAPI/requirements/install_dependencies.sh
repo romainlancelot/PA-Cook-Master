@@ -6,18 +6,18 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 # Update package lists and upgrade system
-# if [[ $(command -v apt-get) ]]; then
-#   echo -e "${GREEN}Updating package lists...${NC}"
-#   sudo apt-get update && sudo apt-get upgrade
-# elif [[ $(command -v dnf) ]]; then
-#   echo -e "${GREEN}Updating package lists...${NC}"
-#   sudo dnf update
-# elif [[ $(command -v yum) ]]; then
-#   echo -e "${GREEN}Updating package lists...${NC}"
-#   sudo yum update
-# else
-#   echo -e "${RED}Unsupported package manager. Please update your system manually.${NC}"
-# fi
+if [[ $(command -v apt-get) ]]; then
+  echo -e "${GREEN}Updating package lists...${NC}"
+  sudo apt-get update && sudo apt-get upgrade
+elif [[ $(command -v dnf) ]]; then
+  echo -e "${GREEN}Updating package lists...${NC}"
+  sudo dnf update
+elif [[ $(command -v yum) ]]; then
+  echo -e "${GREEN}Updating package lists...${NC}"
+  sudo yum update
+else
+  echo -e "${RED}Unsupported package manager. Please update your system manually.${NC}"
+fi
 
 # Install GCC compiler
 if [[ $(command -v gcc) ]]; then
@@ -106,6 +106,24 @@ else
     sudo yum install cJSON-devel
   else
     echo -e "${RED}Unsupported package manager. Please install cJSON manually.${NC}"
+  fi
+fi
+
+# Install libnotify-bin package
+if [[ $(command -v notify-send) ]]; then
+  echo -e "${GREEN}libnotify-bin package already installed.${NC}"
+else
+  if [[ $(command -v apt-get) ]]; then
+    echo -e "${GREEN}Installing libnotify-bin package...${NC}"
+    sudo apt-get install libnotify-bin
+  elif [[ $(command -v dnf) ]]; then
+    echo -e "${GREEN}Installing libnotify-bin package...${NC}"
+    sudo dnf install libnotify-bin
+  elif [[ $(command -v yum) ]]; then
+    echo -e "${GREEN}Installing libnotify-bin package...${NC}"
+    sudo yum install libnotify-bin
+  else
+    echo -e "${RED}Unsupported package manager. Please install libnotify-bin manually.${NC}"
   fi
 fi
 

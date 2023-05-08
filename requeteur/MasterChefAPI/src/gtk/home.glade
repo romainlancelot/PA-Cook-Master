@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+<!-- window_home 800, 800-->
+  <object class="GtkWindow" id="window_home">
+    <property name="can_focus">False</property>
+    <property name="default_width">800</property>
+    <property name="default_height">800</property>
+    <property name="title" translatable="yes">API Requestor</property>
+    <!-- home box -->
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
+        <!-- Welcome to the Home Page! -->
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">Welcome to the Home Page!</property>
+          </object>
+        </child>
+        <!-- end Welcome to the Home Page! -->
+        <!-- About Us -->
+        <child>
+          <object class="GtkButton" id="button_about_us">
+            <property name="label" translatable="yes">About Us</property>
+            <property name="visible">True</property>
+          </object>
+        </child>
+        <!-- end About Us -->
+        <!-- method_dropdown -->
+        <child>
+          <object class="GtkComboBoxText" id="method_dropdown">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="hexpand">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+            <property name="margin_start">10</property>
+            <property name="margin_end">10</property>
+            <items>
+              <item translatable="yes">GET</item>
+              <item translatable="yes">POST</item>
+              <item translatable="yes">PUT</item>
+              <item translatable="yes">DELETE</item>
+            </items>
+            <property name="active">0</property>
+          </object>
+        </child>
+        <!-- end method_dropdown -->
+        <!-- url_entry -->
+        <child>
+          <object class="GtkEntry" id="url_entry">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+            <property name="margin_start">10</property>
+            <property name="margin_end">10</property>
+            <property name="placeholder_text">Enter API URL here...</property>
+          </object>
+        </child>
+        <!-- end url_entry -->
+        <!-- apikey_entry -->
+        <child>
+          <object class="GtkEntry" id="apikey_entry">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+            <property name="margin_start">10</property>
+            <property name="margin_end">10</property>
+            <property name="placeholder_text">Enter API key here...</property>
+          </object>
+        </child>
+        <!-- end apikey_entry -->
+
+        <!-- checkbox_box -->
+        <child>
+          <object class="GtkBox" id="checkbox_box">
+            <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
+            <property name="spacing">10</property>
+            <property name="visible">True</property>
+            <property name="halign">GTK_ALIGN_START</property>
+            <!-- Enregistrer dans un fichier -->
+            <child>
+              <object class="GtkCheckButton" id="file_checkbox">
+                <property name="label">Enregistrer dans un fichier</property>
+                <property name="active">False</property>
+                <property name="visible">True</property>
+              </object>
+            </child>
+            <!-- end Enregistrer dans un fichier -->
+            <!-- Enregistrer dans la base de données -->
+            <child>
+              <object class="GtkCheckButton" id="db_checkbox">
+                <property name="label">Enregistrer dans la base de données</property>
+                <property name="active">False</property>
+                <property name="visible">True</property>
+              </object>
+            </child>
+            <!-- end Enregistrer dans la base de données -->
+            <!-- Afficher dans la fenêtre -->
+            <child>
+              <object class="GtkCheckButton" id="window_checkbox">
+                <property name="label">Afficher dans la fenêtre</property>
+                <property name="active">True</property>
+                <property name="visible">True</property>
+              </object>
+            </child>
+            <!-- end Afficher dans la fenêtre -->
+          </object>
+        </child>
+        <!-- end checkbox_box -->
+        <!-- Send Request -->
+        <child>
+          <object class="GtkButton" id="send_requiest_button">
+            <property name="label" translatable="yes">Send Request</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+            <property name="margin_start">10</property>
+            <property name="margin_end">10</property>
+          </object>
+        </child>
+        <!-- end Send Request -->
+        <!-- scroll text view -->
+        <child>
+          <object class="GtkScrolledWindow">
+          <property name="visible">True</property>
+          <property name="hexpand">True</property>
+          <property name="vexpand">True</property>
+          <!-- result_textview -->
+          <child>
+            <object class="GtkTextView" id="result_textview">
+              <property name="visible">True</property>
+              <property name="editable">False</property>
+              <property name="wrap_mode">GTK_WRAP_WORD_CHAR</property>
+            </object>
+          </child>
+          <!-- end result_textview -->
+          </object>
+        </child>
+        <!-- end scroll text view -->
+      </object>
+    </child>
+    <!-- end home box -->
+  </object>
+<!-- end window_home 800, 800-->
+</interface>
