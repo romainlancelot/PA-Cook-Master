@@ -32,4 +32,6 @@
         <script src="{!! url('assets/bootstrap/js/bootstrap.bundle.min.js') !!}"></script>
         
     </body>
+
+    @yield('scripts')
 @endsection

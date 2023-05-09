@@ -17,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'App\Http\Controllers'], function()
 {   
     /**
+     * Language Routes
+     */
+    Route::get('lang/home', 'LangController@index')->name('lang');
+    Route::get('lang/change', 'LangController@change')->name('changeLang');
+
+    /**
      * Home Routes
      */
     Route::get('/', 'HomeController@index')->name('home.index');
