@@ -25,13 +25,12 @@
     <body>
         
         @include('layouts.partials.navbar')
+        @include('layouts.partials.messages')
 
         <main class="container">
             @yield('content')
         </main>
 
-        <script src="{!! url('assets/bootstrap/js/bootstrap.bundle.min.js') !!}"></script>
-        
         @include('layouts.partials.footer')
     </body>
 

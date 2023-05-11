@@ -7,6 +7,7 @@
         <title>@yield('title')</title>
         <link href="{!! url('assets/bootstrap/css/bootstrap.min.css') !!}" rel="stylesheet">
         @yield('styles')
+        <script src="{!! url('assets/bootstrap/js/bootstrap.bundle.min.js') !!}" type="text/javascript"></script>
     </head>
 
     @yield('body')
