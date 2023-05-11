@@ -19,7 +19,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     /**
      * Language Routes
      */
-    Route::get('lang/home', 'LangController@index')->name('lang');
     Route::get('lang/change', 'LangController@change')->name('changeLang');
 
     /**
@@ -52,5 +51,19 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Account Routes
          */
         Route::get('/account', 'AccountController@show')->name('account.show');
+    });
+
+    Route::group(['middleware' => ['auth', 'admin']], function() {
+        /**
+         * Admin Routes
+         */
+        Route::get('/admin', 'AdminController@index')->name('admin.index');
+
+        /**
+         * Admin Users Routes
+         */
+        Route::get('/admin/users', 'AdminController@users')->name('admin.users');
+        // Route::delete('/admin/users/{user}', 'AdminController@deleteUser')->name('admin.users.delete');
+        // Route::put('/admin/users/{user}', 'AdminController@editUser')->name('admin.users.edit');
     });
 });
