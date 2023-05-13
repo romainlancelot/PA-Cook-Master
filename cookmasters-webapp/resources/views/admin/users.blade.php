@@ -1,5 +1,5 @@
 @extends('layouts.admin-master')
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @section('title', 'Admin')
 
 @section('content')
@@ -31,7 +31,7 @@
                             Modifier
                         </button>
                         <div class="modal modal-lg fade" id="user{{ $loop->index+1 }}" tabindex="-1" aria-labelledby="user{{ $loop->index+1 }}Label" aria-hidden="true">
-                            <form action="{{ route('admin.users.edit', $user->id) }}" method="POST">
+                            <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <div class="modal-dialog">
@@ -79,7 +79,7 @@
                                 </div>
                             </form>
                         </div>
-                        <a href="{{ route('admin.users.delete', $user->id) }}" class="btn btn-danger">Supprimer</a>
+                        {{-- <a href="{{ route('admin.users.delete', $user->id) }}" class="btn btn-danger">Supprimer</a> --}}
                     </td>
                 </tr>
             @endforeach
