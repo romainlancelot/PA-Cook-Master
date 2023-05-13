@@ -57,6 +57,15 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', "User updated successfully : $change_count change(s) made.");
     }
+
+    public function deleteUser($id)
+    {
+        if (!User::find($id)) {
+            return redirect()->back()->withErrors(['error' => 'User not found.']);
+        }
+        User::destroy($id);
+        return redirect()->back()->with('success', 'User deleted successfully.');
+    }
 }
 
 

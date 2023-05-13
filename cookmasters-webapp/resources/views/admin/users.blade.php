@@ -27,17 +27,17 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->role }}</td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#user{{ $loop->index+1 }}">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userUpdate{{ $loop->index+1 }}">
                             Modifier
                         </button>
-                        <div class="modal modal-lg fade" id="user{{ $loop->index+1 }}" tabindex="-1" aria-labelledby="user{{ $loop->index+1 }}Label" aria-hidden="true">
+                        <div class="modal modal-lg fade" id="userUpdate{{ $loop->index+1 }}" tabindex="-1" aria-labelledby="userUpdate{{ $loop->index+1 }}Label" aria-hidden="true">
                             <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="user{{ $loop->index+1 }}Label">Modifier le profil de {{ $user->firstname }} {{ $user->lastname }}</h1>
+                                            <h1 class="modal-title fs-5" id="userUpdate{{ $loop->index+1 }}Label">Modifier le profil de {{ $user->firstname }} {{ $user->lastname }}</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
@@ -79,7 +79,34 @@
                                 </div>
                             </form>
                         </div>
-                        {{-- <a href="{{ route('admin.users.delete', $user->id) }}" class="btn btn-danger">Supprimer</a> --}}
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#userDelete{{ $loop->index+1 }}">
+                            Supprimer
+                        </button>
+                        <div class="modal modal-lg fade" id="userDelete{{ $loop->index+1 }}" tabindex="-1" aria-labelledby="userDelete{{ $loop->index+1 }}Label" aria-hidden="true">
+                            <form action="{{ route('admin.users.delete', $user->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="userDelete{{ $loop->index+1 }}Label">Supprimer le compte de {{ $user->firstname }} {{ $user->lastname }} ?</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>
+                                                Etes-vous sûr de vouloir supprimer le compte de {{ $user->firstname }} {{ $user->lastname }} ?<br>
+                                                <span class="fw-bold text-danger">Attention :</span> Cette action est irréversible !
+                                            </p>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             @endforeach
