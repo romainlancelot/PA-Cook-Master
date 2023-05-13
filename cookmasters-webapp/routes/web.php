@@ -64,6 +64,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/admin/users', 'AdminController@users')->name('admin.users');
         // Route::delete('/admin/users/{user}', 'AdminController@deleteUser')->name('admin.users.delete');
-        // Route::put('/admin/users/{user}', 'AdminController@editUser')->name('admin.users.edit');
+        Route::put('/admin/users/{id}', 'AdminController@updateUser')->name('admin.users.update');
     });
 });
