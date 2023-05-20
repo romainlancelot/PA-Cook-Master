@@ -7,5 +7,6 @@ typedef struct gtk_s {
 
 void error_notify();
 void success_notify();
+void custom_notify();
 int gtk(int argc, char *argv[]);
 #endif /*__GTK__*/

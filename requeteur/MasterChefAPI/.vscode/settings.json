@@ -1,3 +1,12 @@
 {
-    "workbench.colorCustomizations": {"titleBar.activeBackground": "#1d040400"}   
+    "workbench.colorCustomizations": {
+        "titleBar.activeBackground": "#1d040400"
+    },
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "notify.h": "c",
+        "functional": "c",
+        "stdio.h": "c",
+        "system_error": "c"
+    }
 }

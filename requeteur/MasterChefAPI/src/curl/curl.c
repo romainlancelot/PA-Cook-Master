@@ -30,7 +30,7 @@ size_t writefunc(void *ptr, size_t size, size_t nmemb, struct string *s)
     return size*nmemb;
 }
 
-char *curl(const char *url, const char *methode, const char *apikey)
+char *curl(const char *url, const char *methode)
 {
     CURL *curl;
     CURLcode res;
@@ -43,6 +43,8 @@ char *curl(const char *url, const char *methode, const char *apikey)
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writefunc);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
         res = curl_easy_perform(curl);
+        if (res != CURLE_OK)
+            return (NULL);
         curl_easy_cleanup(curl);
         cJSON *root = cJSON_Parse(s.ptr);
         char *json = cJSON_Print(root);

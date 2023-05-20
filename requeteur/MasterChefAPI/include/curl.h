@@ -6,6 +6,6 @@ struct string {
     size_t len;
 };
 
-char *curl(const char *url, const char *methode, const char *apikey);
+char *curl(const char *url, const char *methode);
 
 #endif /* __CURL__ */

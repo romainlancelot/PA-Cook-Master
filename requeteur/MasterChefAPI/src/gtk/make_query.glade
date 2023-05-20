@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="3.20"/>
-<!-- window_home 800, 800-->
-  <object class="GtkWindow" id="window_home">
+<!-- make_query 800, 800-->
+  <object class="GtkWindow" id="make_query_builder">
     <property name="can_focus">False</property>
     <property name="default_width">800</property>
     <property name="default_height">800</property>
     <property name="title" translatable="yes">API Requestor</property>
-    <!-- home box -->
+    <!-- make query box -->
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="orientation">GTK_ORIENTATION_VERTICAL</property>
-        <!-- Welcome to the Home Page! -->
+        <!-- Welcome to the make query Page! -->
         <child>
           <object class="GtkLabel">
             <property name="visible">True</property>
-            <property name="label" translatable="yes">Welcome to the Home Page!</property>
+            <property name="label" translatable="yes">Welcome to make query page!</property>
           </object>
         </child>
-        <!-- end Welcome to the Home Page! -->
+        <!-- end Welcome to the make query Page! -->
         <!-- About Us -->
         <child>
-          <object class="GtkButton" id="button_about_us">
-            <property name="label" translatable="yes">About Us</property>
+          <object class="GtkButton" id="switch_config_database">
+            <property name="label" translatable="yes">Go to config database page</property>
             <property name="visible">True</property>
           </object>
         </child>
@@ -61,33 +61,18 @@
             <property name="placeholder_text">Enter API URL here...</property>
           </object>
         </child>
-        <!-- end url_entry -->
-        <!-- apikey_entry -->
-        <child>
-          <object class="GtkEntry" id="apikey_entry">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="hexpand">True</property>
-            <property name="margin_top">10</property>
-            <property name="margin_bottom">10</property>
-            <property name="margin_start">10</property>
-            <property name="margin_end">10</property>
-            <property name="placeholder_text">Enter API key here...</property>
-          </object>
-        </child>
-        <!-- end apikey_entry -->
-
         <!-- checkbox_box -->
         <child>
           <object class="GtkBox" id="checkbox_box">
             <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
             <property name="spacing">10</property>
             <property name="visible">True</property>
+            <property name="hexpand">True</property>
             <property name="halign">GTK_ALIGN_START</property>
             <!-- Enregistrer dans un fichier -->
             <child>
               <object class="GtkCheckButton" id="file_checkbox">
-                <property name="label">Enregistrer dans un fichier</property>
+                <property name="label">Save to a file</property>
                 <property name="active">False</property>
                 <property name="visible">True</property>
               </object>
@@ -96,7 +81,7 @@
             <!-- Enregistrer dans la base de données -->
             <child>
               <object class="GtkCheckButton" id="db_checkbox">
-                <property name="label">Enregistrer dans la base de données</property>
+                <property name="label">Save into database</property>
                 <property name="active">False</property>
                 <property name="visible">True</property>
               </object>
@@ -105,7 +90,7 @@
             <!-- Afficher dans la fenêtre -->
             <child>
               <object class="GtkCheckButton" id="window_checkbox">
-                <property name="label">Afficher dans la fenêtre</property>
+                <property name="label">Display in the windows</property>
                 <property name="active">True</property>
                 <property name="visible">True</property>
               </object>
@@ -116,8 +101,8 @@
         <!-- end checkbox_box -->
         <!-- Send Request -->
         <child>
-          <object class="GtkButton" id="send_requiest_button">
-            <property name="label" translatable="yes">Send Request</property>
+          <object class="GtkButton" id="submit_make_query_form">
+            <property name="label" translatable="yes">Submit</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="hexpand">True</property>
@@ -136,7 +121,7 @@
           <property name="vexpand">True</property>
           <!-- result_textview -->
           <child>
-            <object class="GtkTextView" id="result_textview">
+            <object class="GtkTextView" id="result_textview_make_query">
               <property name="visible">True</property>
               <property name="editable">False</property>
               <property name="wrap_mode">GTK_WRAP_WORD_CHAR</property>
@@ -148,7 +133,7 @@
         <!-- end scroll text view -->
       </object>
     </child>
-    <!-- end home box -->
+    <!-- end make query box -->
   </object>
-<!-- end window_home 800, 800-->
+<!-- end make_query 800, 800-->
 </interface>

@@ -109,21 +109,39 @@ else
   fi
 fi
 
-# Install libnotify-bin package
-if [[ $(command -v notify-send) ]]; then
-  echo -e "${GREEN}libnotify-bin package already installed.${NC}"
+# Install libnotify-bin package and libnotify-dev package
+if [[ $(command -v notify-send) && $(command -v pkg-config --exists libnotify) && $(pkg-config --exists libnotify) ]]; then
+  echo -e "${GREEN}libnotify-bin and libnotify-dev packages already installed.${NC}"
 else
   if [[ $(command -v apt-get) ]]; then
-    echo -e "${GREEN}Installing libnotify-bin package...${NC}"
-    sudo apt-get install libnotify-bin
+    echo -e "${GREEN}Installing libnotify-bin and libnotify-dev packages...${NC}"
+    sudo apt-get install libnotify-bin libnotify-dev
   elif [[ $(command -v dnf) ]]; then
-    echo -e "${GREEN}Installing libnotify-bin package...${NC}"
-    sudo dnf install libnotify-bin
+    echo -e "${GREEN}Installing libnotify-bin and libnotify-dev packages...${NC}"
+    sudo dnf install libnotify-bin libnotify-dev
   elif [[ $(command -v yum) ]]; then
-    echo -e "${GREEN}Installing libnotify-bin package...${NC}"
-    sudo yum install libnotify-bin
+    echo -e "${GREEN}Installing libnotify-bin and libnotify-dev packages...${NC}"
+    sudo yum install libnotify-bin libnotify-dev
   else
-    echo -e "${RED}Unsupported package manager. Please install libnotify-bin manually.${NC}"
+    echo -e "${RED}Unsupported package manager. Please install libnotify-bin and libnotify-dev manually.${NC}"
+  fi
+fi
+
+# Install MySQL libraries
+if [[ $(command -v mysql_config) ]]; then
+  echo -e "${GREEN}MySQL libraries already installed.${NC}"
+else
+  if [[ $(command -v apt-get) ]]; then
+    echo -e "${GREEN}Installing MySQL libraries...${NC}"
+    sudo apt-get install libmysqlclient-dev
+  elif [[ $(command -v dnf) ]]; then
+    echo -e "${GREEN}Installing MySQL libraries...${NC}"
+    sudo dnf install mysql-devel
+  elif [[ $(command -v yum) ]]; then
+    echo -e "${GREEN}Installing MySQL libraries...${NC}"
+    sudo yum install mysql-devel
+  else
+    echo -e "${RED}Unsupported package manager. Please install MySQL libraries manually.${NC}"
   fi
 fi
 

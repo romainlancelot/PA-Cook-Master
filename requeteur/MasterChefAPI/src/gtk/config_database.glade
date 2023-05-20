@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkWindow" id="window_about_us">
+  <object class="GtkWindow" id="config_database_builder">
     <property name="can_focus">False</property>
     <property name="default_width">800</property>
     <property name="default_height">800</property>
@@ -13,12 +13,12 @@
         <child>
           <object class="GtkLabel">
             <property name="visible">True</property>
-            <property name="label" translatable="yes">Welcome to the About Us Page!</property>
+            <property name="label" translatable="yes">Welcome to config database page!</property>
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="button_home">
-            <property name="label" translatable="yes">Home</property>
+          <object class="GtkButton" id="switch_query_page">
+            <property name="label" translatable="yes">Go to make query page</property>
             <property name="visible">True</property>
           </object>
         </child>
@@ -47,6 +47,18 @@
           </object>
         </child>
         <child>
+          <object class="GtkEntry" id="bdd_host_entry">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+            <property name="margin_start">10</property>
+            <property name="margin_end">10</property>
+            <property name="placeholder_text">Enter bdd host ...</property>
+          </object>
+        </child>
+        <child>
           <object class="GtkEntry" id="bdd_password_entry">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -59,8 +71,8 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="send_bdd_button">
-            <property name="label" translatable="yes">Send Request</property>
+          <object class="GtkButton" id="submit_config_database_form">
+            <property name="label" translatable="yes">Submit</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="hexpand">True</property>
@@ -76,7 +88,7 @@
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <child>
-              <object class="GtkTextView" id="result_textview">
+              <object class="GtkTextView" id="result_textview_config_database">
                 <property name="visible">True</property>
                 <property name="editable">False</property>
                 <property name="wrap_mode">GTK_WRAP_WORD_CHAR</property>
