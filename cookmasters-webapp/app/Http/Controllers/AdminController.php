@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -65,6 +66,56 @@ class AdminController extends Controller
         }
         User::destroy($id);
         return redirect()->back()->with('success', 'User deleted successfully.');
+    }
+
+    /**
+     * Display and manage subscriptions.
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function SubscriptionsPlan()
+    {
+        $subscriptions_plans = DB::table('subscriptions')->get();
+        return view('admin.subscriptions-plans')->with('subscriptions_plans', $subscriptions_plans);
+    }
+
+    public function newSubscriptionsPlan(Request $request)
+    {
+        $validatedData = [
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'duration' => 'required|numeric|min:0',
+        ];
+        $request->validate($validatedData);
+        DB::table('subscriptions')->insert([
+            'subscription_name' => $request->name,
+            'subscription_price' => $request->price,
+            'subscription_duration' => $request->duration,
+        ]);
+        return redirect()->back()->with('success', 'Subscription plan added successfully.');
+    }
+
+    public function updateSubscriptionsPlan(Request $request, $id)
+    {
+        $validatedData = [
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'duration' => 'required|numeric|min:0',
+        ];
+        $request->validate($validatedData);
+        DB::table('subscriptions')->where('subscription_id', $id)->update([
+            'subscription_name' => $request->name,
+            'subscription_price' => $request->price,
+            'subscription_duration' => $request->duration,
+        ]);
+        return redirect()->back()->with('success', 'Subscription plan updated successfully.');
+    }
+
+    public function deleteSubscriptionsPlan($id)
+    {
+        $name = DB::table('subscriptions')->where('subscription_id', $id)->value('subscription_name');
+        DB::table('subscriptions')->where('subscription_id', $id)->delete();
+        return redirect()->back()->with('success', "Subscription plan \"$name\" deleted successfully.");
     }
 }
 

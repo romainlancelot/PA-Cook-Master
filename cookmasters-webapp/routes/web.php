@@ -65,5 +65,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/admin/users', 'AdminController@users')->name('admin.users');
         Route::delete('/admin/users/{user}', 'AdminController@deleteUser')->name('admin.users.delete');
         Route::put('/admin/users/{id}', 'AdminController@updateUser')->name('admin.users.update');
+
+        /**
+         * Admin Plans Routes
+         */
+        Route::get('/admin/subscriptions-plans', 'AdminController@SubscriptionsPlan')->name('admin.subscriptions-plans');
+        Route::put('/admin/subscriptions-plans', 'AdminController@newSubscriptionsPlan')->name('admin.subscriptions-plans.add');
+        Route::patch('/admin/subscriptions-plans/{id}', 'AdminController@updateSubscriptionsPlan')->name('admin.subscriptions-plans.update');
+        Route::delete('/admin/subscriptions-plans/{id}', 'AdminController@deleteSubscriptionsPlan')->name('admin.subscriptions-plans.delete');
     });
 });
