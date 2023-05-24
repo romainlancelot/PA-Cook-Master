@@ -75,8 +75,8 @@ class AdminController extends Controller
      */
     public function SubscriptionsPlan()
     {
-        $subscriptions_plans = DB::table('subscriptions')->get();
-        return view('admin.subscriptions-plans')->with('subscriptions_plans', $subscriptions_plans);
+        $subscription_plans = DB::table('subscription_plans')->get();
+        return view('admin.subscriptions-plans')->with('subscription_plans', $subscription_plans);
     }
 
     public function newSubscriptionsPlan(Request $request)
@@ -85,12 +85,14 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'duration' => 'required|numeric|min:0',
+            'description' => 'nullable|string',
         ];
         $request->validate($validatedData);
-        DB::table('subscriptions')->insert([
-            'subscription_name' => $request->name,
-            'subscription_price' => $request->price,
-            'subscription_duration' => $request->duration,
+        DB::table('subscription_plans')->insert([
+            'name' => $request->name,
+            'price' => $request->price,
+            'duration' => $request->duration,
+            'description' => $request->description,
         ]);
         return redirect()->back()->with('success', 'Subscription plan added successfully.');
     }
@@ -101,20 +103,22 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'duration' => 'required|numeric|min:0',
+            'description' => 'nullable|string',
         ];
         $request->validate($validatedData);
-        DB::table('subscriptions')->where('subscription_id', $id)->update([
-            'subscription_name' => $request->name,
-            'subscription_price' => $request->price,
-            'subscription_duration' => $request->duration,
+        DB::table('subscription_plans')->where('id', $id)->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'duration' => $request->duration,
+            'description' => $request->description,
         ]);
         return redirect()->back()->with('success', 'Subscription plan updated successfully.');
     }
 
     public function deleteSubscriptionsPlan($id)
     {
-        $name = DB::table('subscriptions')->where('subscription_id', $id)->value('subscription_name');
-        DB::table('subscriptions')->where('subscription_id', $id)->delete();
+        $name = DB::table('subscription_plans')->where('id', $id)->value('name');
+        DB::table('subscription_plans')->where('id', $id)->delete();
         return redirect()->back()->with('success', "Subscription plan \"$name\" deleted successfully.");
     }
 }

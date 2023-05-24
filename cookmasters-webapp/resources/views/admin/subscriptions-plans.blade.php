@@ -42,6 +42,10 @@
                             </div>
                             <small class="text-muted">0 pour un abonnement à vie</small>
                         </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -59,28 +63,30 @@
                 <th scope="col">Name</th>
                 <th scope="col">Duration</th>
                 <th scope="col">Price</th>
+                <th scope="col">Description</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($subscriptions_plans as $plan)
+            @foreach ($subscription_plans as $plan)
                 <tr>
                     <th scope="row">{{ $loop->index + 1 }}</th>
-                    <td>{{ $plan->subscription_name }}</td>
-                    <td>{{ $plan->subscription_duration }}</td>
-                    <td>{{ $plan->subscription_price }}</td>
+                    <td>{{ $plan->name }}</td>
+                    <td>{{ $plan->duration }}</td>
+                    <td>{{ $plan->price }}</td>
+                    <td>{{ $plan->description }}</td>
                     <td>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#planUpdate{{ $loop->index+1 }}">
                             Modifier
                         </button>
                         <div class="modal modal-lg fade" id="planUpdate{{ $loop->index+1 }}" tabindex="-1" aria-labelledby="planUpdate{{ $loop->index+1 }}Label" aria-hidden="true">
-                            <form action="{{ route('admin.subscriptions-plans.update', $plan->subscription_id) }}" method="POST">
+                            <form action="{{ route('admin.subscriptions-plans.update', $plan->id) }}" method="POST">
                                 @csrf
                                 @method('PATCH')
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="planUpdate{{ $loop->index+1 }}Label">Modifier l'abonnement "{{ $plan->subscription_name }}"</h1>
+                                            <h1 class="modal-title fs-5" id="planUpdate{{ $loop->index+1 }}Label">Modifier l'abonnement "{{ $plan->name }}"</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
@@ -88,19 +94,23 @@
                                                 <div class="col">
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text" for="name">Nom</span>
-                                                        <input type="text" class="form-control" id="name" name="name" value="{{ $plan->subscription_name }}">
+                                                        <input type="text" class="form-control" id="name" name="name" value="{{ $plan->name }}">
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text" for="price">Prix</span>
-                                                        <input type="text" class="form-control" id="price" name="price" value="{{ $plan->subscription_price }}">
+                                                        <input type="text" class="form-control" id="price" name="price" value="{{ $plan->price }}">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" for="duration">Duration</span>
-                                                <input type="text" class="form-control" id="duration" name="duration" value="{{ $plan->subscription_duration }}">
+                                                <input type="text" class="form-control" id="duration" name="duration" value="{{ $plan->duration }}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="description" class="form-label">Description</label>
+                                                <textarea class="form-control" id="description" name="description" rows="3">{{ $plan->description }}</textarea>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -115,18 +125,18 @@
                             Supprimer
                         </button>
                         <div class="modal modal-lg fade" id="planDelete{{ $loop->index+1 }}" tabindex="-1" aria-labelledby="planDelete{{ $loop->index+1 }}Label" aria-hidden="true">
-                            <form action="{{ route('admin.subscriptions-plans.delete', $plan->subscription_id) }}" method="POST">
+                            <form action="{{ route('admin.subscriptions-plans.delete', $plan->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="planDelete{{ $loop->index+1 }}Label">Supprimer l'abonnement "{{ $plan->subscription_name }}" ?</h1>
+                                            <h1 class="modal-title fs-5" id="planDelete{{ $loop->index+1 }}Label">Supprimer l'abonnement "{{ $plan->name }}" ?</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <p>
-                                                Etes-vous sûr de vouloir supprimer l'abonnement {{ $plan->subscription_name }} ?<br>
+                                                Etes-vous sûr de vouloir supprimer l'abonnement {{ $plan->name }} ?<br>
                                                 <span class="fw-bold text-danger">Attention :</span> Cette action est irréversible !
                                             </p>
                                         </div>

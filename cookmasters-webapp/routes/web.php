@@ -38,7 +38,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
-
     });
 
     Route::group(['middleware' => ['auth']], function() {
@@ -51,6 +50,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Account Routes
          */
         Route::get('/account', 'AccountController@show')->name('account.show');
+
+        /**
+         * Subscription Plans Routes
+         */
+        Route::get('/subscription-plans', 'SubscriptionPlansController@index')->name('subscription-plans.index');
     });
 
     Route::group(['middleware' => ['auth', 'admin']], function() {
