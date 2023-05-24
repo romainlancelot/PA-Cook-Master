@@ -7,8 +7,6 @@
     <p class="lead">This is the subscription plans page.</p>
     <div class="row">
         <div class="col">
-            <h2>Subscription Plans</h2>
-            <p>Here you can see all the subscription plans.</p>
             <table class="table shadow-sm">
                 <thead>
                     <tr>
@@ -25,14 +23,9 @@
                             <th scope="row">{{ $subscriptionPlan->id }}</th>
                             <td>{{ $subscriptionPlan->name }}</td>
                             <td>{{ $subscriptionPlan->duration }}</td>
-                            <td>{{ $subscriptionPlan->price }}</td>
+                            <td>{{ $subscriptionPlan->price }}€/mois</td>
                             <td>
-                                <a href="{{ route('subscription-plans.edit', $subscriptionPlan->id) }}" class="btn btn-primary">Edit</a>
-                                <form action="{{ route('subscription-plans.destroy', $subscriptionPlan->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Delete</button>    
-                                </form>
+
                             </td>
                         </tr>
                     @endforeach
