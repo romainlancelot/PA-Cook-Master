@@ -3,36 +3,72 @@
 @section('title', 'Subscription Plans')
 
 @section('content')
-    <h1>Subscription Plans</h1>
-    <p class="lead">This is the subscription plans page.</p>
-    <div class="row">
-        <div class="col">
-            <table class="table shadow-sm">
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal">Subscription Plans</h1>
+        <p class="fs-5 text-body-secondary">Choose the plan that fits your needs.</p>
+    </div>
+
+    <main>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            @foreach ($subscriptionPlans as $plan)
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm h-100">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal">{{ $plan->name }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">${{ $plan->price }}<small class="text-body-secondary fw-light">/mo</small></h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                @if ($plan->features()->get()->count() > 0)
+                                    @foreach ($plan->features()->get() as $feature)
+                                        <li>{{ $feature->name }}</li>
+                                    @endforeach
+                                @else
+                                    <li>No features</li>
+                                @endif
+                            </ul>
+                            @if ($plan->price == 0)
+                                <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+                            @else
+                                <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        
+        <h2 class="display-6 text-center mb-4">Compare plans</h2>
+        
+        <div class="table-responsive">
+            <table class="table text-center">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Duration</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Actions</th>
+                        <th style="width: 34%;"></th>
+                        @foreach ($subscriptionPlans as $plan)
+                            <th style="width: 22%;" class="text-center">
+                                <h4 class="fw-normal">{{ $plan->name }}</h4>
+                                <span class="text-body-secondary">${{ $plan->price }}<small class="text-body-secondary fw-light">/mo</small></span>
+                            </th>
+                        @endforeach
                     </tr>
                 </thead>
+                
                 <tbody>
-                    @foreach ($subscription_plans as $subscriptionPlan)
+                    @foreach ($features as $feature)
                         <tr>
-                            <th scope="row">{{ $subscriptionPlan->id }}</th>
-                            <td>{{ $subscriptionPlan->name }}</td>
-                            <td>{{ $subscriptionPlan->duration }}</td>
-                            <td>{{ $subscriptionPlan->price }}€/mois</td>
-                            <td>
-
-                            </td>
+                            <th scope="row" class="text-start">{{ $feature->name }}</th>
+                            @foreach ($subscriptionPlans as $plan)
+                                @if ($plan->features()->get()->contains($feature))
+                                    <td><i class="bi bi-check" style="font-size: 2rem;"></i></td>
+                                @else
+                                    <td></td>
+                                @endif
+                            @endforeach
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            {{-- <a href="{{ route('subscription-plans.create') }}" class="btn btn-primary">Create a new subscription plan</a> --}}
         </div>
-    </div>       
-
+    </main>
 @endsection

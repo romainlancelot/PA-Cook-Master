@@ -3,30 +3,29 @@
 @section('title', 'Account')
 
 @section('content')
-    <h1>Account</h1>
-    <p class="lead">This is the account page.</p>
-    <div class="row">
-        <div class="col">
-            <h2>{{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</h2><br>
-            {{ auth()->user()->email }}
-            {{ auth()->user()->username }}
-        </div>
-    </div>
-    
+    <h1>{{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</h1><br>
+
+    <h2>Informations personnelles</h2>
+    <ul>
+        <li>Email: {{ auth()->user()->email }}</li>
+        <li>Username: {{ auth()->user()->username }}</li>
+    </ul>
+
+    <hr>
     <h2>Abonnement</h2>
     <div class="row">
         <div class="col">
-            <h3>Abonnement</h3>
-            <p>Vous êtes abonné à :</p>
             @if (auth()->user()->subscription_plan_id == null)
                 <p>Vous n'avez aucun abonnement en cours.</p>
-                <a href="{{ route('subscription-plans.index') }}" class="btn btn-primary">Souscrire à un abonnement</a>
+                <a href="{{ route('subscription-plans.index') }}" class="btn btn-primary">Voir les abonnements disponibles</a>
             @else
+                <p>Vous êtes abonné à :</p>
                 {{ auth()->user()->subscription_plan_id->name }}
                 {{ auth()->user()->subscription_plan_id->price }}€/mois
                 {{ auth()->user()->subscription_plan_id->duration }} mois
             @endif
         </div>
+    </div>
         
 
 @endsection
