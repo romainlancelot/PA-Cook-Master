@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\SubscriptionPlans;
 use Illuminate\Support\Facades\DB;
+use App\Models\FeaturesRelationships;
 use App\Models\SubscriptionPlansFeatures;
 
 class AdminController extends Controller
@@ -103,9 +104,19 @@ class AdminController extends Controller
             'price' => 'required|numeric|min:0',
             'duration' => 'required|numeric|min:0',
             'description' => 'nullable|string',
+            'features' => 'nullable|array',
         ];
         $request->validate($validatedData);
-        SubscriptionPlans::where('id', $id)->update($request->except('_token', '_method'));
+        SubscriptionPlans::where('id', $id)->update($request->except('_token', '_method', 'features'));
+        if ($request->features) {
+            FeaturesRelationships::where('subscription_plan_id', $id)->delete();
+            foreach ($request->features as $feature_id) {
+                FeaturesRelationships::create([
+                    'subscription_plan_id' => $id,
+                    'feature_id' => $feature_id
+                ]);
+            }
+        }
         return redirect()->back()->with('success', 'Subscription plan updated successfully.');
     }
 
@@ -115,6 +126,18 @@ class AdminController extends Controller
         SubscriptionPlans::destroy($id);
         return redirect()->back()->with('success', "Subscription plan \"$name\" deleted successfully.");
     }
+
+    public function newSubscriptionsPlanFeature(Request $request)
+    {
+        $validatedData = [
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ];
+        $request->validate($validatedData);
+        SubscriptionPlansFeatures::create($request->all());
+        return redirect()->back()->with('success', 'Subscription plan feature added successfully.');
+    }
+
 }
 
 
