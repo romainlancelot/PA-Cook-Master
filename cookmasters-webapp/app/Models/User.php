@@ -63,4 +63,12 @@ class User extends Authenticatable
     {
         return DB::table('roles')->where('id', $this->role_id)->value('name');
     }
+
+    /**
+     * Get the Subscription Plan of the user.
+     */
+    public function subscriptionPlan()
+    {
+        return $this->belongsTo(SubscriptionPlans::class, 'subscription_plan_id', 'id');
+    }
 }

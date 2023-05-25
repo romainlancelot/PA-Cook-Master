@@ -20,9 +20,16 @@
                 <a href="{{ route('subscription-plans.index') }}" class="btn btn-primary">Voir les abonnements disponibles</a>
             @else
                 <p>Vous êtes abonné à :</p>
-                {{ auth()->user()->subscription_plan_id->name }}
-                {{ auth()->user()->subscription_plan_id->price }}€/mois
-                {{ auth()->user()->subscription_plan_id->duration }} mois
+                <ul>
+                    <li>{{ auth()->user()->subscriptionPlan()->value('name') }}</li>
+                    <li>{{ auth()->user()->subscriptionPlan()->value('price') }}€/mois</li>
+                    <li>
+                        @if (auth()->user()->subscriptionPlan()->value('duration') == 0)
+                            Abonnement à vie
+                        @else
+                            {{ auth()->user()->subscriptionPlan()->value('duration') }} mois
+                        @endif
+                    </li>
             @endif
         </div>
     </div>
