@@ -10,13 +10,14 @@
 
     <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
         @foreach ($subscriptionPlans as $plan)
-            <div class="col">
+            <div class="col mb-4">
                 <div class="card mb-4 rounded-3 shadow-sm h-100">
                     <div class="card-header py-3">
                         <h4 class="my-0 fw-normal">{{ $plan->name }}</h4>
                     </div>
                     <div class="card-body">
                         <h1 class="card-title pricing-card-title">${{ $plan->price }}<small class="text-body-secondary fw-light">/mo</small></h1>
+                        <p>{{ $plan->description }}</p>
                         <ul class="list-unstyled mt-3 mb-4">
                             @if ($plan->features()->get()->count() > 0)
                                 @foreach ($plan->features()->get() as $feature)
@@ -41,7 +42,7 @@
     
     <h2 class="display-6 text-center mb-4">Compare plans</h2>
     
-    <div class="table-responsive">
+    <div class="table-responsive mb-4">
         <table class="table text-center">
             <thead>
                 <tr>

@@ -68,7 +68,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($subscription_plans as $plan)
+            @foreach ($subscriptionPlans as $plan)
                 <tr>
                     <th scope="row">{{ $loop->index + 1 }}</th>
                     <td>{{ $plan->name }}</td>
@@ -112,6 +112,22 @@
                                                 <label for="description" class="form-label">Description</label>
                                                 <textarea class="form-control" id="description" name="description" rows="3">{{ $plan->description }}</textarea>
                                             </div>
+                                            <div class="mb-3">
+                                                @foreach ($features as $feature)
+                                                    @if ($plan->features()->get()->contains($feature))
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheck{{ $feature->id }}" checked>
+                                                            <label class="form-check-label" for="flexSwitchCheck{{ $feature->id }}">{{ $feature->name }}</label>
+                                                        </div>
+                                                    @else
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheck{{ $feature->id }}">
+                                                            <label class="form-check-label" for="flexSwitchCheck{{ $feature->id }}">{{ $feature->name }}</label>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -151,7 +167,6 @@
                     </td>
                 </tr>
             @endforeach
-        <tbody>
         </tbody>
-        
+    </table>
 @endsection

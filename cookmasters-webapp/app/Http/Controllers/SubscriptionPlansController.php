@@ -12,7 +12,7 @@ class SubscriptionPlansController extends Controller
     public function index()
     {
         return view('subscription-plans.index')->with([
-            'subscriptionPlans' => SubscriptionPlans::all(),
+            'subscriptionPlans' => SubscriptionPlans::all()->sortBy('price'),
             'features' => SubscriptionPlansFeatures::all()
         ]);
     }   
