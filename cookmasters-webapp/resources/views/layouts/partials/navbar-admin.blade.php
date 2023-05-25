@@ -16,7 +16,7 @@
             </form>
             
             @auth
-            @if (auth()->user()->role == 'admin')
+            @if (auth()->user()->role_name() == 'admin')
             <div class="text-end">
                 <a href="{{ route('admin.index') }}" class="btn btn-outline-light me-2">Admin</a>
             </div>

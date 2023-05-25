@@ -2,7 +2,6 @@
 @extends('layouts.partials.html-head')
 
 @section('styles')
-<link href="{!! url('assets/css/app.css') !!}" rel="stylesheet">
 @endsection
 
 @section('body')
