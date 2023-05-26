@@ -78,6 +78,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::put('/admin/subscriptions-plans', 'AdminController@newSubscriptionsPlan')->name('admin.subscriptions-plans.add');
         Route::patch('/admin/subscriptions-plans/{id}', 'AdminController@updateSubscriptionsPlan')->name('admin.subscriptions-plans.update');
         Route::delete('/admin/subscriptions-plans/{id}', 'AdminController@deleteSubscriptionsPlan')->name('admin.subscriptions-plans.delete');
-        Route::put('/admin/subscriptions-plans-feature', 'AdminController@newSubscriptionsPlanFeature')->name('admin.subscriptions-plans-feature.add');
+        Route::get('/admin/subscriptions-plans/features', 'AdminController@SubscriptionsPlanFeatures')->name('admin.subscriptions-plans.features');
+        Route::put('/admin/subscriptions-plans/features', 'AdminController@newSubscriptionsPlanFeature')->name('admin.subscriptions-plans.feature.add');
+        Route::patch('/admin/subscriptions-plans/features/{id}', 'AdminController@updateSubscriptionsPlanFeature')->name('admin.subscriptions-plans.feature.update');
+        Route::delete('/admin/subscriptions-plans/features/{id}', 'AdminController@deleteSubscriptionsPlanFeature')->name('admin.subscriptions-plans.feature.delete');
     });
 });

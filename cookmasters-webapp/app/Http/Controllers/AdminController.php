@@ -127,6 +127,11 @@ class AdminController extends Controller
         return redirect()->back()->with('success', "Subscription plan \"$name\" deleted successfully.");
     }
 
+
+    public function SubscriptionsPlanFeatures() {
+        return view('admin.subscriptions-plans-features')->with('features', SubscriptionPlansFeatures::all());
+    }
+
     public function newSubscriptionsPlanFeature(Request $request)
     {
         $validatedData = [
@@ -138,6 +143,23 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Subscription plan feature added successfully.');
     }
 
+    public function updateSubscriptionsPlanFeature(Request $request, $id)
+    {
+        $validatedData = [
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ];
+        $request->validate($validatedData);
+        SubscriptionPlansFeatures::where('id', $id)->update($request->except('_token', '_method'));
+        return redirect()->back()->with('success', 'Subscription plan feature updated successfully.');
+    }
+
+    public function deleteSubscriptionsPlanFeature($id)
+    {
+        $name = DB::table('subscription_plans_features')->where('id', $id)->value('name');
+        SubscriptionPlansFeatures::destroy($id);
+        return redirect()->back()->with('success', "Subscription plan feature \"$name\" deleted successfully.");
+    }
 }
 
 
