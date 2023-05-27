@@ -1,5 +1,5 @@
-@routes
 @extends('layouts.partials.html-head')
+{{-- @routes --}}
 
 @section('styles')
 @endsection
