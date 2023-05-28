@@ -29,7 +29,7 @@
                             <div class="col">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" for="price">Prix</span>
-                                    <input type="number" class="form-control" id="price" name="price">
+                                    <input type="number" step="0.01" class="form-control" id="price" name="price">
                                     <span class="input-group-text" for="price">€/mois</span>
                                 </div>                        
                             </div>
@@ -64,6 +64,7 @@
                 <th scope="col">Duration</th>
                 <th scope="col">Price</th>
                 <th scope="col">Description</th>
+                <th scope="col">Stripe [ID] Plan</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -75,6 +76,11 @@
                     <td>{{ $plan->duration }}</td>
                     <td>{{ $plan->price }}</td>
                     <td>{{ $plan->description }}</td>
+                    @if ($plan->stripe_id == null || $plan->stripe_plan == null)
+                        <td>Non défini</td>
+                    @else
+                        <td>[{{ $plan->stripe_id }}] {{ $plan->stripe_plan }}</td>
+                    @endif
                     <td>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#planUpdate{{ $loop->index+1 }}">
                             Modifier
