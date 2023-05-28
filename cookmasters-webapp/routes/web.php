@@ -55,7 +55,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Subscription Plans Routes
          */
         Route::get('/subscription-plans', 'SubscriptionPlansController@index')->name('subscription-plans.index');
-        Route::post('/subscription-plans', 'SubscriptionPlansController@subscribe')->name('subscription-plans.subscribe');
+        Route::post('/subscription-plans/{user_id}/{plan_id}', 'SubscriptionPlansController@subscribe')->name('subscription-plans.subscribe');
+        Route::get('/subscription-plans/check', 'SubscriptionPlansController@checkSubscription')->name('subscription-plans.check');
     });
 
     Route::group(['middleware' => ['auth', 'admin']], function() {
