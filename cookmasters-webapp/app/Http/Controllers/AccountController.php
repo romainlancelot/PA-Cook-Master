@@ -10,11 +10,10 @@ class AccountController extends Controller
     {
         if (($stripe_id = auth()->user()->stripe_id) != null) {
             $stripe = new StripeController();
-            $invoices = $stripe->retriveAllInvoices($stripe_id)->data;
-            $invoices = array_reverse($invoices);
+            $payments = $stripe->retriveAllPaymentIntentAndInvoices($stripe_id);
         }
         return view('auth.account')->with([
-            'invoices' => $invoices ?? null,
+            'payments' => $payments ?? null,
         ]);
     }
 }

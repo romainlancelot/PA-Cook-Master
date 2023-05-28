@@ -166,4 +166,36 @@ class StripeController extends Controller
         ]);
         return $invoices;
     }
+
+    public function retriveAllPaymentIntents($customer_id)
+    {
+        $paymentIntents = $this->stripe->paymentIntents->all([
+            'customer' => $customer_id,
+        ]);
+        return $paymentIntents;
+    }
+
+    public function retriveAllPaymentIntentAndInvoices($customer_id)
+    {
+        $paymentsIntents = $this->retriveAllPaymentIntents($customer_id);
+        $invoices = $this->retriveAllInvoices($customer_id);
+        $return_args = [];
+        foreach ($paymentsIntents as $paymentIntent) {
+            foreach ($invoices as $invoice) {
+                if ($paymentIntent->invoice == $invoice->id) {
+                    $return_args[] = [
+                        'invoice' => $invoice,
+                        'paymentIntent' => $paymentIntent
+                    ];
+                    break;
+                }
+            }
+            $return_args[] = [
+                'paymentIntent' => $paymentIntent,
+                'invoice' => null
+            ];
+        }
+        
+        return $return_args;
+    }
 }
