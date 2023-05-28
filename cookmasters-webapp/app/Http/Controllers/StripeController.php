@@ -187,7 +187,7 @@ class StripeController extends Controller
                         'invoice' => $invoice,
                         'paymentIntent' => $paymentIntent
                     ];
-                    break;
+                    continue 2;
                 }
             }
             $return_args[] = [
