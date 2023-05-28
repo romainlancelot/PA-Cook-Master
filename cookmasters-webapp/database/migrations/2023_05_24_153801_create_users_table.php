@@ -25,6 +25,7 @@ return new class extends Migration
             $table->boolean('varified')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->foreignId('subscription_plan_id')->default(1)->constrained('subscription_plans')->onDelete('cascade');
+            $table->string('stripe_id')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
