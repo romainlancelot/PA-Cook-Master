@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -23,11 +24,22 @@ return new class extends Migration
             $table->date('birthday')->nullable();
             $table->boolean('varified')->default(false);
             $table->timestamp('email_verified_at')->nullable();
-            $table->foreignId('subscription_plan_id')->nullable()->constrained('subscription_plans')->onDelete('cascade');
+            $table->foreignId('subscription_plan_id')->default(1)->constrained('subscription_plans')->onDelete('cascade');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
+
+        DB::table('users')->insert([
+            'firstname' => 'Admin',
+            'lastname' => 'Admin',
+            'email' => 'rlancelot@myges.fr',
+            'username' => 'admin',
+            'password' => bcrypt('jke7d4gDhU2862b'),
+            'role_id' => 1,
+            'varified' => true,
+            'email_verified_at' => now(),
+        ]);
     }
 
     /**
