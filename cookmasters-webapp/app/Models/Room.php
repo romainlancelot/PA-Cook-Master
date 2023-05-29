@@ -20,4 +20,9 @@ class Room extends Model
     {
         return $this->belongsToMany(RoomOffer::class, 'room_equipment', 'room_id', 'equipment_id');
     }
+
+    public function service()
+    {
+        return $this->belongsToMany(Service::class, 'room_equipment', 'room_id', 'equipment_id');
+    }
 }

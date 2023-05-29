@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\RoomOffer>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Service>
  */
-class RoomOfferFactory extends Factory
+class ServiceFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,6 +20,7 @@ class RoomOfferFactory extends Factory
             'name' => fake()->name(),
             'description' => fake()->paragraph(),
             'availabilities' => fake()->sentence(),
+            'capacity' => fake()->sentence(),
             'price' => fake()->randomDigit(),
             'duration' => fake()->sentence(),
         ];
