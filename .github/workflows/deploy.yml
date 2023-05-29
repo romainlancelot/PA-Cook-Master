@@ -24,4 +24,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.SSHKEY }}
-          script: "su cd /var/www/PA-Cook-Master/cookmasters-webapp && ./.scripts/deploy.sh"
+          script: "cd /var/www/PA-Cook-Master/cookmasters-webapp && ./.scripts/deploy.sh"
