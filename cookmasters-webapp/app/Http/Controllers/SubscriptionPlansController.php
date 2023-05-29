@@ -59,4 +59,24 @@ class SubscriptionPlansController extends Controller
 
         return redirect(route('subscription-plans.index'))->with('success', 'Subscription plan changed.');
     }
+
+    public function unsubscribe($user_id)
+    {
+        $user = User::find($user_id);
+        if (!$user) {
+            return redirect()->back()->withErrors(['error' => 'User not found.']);
+        }
+
+        try {
+            $stripe = new StripeController();
+            $stripe->unsubscribeToPlan($user);
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+
+        $user->subscription_plan_id = SubscriptionPlans::where('price', 0)->first()->id;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Subscription plan canceled.');
+    }
 }

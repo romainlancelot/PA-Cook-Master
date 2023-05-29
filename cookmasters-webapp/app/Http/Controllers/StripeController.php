@@ -106,6 +106,25 @@ class StripeController extends Controller
     
     public function subscribeToPlan(SubscriptionPlans $subscriptionPlan, User $user)
     {
+        // check if user already subscribed to plan
+        if ($user->subscriptionPlan()->first() != null) {
+            if ($user->subscriptionPlan()->first()->id == $subscriptionPlan->id) {
+                return redirect()->back()->withErrors(['error' => 'You are already subscribed to this plan.']);
+            }
+
+            if ($user->stripe_id != null) {
+                $this->unsubscribeToPlan($user);
+            }
+
+            if ($user->stripe_id == null && $user->subscriptionPlan()->first()->price > 0) {
+                return redirect()->back()->withErrors(['error' => 'You are already subscribed to a plan but the plan is not linked to a stripe plan.']);
+            }
+        }
+
+        if ($user->stripe_id == null) {
+            $this->createCustomer($user);
+        }
+
         // display payment page
         try {
             $session = $this->stripe->checkout->sessions->create([
@@ -124,21 +143,26 @@ class StripeController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
 
-        if ($user->stripe_id == null) {
-            $this->createCustomer($user);
-        }
-
         // subscribe to plan
-        $subscription = $this->stripe->subscriptions->create([
-            'customer' => $user->stripe_id,
+        // $subscription = $this->stripe->subscriptions->create([
+            // 'customer' => $user->stripe_id,
             
-            'items' => [
-                [
-                    'plan' => $subscriptionPlan->stripe_id,
-                ],
-            ],
-        ]);
-        return $subscription;
+            // 'items' => [
+                // [
+                    // 'plan' => $subscriptionPlan->stripe_id,
+                // ],
+            // ],
+        // ]);
+        // return $subscription;
+    }
+
+    public function unsubscribeToPlan(User $user)
+    {
+        $subscription = $this->retriveSubscription($user->stripe_id);
+        
+        foreach ($subscription as $sub) {
+            $sub->cancel();
+        }
     }
 
     public function retriveSession($session_id)
@@ -151,6 +175,20 @@ class StripeController extends Controller
     {
         $customer = $this->stripe->customers->retrieve($customer_id);
         return $customer;
+    }
+
+    public function retriveSubscription($customer_id)
+    {
+        $subscription = $this->stripe->subscriptions->all([
+            'customer' => $customer_id,
+        ])->data;
+        
+        $subList = [];
+        foreach ($subscription as $sub) {
+            $subList[] = $this->stripe->subscriptions->retrieve($sub->id);
+        }
+
+        return $subList;
     }
 
     public function retriveInvoice($invoice_id)
