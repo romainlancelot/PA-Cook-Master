@@ -1,4 +1,4 @@
-<footer class="container d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top fixed-bottom">
+<footer class="container d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
     <div class="col-md-4">
         <p class="mb-0 text-body-secondary">&copy; {{date('Y')}} Cookmasters, Inc</p><br>
         <div class="d-flex align-items-center">

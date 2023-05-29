@@ -42,7 +42,7 @@ static void on_submit_make_query_form(GtkButton *button, gpointer user_data)
         if (file_checkbox_isChecked) {
             char fileName[256];
             generateUniqueFileName(fileName, sizeof(fileName));
-            char *filename = mystrcat("/home/najma/Documents/esgi/PA-Cook-Master/requeteur/MasterChefAPI/data/output/", fileName, ".json");
+            char *filename = mystrcat("./data/output/", fileName, ".json");
             if (saveStringToFile(filename, result))
                 custom_notify("file", mystrcat("Your file is available in:\ndata/output/", (const char*)fileName, ".json"));
         }
@@ -98,7 +98,7 @@ int gtk(int argc, char *argv[]) {
     // Création d'une instance de GtkBuilder et chargement des fichiers de glade
     builder = gtk_builder_new();
     GError *error = NULL;
-    if (gtk_builder_add_from_file(builder, "/home/najma/Documents/esgi/PA-Cook-Master/requeteur/MasterChefAPI/src/gtk/make_query.glade", &error) == 0 || gtk_builder_add_from_file(builder, "/home/najma/Documents/esgi/PA-Cook-Master/requeteur/MasterChefAPI/src/gtk/config_database.glade", &error) == 0) {
+    if (gtk_builder_add_from_file(builder, "./src/gtk/make_query.glade", &error) == 0 || gtk_builder_add_from_file(builder, "./src/gtk/config_database.glade", &error) == 0) {
         g_printerr("Error loading file: %s\n", error->message);
         g_clear_error(&error);
         return 1;
@@ -112,14 +112,15 @@ int gtk(int argc, char *argv[]) {
     GtkWidget *switch_query_page = GTK_WIDGET(gtk_builder_get_object(builder, "switch_query_page"));
     g_signal_connect(switch_config_database, "clicked", G_CALLBACK(go_config_database_page), NULL);
     g_signal_connect(switch_query_page, "clicked", G_CALLBACK(go_make_query_page), NULL);
-
-
+        
     GtkWidget *submit_make_query_form = GTK_WIDGET(gtk_builder_get_object(builder, "submit_make_query_form"));
     GtkWidget *submit_config_database_form = GTK_WIDGET(gtk_builder_get_object(builder, "submit_config_database_form"));
 
     // Connexion des signaux aux callbacks
     g_signal_connect(submit_make_query_form, "clicked", G_CALLBACK(on_submit_make_query_form), NULL);
     g_signal_connect(submit_config_database_form, "clicked", G_CALLBACK(on_submit_config_database_form), NULL);
+
+    gtk_builder_connect_signals(builder, NULL);
 
     // Affichage de la fenêtre principale
     gtk_widget_show(make_query);

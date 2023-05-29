@@ -38,7 +38,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
-
     });
 
     Route::group(['middleware' => ['auth']], function() {
@@ -51,6 +50,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Account Routes
          */
         Route::get('/account', 'AccountController@show')->name('account.show');
+
+        /**
+         * Subscription Plans Routes
+         */
+        Route::get('/subscription-plans', 'SubscriptionPlansController@index')->name('subscription-plans.index');
+        Route::post('/subscription-plans/{user_id}/{plan_id}', 'SubscriptionPlansController@subscribe')->name('subscription-plans.subscribe');
+        Route::get('/subscription-plans/check', 'SubscriptionPlansController@checkSubscription')->name('subscription-plans.check');
+        Route::delete('/subscription-plans/{user_id}', 'SubscriptionPlansController@unsubscribe')->name('subscription-plans.unsubscribe');
     });
 
     Route::group(['middleware' => ['auth', 'admin']], function() {
@@ -65,5 +72,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/admin/users', 'AdminController@users')->name('admin.users');
         Route::delete('/admin/users/{user}', 'AdminController@deleteUser')->name('admin.users.delete');
         Route::put('/admin/users/{id}', 'AdminController@updateUser')->name('admin.users.update');
+
+        /**
+         * Admin Plans Routes
+         */
+        Route::get('/admin/subscriptions-plans', 'AdminController@SubscriptionsPlan')->name('admin.subscriptions-plans');
+        Route::put('/admin/subscriptions-plans', 'AdminController@newSubscriptionsPlan')->name('admin.subscriptions-plans.add');
+        Route::patch('/admin/subscriptions-plans/{id}', 'AdminController@updateSubscriptionsPlan')->name('admin.subscriptions-plans.update');
+        Route::delete('/admin/subscriptions-plans/{id}', 'AdminController@deleteSubscriptionsPlan')->name('admin.subscriptions-plans.delete');
+        Route::get('/admin/subscriptions-plans/features', 'AdminController@SubscriptionsPlanFeatures')->name('admin.subscriptions-plans.features');
+        Route::put('/admin/subscriptions-plans/features', 'AdminController@newSubscriptionsPlanFeature')->name('admin.subscriptions-plans.feature.add');
+        Route::patch('/admin/subscriptions-plans/features/{id}', 'AdminController@updateSubscriptionsPlanFeature')->name('admin.subscriptions-plans.feature.update');
+        Route::delete('/admin/subscriptions-plans/features/{id}', 'AdminController@deleteSubscriptionsPlanFeature')->name('admin.subscriptions-plans.feature.delete');
     });
 });

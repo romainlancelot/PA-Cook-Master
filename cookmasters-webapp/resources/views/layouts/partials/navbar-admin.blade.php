@@ -8,6 +8,16 @@
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="{{ route('home.index') }}" class="nav-link px-2 text-secondary">Home</a></li>
                 <li><a href="{{ route('admin.users')}}" class="nav-link px-2 text-white">Gestion des utilisateurs</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Abonnements
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ route('admin.subscriptions-plans')}}">Gestion des abonnements</a></li>
+                        <li><a class="dropdown-item" href="{{ route('admin.subscriptions-plans.features')}}">Gestion des features</a></li>
+                    </ul>
+                  </li>
+          
             </ul>
             
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -15,7 +25,7 @@
             </form>
             
             @auth
-            @if (auth()->user()->role == 'admin')
+            @if (auth()->user()->role_name() == 'admin')
             <div class="text-end">
                 <a href="{{ route('admin.index') }}" class="btn btn-outline-light me-2">Admin</a>
             </div>

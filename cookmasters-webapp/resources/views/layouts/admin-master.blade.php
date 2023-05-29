@@ -1,8 +1,7 @@
-@routes
 @extends('layouts.partials.html-head')
+{{-- @routes --}}
 
 @section('styles')
-<link href="{!! url('assets/css/app.css') !!}" rel="stylesheet">
 @endsection
 
 @section('body')
