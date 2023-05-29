@@ -32,6 +32,14 @@
                         @endif
                     </li>
             @endif
+            @if ($subscription != null)
+                @foreach ($subscription as $sub)
+                    <li>Abonné depuis le {{ date('d/m/Y', $sub->start_date) }}</li>
+                    <li>Dernière facturation : {{ date('d/m/Y', $sub->current_period_start) }}</li>
+                    <li>Prochaine facturation : {{ date('d/m/Y', $sub->current_period_end) }}</li>
+                    <li>Statut : {{ $sub->status }}</li>
+                @endforeach
+            @endif
         </div>
     </div>
 
