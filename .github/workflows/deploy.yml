@@ -25,4 +25,4 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           port: ${{ secrets.PORT }}
-          script: whoami
+          script: "cd /var/www/PA-Cook-Master/cookmasters-webapp && ./.scripts/deploy.sh"
