@@ -23,4 +23,4 @@
     </ul>
 </footer>
 
-<script src="{!! url('assets/js/lang.js') !!}"></script>
+<script src="{{ secure_asset('assets/js/lang.js') }}"></script>
