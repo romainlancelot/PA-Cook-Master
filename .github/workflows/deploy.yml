@@ -18,10 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Deploy to server
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          port: ${{ secrets.PORT }}
           key: ${{ secrets.SSHKEY }}
-          script: "cd /var/www/PA-Cook-Master/cookmasters-webapp && ./.scripts/deploy.sh"
+          port: ${{ secrets.PORT }}
+          script: whoami
