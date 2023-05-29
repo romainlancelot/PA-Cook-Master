@@ -21,8 +21,8 @@ class RoomFactory extends Factory
             'description' => fake()->paragraph(),
             'capacity' => fake()->randomDigit(),
             'facilities' => fake()->sentence(),
-            'price' => fake()->sentence(),
             'availabilities' => fake()->sentence(),
+            'price' => fake()->sentence(),
         ];
     }
 }

@@ -26,6 +26,19 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      */
     Route::get('/', 'HomeController@index')->name('home.index');
 
+    /**
+     * Romes Routes
+     */
+    Route::resource('/rooms', RoomController::class);
+    // put
+    Route::get('/rooms/create', 'RoomController@create')->name('rooms.create');
+    Route::post('/rooms', 'RoomController@store')->name('rooms.store');
+    // delet
+    Route::delete('/rooms/{room}', 'RoomController@destroy')->name('rooms.destroy');
+    // update
+    Route::get('/rooms/{room}/edit', 'RoomController@edit')->name('rooms.edit');
+    Route::put('/rooms/{room}', 'RoomController@update')->name('rooms.update');
+    
     Route::group(['middleware' => ['guest']], function() {
         /**
          * Register Routes

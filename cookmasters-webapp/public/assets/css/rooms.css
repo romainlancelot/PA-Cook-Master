@@ -1,0 +1,25 @@
+.room-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+
+.card.animate__slideInLeft {
+    animation: slide-in-left 1s ease-out;
+}
+
+.room-card {
+    flex: 0 0 auto;
+    margin-right: 20px;
+    padding: 10px;
+    animation: slide-in 10s linear infinite;
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
