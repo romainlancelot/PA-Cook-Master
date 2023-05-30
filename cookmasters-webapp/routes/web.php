@@ -50,6 +50,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Account Routes
          */
         Route::get('/account', 'AccountController@show')->name('account.show');
+        Route::patch('/account', 'AccountController@update')->name('account.update');
 
         /**
          * Subscription Plans Routes

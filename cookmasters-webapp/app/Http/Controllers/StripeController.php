@@ -103,6 +103,18 @@ class StripeController extends Controller
         $user->stripe_id = $customer->id;
         $user->save();
     }
+
+    public function updateCustomer(User $user)
+    {
+        $customer = $this->stripe->customers->update(
+            $user->stripe_id,
+            [
+                'name' => $user->firstname . ' ' . $user->lastname,
+                'email' => $user->email,
+                'phone' => $user->phone,
+            ]
+        );
+    }
     
     public function subscribeToPlan(SubscriptionPlans $subscriptionPlan, User $user)
     {

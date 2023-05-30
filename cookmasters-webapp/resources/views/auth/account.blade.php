@@ -10,6 +10,52 @@
         <li>Email: {{ auth()->user()->email }}</li>
         <li>Username: {{ auth()->user()->username }}</li>
     </ul>
+    
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userUpdate">
+        Modifier
+    </button>
+    <div class="modal modal-lg fade" id="userUpdate" tabindex="-1" aria-labelledby="userUpdateLabel" aria-hidden="true">
+        <form action="{{ route('account.update') }}" method="POST">
+            @csrf
+            @method('PATCH')
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="userUpdateLabel">Modifier le profil de {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" for="firstname">Prénom</span>
+                                    <input type="text" class="form-control" id="firstname" name="firstname" value="{{ auth()->user()->firstname }}">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" for="lastname">Nom</span>
+                                    <input type="text" class="form-control" id="lastname" name="lastname" value="{{ auth()->user()->lastname }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" for="username">Pseudo</span>
+                            <input type="text" class="form-control" id="username" name="username" value="{{ auth()->user()->username }}">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" for="email">Email</span>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ auth()->user()->email }}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Modifier</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 
     <hr>
 

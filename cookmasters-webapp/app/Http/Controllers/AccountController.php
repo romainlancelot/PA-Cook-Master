@@ -22,4 +22,17 @@ class AccountController extends Controller
             'subscription' => $subscription ?? null,
         ]);
     }
+
+    public function update(Request $request)
+    {
+        $user = auth()->user();
+        $user->update($request->all());
+
+        if ($user->stripe_id != null) {
+            $stripe = new StripeController();
+            $stripe->updateCustomer($user);
+        }
+
+        return redirect()->back()->with('success', 'Your account has been updated');
+    }
 }
