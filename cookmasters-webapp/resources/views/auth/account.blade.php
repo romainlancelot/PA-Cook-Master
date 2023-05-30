@@ -57,6 +57,47 @@
         </form>
     </div>
 
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#changePassword">
+        Changer de mot de passe
+    </button>
+    <div class="modal modal-lg fade" id="changePassword" tabindex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true">
+        <form action="{{ route('account.update.password') }}" method="POST">
+            @csrf
+            @method('PATCH')
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="changePasswordLabel">Modifier le mot de passe de {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center mb-3">
+                            Attention, vous allez être déconnecté après avoir modifié votre mot de passe.<br>
+                            <b class="text-danger">Cette action est irréversible.</b>
+                        </p>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" for="currentPassword">Ancien mot de passe</span>
+                            <input type="password" class="form-control" id="currentPassword" name="currentPassword">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" for="newPassword">Nouveau mot de passe</span>
+                            <input type="password" class="form-control" id="newPassword" name="newPassword"">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" for="newPasswordConfirmation">Confirmer le nouveau mot de passe</span>
+                            <input type="password" class="form-control" id="newPasswordConfirmation" name="newPasswordConfirmation">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-danger">Modifier</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
     <hr>
 
     <h2>Abonnement</h2>

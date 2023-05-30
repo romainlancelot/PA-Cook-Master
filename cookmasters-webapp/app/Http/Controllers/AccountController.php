@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {
@@ -34,5 +35,35 @@ class AccountController extends Controller
         }
 
         return redirect()->back()->with('success', 'Your account has been updated');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'currentPassword' => 'required',
+            'newPassword' => 'required|min:8',
+            'newPasswordConfirmation' => 'required|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        if ($request->newPassword != $request->newPasswordConfirmation) {
+            return redirect()->back()->withErrors(['newPassword' => 'The new password confirmation does not match']);
+        }
+
+        $user = auth()->user();
+        if (!password_verify($request->currentPassword, $user->password)) {
+            return redirect()->back()->withErrors(['currentPassword' => 'The current password does not match']);
+        }
+
+        $user->password = $request->newPassword;
+        $user->save();
+
+        $user->tokens()->delete();
+        auth()->logout();
+
+        return redirect()->route('login.show')->with('success', 'Your password has been updated');
     }
 }
