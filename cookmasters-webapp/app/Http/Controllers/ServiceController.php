@@ -17,6 +17,13 @@ class ServiceController extends Controller
         return view('services.index', compact('services'));
     }
 
+    public function showMore($service_id)
+    {
+        $services = Service::all();
+        $serviceInfos = Service::find($service_id);
+        return view('services.index', compact('services', 'serviceInfos'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

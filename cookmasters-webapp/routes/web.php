@@ -80,6 +80,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      * Services Routes
      */
     Route::resource('/services', ServiceController::class);
+    Route::get('/services/{service}', 'ServiceController@showMore')->name('services.more');
     // put
     Route::get('/service/create', 'ServiceController@create')->name('service.create');
     Route::post('/service', 'ServiceController@store')->name('service.store');
