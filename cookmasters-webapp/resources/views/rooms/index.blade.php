@@ -18,6 +18,7 @@
                   <!-- <div class="room-card"> -->
                   <div class="card-body">
                             <h5 class="card-title">{{ $room->name }}</h5>
+                            <img src="{{ asset($room->photos[0]) }}" alt="photos">
                             <p class="card-text">Address: {{ $room->address }}</p>
                             <p class="card-text">Description: {{ $room->description }}</p>
                             <div class="row justify-content-center">
