@@ -35,6 +35,7 @@ class RoomController extends Controller
         // Validate the form data
         $validatedData = $request->validate([
             'name' => 'required',
+            'address' => 'required',
             'description' => 'required',
             'capacity' => 'required|integer',
             'facilities' => 'nullable',
@@ -53,7 +54,7 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        //
+        return view('rooms.show', compact('room'));
     }
 
     /**

@@ -13,6 +13,10 @@
                 <input type="text" name="name" id="name" value="{{ $room->name }}" class="form-control">
             </div>
             <div class="form-group">
+                <label for="name">Address:</label>
+                <input type="text" name="address" id="address" value="{{ $room->address }}" class="form-control">
+            </div>
+            <div class="form-group">
                 <label for="description">Description:</label>
                 <textarea name="description" id="description" class="form-control">{{ $room->description }}</textarea>
             </div>

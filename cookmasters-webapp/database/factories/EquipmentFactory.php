@@ -16,12 +16,17 @@ class EquipmentFactory extends Factory
      */
     public function definition(): array
     {
+        $photos = [
+            fake()->image('public/images/equipments', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
+            fake()->image('public/images/equipments', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
+            fake()->image('public/images/equipments', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),        ];
         return [
             'name' => fake()->name(),
+            'photos' => json_encode($photos),
             'description' => fake()->paragraph(),
-            'availabilities' => fake()->sentence(),
+            'availabilities' => fake()->sentence(5),
             'availablequantity' => fake()->randomDigit(),
-            'price' => fake()->sentence(),
+            'price' => fake()->sentence(1),
         ];
     }
 }

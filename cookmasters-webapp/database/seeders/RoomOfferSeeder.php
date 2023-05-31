@@ -17,11 +17,11 @@ class RoomOfferSeeder extends Seeder
      */
     public function run(): void
     {
-        $roomEquipment = RoomEquipment::inRandomOrder()->first();
-
-        $roomOffer = RoomOffer::factory()->create();
-        $roomOffer->roomEquipment()->associate($roomEquipment);
-        $roomOffer->save();
-
+        for ($i = 0; $i != 5; $i++) {
+            $roomEquipment = RoomEquipment::inRandomOrder()->first();
+            $roomOffer = RoomOffer::factory()->create();
+            $roomOffer->roomEquipment()->associate($roomEquipment);
+            $roomOffer->save();    
+        }
     }
 }

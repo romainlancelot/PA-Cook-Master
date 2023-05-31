@@ -16,9 +16,16 @@ class ServiceFactory extends Factory
      */
     public function definition(): array
     {
+        $photos = [
+            fake()->image('public/images/rooms', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
+            fake()->image('public/images/rooms', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
+            fake()->image('public/images/rooms', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
+        ];
+    
         return [
             'name' => fake()->name(),
             'description' => fake()->paragraph(),
+            'photos' => json_encode($photos),
             'availabilities' => fake()->sentence(),
             'capacity' => fake()->sentence(),
             'price' => fake()->randomDigit(),

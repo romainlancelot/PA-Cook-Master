@@ -13,7 +13,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = Service::all();
+        return view('services.index', compact('services'));
     }
 
     /**
@@ -21,7 +22,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('services.create');
     }
 
     /**
@@ -29,7 +30,17 @@ class ServiceController extends Controller
      */
     public function store(StoreServiceRequest $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'availabilities' => 'required',
+            'duration' => 'required',
+            'capacity' => 'required',
+            'price' => 'required',
+        ]);
+        $equipment = Service::create($validatedData);
+        return redirect()->route('services.index')->with('success', 'RoomOffer created successfully');
+
     }
 
     /**
@@ -37,7 +48,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        //
+        return view('services.show', compact('service'));
     }
 
     /**
@@ -45,7 +56,7 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        //
+        return view('services.edit', compact('service'));
     }
 
     /**
@@ -53,7 +64,8 @@ class ServiceController extends Controller
      */
     public function update(UpdateServiceRequest $request, Service $service)
     {
-        //
+        $service->update($request->all());
+        return view('services.index')->with('success', 'Service updated successfully');
     }
 
     /**
@@ -61,6 +73,7 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        //
+        $service->delete();
+        return view('services.index')->with('success', 'Service deleted successfully');
     }
 }

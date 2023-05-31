@@ -1,0 +1,18 @@
+.container {
+    overflow: hidden;
+  }
+  
+  .equipment-card {
+    display: flex;
+    animation: slide 20s infinite linear;
+  }
+  
+  @keyframes slide {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  

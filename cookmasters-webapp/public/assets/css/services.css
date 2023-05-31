@@ -1,0 +1,15 @@
+.service-card-container {
+    margin: auto;
+    position: relative;
+    display: grid;
+}
+
+.services-cards {
+    display: flex;
+}
+
+.service-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}

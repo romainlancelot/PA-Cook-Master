@@ -1,0 +1,15 @@
+.roomoffer-card-container {
+    margin: auto;
+    position: relative;
+    display: grid;
+}
+
+.roomoffers-cards {
+    display: flex;
+}
+
+.roomoffer-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}

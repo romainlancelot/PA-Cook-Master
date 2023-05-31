@@ -1,25 +1,36 @@
 @extends('layouts.app-master')
 
-@section('title', 'Home')
+@section('title', 'Romes')
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+<link href="{{ asset('assets/css/rooms.css') }}" rel="stylesheet">
 
     <div class="bg-light p-5 rounded">
         <h1>Rooms</h1>
         <div class="d-flex justify-content-center">
             <a href="{{ route('rooms.create') }}" class="btn btn-primary">Add Room</a>
         </div>
-        <div class="card room-card-container row animate__animated animate__slideInLeft">
 
-            @foreach ($rooms as $room)
-                <div class="col-md-4 mb-4">
-                    <div class="card animate__animated animate__fadeInLeft">
-                        <div class="card-body">
+        <div class="row rooms-container">
+          <div class="slider-container">
+            <div class="slider">
+              @foreach ($rooms as $room)
+                <div class="card room-card col-md-4 mb-4">
+                  <!-- <div class="room-card"> -->
+                  <div class="card-body">
                             <h5 class="card-title">{{ $room->name }}</h5>
+                            <p class="card-text">Address: {{ $room->address }}</p>
                             <p class="card-text">Description: {{ $room->description }}</p>
-                            <p class="card-text">Capacity: {{ $room->capacity }}</p>
-                            <p class="card-text">Facilities: {{ $room->facilities }}</p>
-                            <p class="card-text">Availability: {{ $room->availabilities }}</p>
+                            <div class="row justify-content-center">
+                                <div class="col-auto">
+                                    <p class="card-text">Capacity: {{ $room->capacity }}</p>
+                                </div>
+                                <div class="col-auto">
+                                    <p class="card-text">Facilities: {{ $room->facilities }}</p>
+                                </div>
+                                <div class="col-auto">
+                                    <p class="card-text">Availability: {{ $room->availabilities }}</p>
+                                </div>
+                            </div>
                             <p class="card-text">Price: {{ $room->price }}</p>
                             <div class="row justify-content-center">
                                 <div class="col-auto">
@@ -30,14 +41,21 @@
                                     </form>
                                 </div>
                                 <div class="col-auto">
+                                    <a href="{{ route('rooms.show', $room->id) }}" class="btn btn-primary">View Details</a>
+                                </div>
+                                <div class="col-auto">
                                     <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-primary">Edit</a>
                                 </div>
-                            </div>
-
+                            <!-- </div> -->
                         </div>
-                    </div>
+                  </div>
                 </div>
-            @endforeach
+              @endforeach
+            </div>
+          </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('assets/js/rooms.js') }}"></script>
+
 @endsection

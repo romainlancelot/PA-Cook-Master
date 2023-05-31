@@ -1,25 +1,27 @@
-.room-container {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow: hidden;
+.slider-container {
+  overflow: hidden;
 }
 
-.card.animate__slideInLeft {
-    animation: slide-in-left 1s ease-out;
+.slider {
+  display: flex;
+  animation: slide 20s infinite linear;
 }
 
 .room-card {
-    flex: 0 0 auto;
-    margin-right: 20px;
-    padding: 10px;
-    animation: slide-in 10s linear infinite;
+    /* Existing styles for the room card */
+  transition: transform 0.3s;
 }
 
-@keyframes slide-in {
-    0% {
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(0);
-    }
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
+
+.room-card:hover {
+  transform: scale(1.1);
+}
+  

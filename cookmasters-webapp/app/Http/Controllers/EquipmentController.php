@@ -13,7 +13,8 @@ class EquipmentController extends Controller
      */
     public function index()
     {
-        //
+        $equipments = Equipment::all();
+        return view('equipments.index', compact('equipments'));
     }
 
     /**
@@ -21,7 +22,7 @@ class EquipmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('equipments.create');
     }
 
     /**
@@ -29,7 +30,15 @@ class EquipmentController extends Controller
      */
     public function store(StoreEquipmentRequest $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'availabilities' => 'required',
+            'availablequantity' => 'required|integer',
+            'price' => 'required',
+        ]);
+        $equipment = Equipment::create($validatedData);
+        return redirect()->route('equipments.index')->with('success', 'Equipment created successfully');
     }
 
     /**
@@ -37,7 +46,7 @@ class EquipmentController extends Controller
      */
     public function show(Equipment $equipment)
     {
-        //
+        return view('equipments.show', compact('equipment'));
     }
 
     /**
@@ -45,7 +54,7 @@ class EquipmentController extends Controller
      */
     public function edit(Equipment $equipment)
     {
-        //
+        return view('equipments.edit', compact('equipment'));
     }
 
     /**
@@ -53,7 +62,8 @@ class EquipmentController extends Controller
      */
     public function update(UpdateEquipmentRequest $request, Equipment $equipment)
     {
-        //
+        $equipment->update($request->all());
+        return redirect()->route('equipments.index')->with('success', 'Equipment updated successfully');
     }
 
     /**
@@ -61,6 +71,7 @@ class EquipmentController extends Controller
      */
     public function destroy(Equipment $equipment)
     {
-        //
+        $equipment->delete();
+        return redirect()->route('equipments.index')->with('success', 'Equipment deleted successfully');
     }
 }
