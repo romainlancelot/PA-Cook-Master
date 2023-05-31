@@ -27,7 +27,28 @@
         <div class="col-9">
             @if (isset($serviceInfos))
                 <div class="card mb-3">
-                    <img src="{{ asset(preg_replace('/public/', '', $serviceInfos->json2array($serviceInfos->photos)[0])) }}" class="card-img-top" alt="...">
+                    <div id="carouselExampleIndicators" class="carousel slide">
+                        <div class="carousel-indicators">
+                            @foreach (preg_replace('/public/', '', $serviceInfos->json2array($serviceInfos->photos)) as $photo)
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}" aria-current="{{ $loop->first ? 'true' : '' }}" aria-label="Slide {{ $loop->index }}"></button>
+                            @endforeach
+                        </div>
+                        <div class="carousel-inner">
+                            @foreach (preg_replace('/public/', '', $serviceInfos->json2array($serviceInfos->photos)) as $photo)
+                                <div class="carousel-item active">
+                                    <img src="{{ asset($photo) }}" class="d-block w-100" alt="...">
+                                </div>
+                            @endforeach
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ $serviceInfos->name }}</h5>
                         <p class="card-text">
