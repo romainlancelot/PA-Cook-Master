@@ -6,13 +6,24 @@
     <div class="container">
         <h1>Create Room</h1>
         
-        <form action="{{ route('rooms.store') }}" method="POST">
+        <form action="{{ route('rooms.store') }}" method="POST"  enctype="multipart/form-data">
             @csrf
 
             <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" name="name" id="name" class="form-control" required>
             </div>
+
+            <div class="form-group">
+                <label for="photos">Photos:</label>
+                <input type="file" name="photos[]" id="photos" class="form-control" accept="image/*" multiple required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input name="address" id="address" class="form-control" required>
+            </div>
+
             <div class="form-group">
                 <label for="description">Description:</label>
                 <textarea name="description" id="description" class="form-control" required></textarea>

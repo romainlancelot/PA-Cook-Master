@@ -17,9 +17,10 @@ class EquipmentFactory extends Factory
     public function definition(): array
     {
         $photos = [
-            fake()->image('public/images/equipments', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
-            fake()->image('public/images/equipments', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
-            fake()->image('public/images/equipments', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),        ];
+            substr(fake()->image('public/images/equipments', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),7),
+            substr(fake()->image('public/images/equipments', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),7),
+            substr(fake()->image('public/images/equipments', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),7),
+        ];
         return [
             'name' => fake()->name(),
             'photos' => json_encode($photos),

@@ -8,7 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'name',
+        'address',
+        'description',
+        'capacity',
+        'facilities',
+        'availabilities',
+        'price',
+    ];
     /**
     * Get the equipments associated with the room.
     */

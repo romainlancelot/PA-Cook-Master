@@ -8,6 +8,13 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">{{ $equipment->name }}</h5>
+            <div class="row justify-content-center">
+                @foreach(json_decode($equipment->photos) as $photo)
+                    <div class="col-auto">
+                        <img src="{{ asset($photo) }}" alt="photo">
+                    </div>
+                @endforeach
+            </div>
             <p class="card-text">Description: {{ $equipment->description }}</p>
             <p class="card-text">Availability: {{ $equipment->availabilities }}</p>
             <p class="card-text">Available Quantity: {{ $equipment->availablequantity }}</p>

@@ -18,7 +18,18 @@
                   <!-- <div class="room-card"> -->
                   <div class="card-body">
                             <h5 class="card-title">{{ $room->name }}</h5>
-                            <img src="{{ asset($room->photos[0]) }}" alt="photos">
+                        
+                            <div class="row justify-content-center">
+                            @if (!empty($room->photos))
+                                @foreach(json_decode($room->photos) as $photo)
+                                    <div class="col-auto">
+                                        <img src="{{ asset($photo) }}" alt="photo">
+                                    </div>
+                                @endforeach
+                            @endif
+
+                            </div>
+                        
                             <p class="card-text">Address: {{ $room->address }}</p>
                             <p class="card-text">Description: {{ $room->description }}</p>
                             <div class="row justify-content-center">

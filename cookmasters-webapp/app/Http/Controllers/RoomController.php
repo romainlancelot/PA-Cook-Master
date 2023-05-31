@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
 use App\Models\Room;
+use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
 {
@@ -36,6 +37,7 @@ class RoomController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'address' => 'required',
+            'photos' => 'required',
             'description' => 'required',
             'capacity' => 'required|integer',
             'facilities' => 'nullable',
@@ -44,7 +46,25 @@ class RoomController extends Controller
         ]);
 
         // Create a new room with the validated data
-        $room = Room::create($validatedData);
+        
+        $photoPaths = [];
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $photo) {
+                $photoPath = $photo->store('public/images/rooms/');
+                array_push($photoPaths, $photoPath);
+            }
+        }
+        dd($photoPaths);
+        $room = Room::create([
+            'name' => $validatedData['name'],
+            'address' => $validatedData['address'],
+            'photos' => json_encode($photoPaths),
+            'description' => $validatedData['description'],
+            'capacity' => $validatedData['capacity'],
+            'facilities' => $validatedData['facilities'],
+            'availabilities' => $validatedData['availabilities'],
+            'price' => $validatedData['price'],
+        ]);
         // Redirect to the index page or show success message
         return redirect()->route('rooms.index')->with('success', 'Room created successfully');
     }
