@@ -8,6 +8,7 @@ use App\Models\SubscriptionPlans;
 use Illuminate\Support\Facades\DB;
 use App\Models\FeaturesRelationships;
 use App\Models\SubscriptionPlansFeatures;
+use App\Http\Controllers\StripeController;
 
 class AdminController extends Controller
 {
@@ -93,7 +94,11 @@ class AdminController extends Controller
             'description' => 'nullable|string',
         ];
         $request->validate($validatedData);
-        SubscriptionPlans::create($request->all());
+        $subscriptionPlan = SubscriptionPlans::create($request->all());
+
+        $stripe = new StripeController();
+        $stripe->createPlan($subscriptionPlan);
+
         return redirect()->back()->with('success', 'Subscription plan added successfully.');
     }
 
@@ -108,6 +113,13 @@ class AdminController extends Controller
         ];
         $request->validate($validatedData);
         SubscriptionPlans::where('id', $id)->update($request->except('_token', '_method', 'features'));
+        $subscriptionPlan = SubscriptionPlans::find($id);
+
+        if (SubscriptionPlans::where('id', $id)->value('stripe_id') != null && SubscriptionPlans::where('id', $id)->value('stripe_plan')) {
+            $stripe = new StripeController();
+            $stripe->updatePlan($subscriptionPlan);
+        }
+
         if ($request->features) {
             FeaturesRelationships::where('subscription_plan_id', $id)->delete();
             foreach ($request->features as $feature_id) {
@@ -122,9 +134,20 @@ class AdminController extends Controller
 
     public function deleteSubscriptionsPlan($id)
     {
-        $name = DB::table('subscription_plans')->where('id', $id)->value('name');
+        $name = SubscriptionPlans::where('id', $id)->value('name');
+
+        if (($stripe_id = SubscriptionPlans::where('id', $id)->value('stripe_id')) != null && ($stripe_plan = SubscriptionPlans::where('id', $id)->value('stripe_plan')) != null) {
+            $stripe = new StripeController();
+            $stripe->deletePlan($stripe_id, $stripe_plan);
+        }
+        
         SubscriptionPlans::destroy($id);
         return redirect()->back()->with('success', "Subscription plan \"$name\" deleted successfully.");
+    }
+
+
+    public function SubscriptionsPlanFeatures() {
+        return view('admin.subscriptions-plans-features')->with('features', SubscriptionPlansFeatures::all());
     }
 
     public function newSubscriptionsPlanFeature(Request $request)
@@ -138,6 +161,23 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Subscription plan feature added successfully.');
     }
 
+    public function updateSubscriptionsPlanFeature(Request $request, $id)
+    {
+        $validatedData = [
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ];
+        $request->validate($validatedData);
+        SubscriptionPlansFeatures::where('id', $id)->update($request->except('_token', '_method'));
+        return redirect()->back()->with('success', 'Subscription plan feature updated successfully.');
+    }
+
+    public function deleteSubscriptionsPlanFeature($id)
+    {
+        $name = DB::table('subscription_plans_features')->where('id', $id)->value('name');
+        SubscriptionPlansFeatures::destroy($id);
+        return redirect()->back()->with('success', "Subscription plan feature \"$name\" deleted successfully.");
+    }
 }
 
 

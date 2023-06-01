@@ -28,11 +28,24 @@
                             @endif
                         </ul>
                         @if (auth()->user()->subscription_plan_id == $plan->id)
-                            <button type="button" class="w-100 btn btn-lg btn-outline-success" disabled>Current plan</button>
+                            <form action="{{ route('subscription-plans.unsubscribe', auth()->user()->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="w-100 btn btn-lg btn-outline-success">Current plan</button>
+                            </form>
+                        @elseif ($plan->price == 0 && auth()->user()->subscription_plan_id != null)
+                            <form action="{{ route('subscription-plans.unsubscribe', auth()->user()->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="w-100 btn btn-lg btn-outline-primary">Back to free plan</button>
+                            </form>
                         @elseif ($plan->price == 0)
                             <a type="button" class="w-100 btn btn-lg btn-outline-primary" href="{{ route('register.show') }}">Sign up for free</a>
                         @else
-                            <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+                            <form action="{{ route('subscription-plans.subscribe', [auth()->user()->id, $plan->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="w-100 btn btn-lg btn-outline-primary">Subscribe</button>
+                            </form>
                         @endif
                     </div>
                 </div>

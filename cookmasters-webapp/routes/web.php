@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\EquipmentController;
+use App\Http\Controllers\RoomEquipmentController;
 use App\Http\Controllers\RoomOfferController;
 use App\Http\Controllers\ServiceController;
 use App\Models\Equipment;
+use App\Models\RoomEquipment;
 use App\Models\RoomOffer;
 use Illuminate\Support\Facades\Route;
 
@@ -31,10 +33,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      */
     Route::get('/', 'HomeController@index')->name('home.index');
 
+    /*
+     * Rooms Equipment
+     */
+    Route::resource('/roomequipments', RoomEquipmentController::class);
+
     /**
      * Romes Routes
-     */
-    Route::resource('/rooms', RoomController::class);
+    */
     // put
     Route::get('/rooms/create', 'RoomController@create')->name('rooms.create');
     Route::post('/rooms', 'RoomController@store')->name('rooms.store');
@@ -49,8 +55,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     /**
      * Equipments Routes
      */
-    Route::resource('/equipments', EquipmentController::class);
-    // put
     Route::get('/equipment/create', 'EquipmentController@create')->name('equipment.create');
     Route::post('/equipment', 'EquipmentController@store')->name('equipment.store');
     // delet
@@ -116,12 +120,16 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Account Routes
          */
         Route::get('/account', 'AccountController@show')->name('account.show');
+        Route::patch('/account', 'AccountController@update')->name('account.update');
+        Route::patch('/account/password', 'AccountController@updatePassword')->name('account.update.password');
 
         /**
          * Subscription Plans Routes
          */
         Route::get('/subscription-plans', 'SubscriptionPlansController@index')->name('subscription-plans.index');
-        Route::post('/subscription-plans', 'SubscriptionPlansController@subscribe')->name('subscription-plans.subscribe');
+        Route::post('/subscription-plans/{user_id}/{plan_id}', 'SubscriptionPlansController@subscribe')->name('subscription-plans.subscribe');
+        Route::get('/subscription-plans/check', 'SubscriptionPlansController@checkSubscription')->name('subscription-plans.check');
+        Route::delete('/subscription-plans/{user_id}', 'SubscriptionPlansController@unsubscribe')->name('subscription-plans.unsubscribe');
     });
 
     Route::group(['middleware' => ['auth', 'admin']], function() {
@@ -144,6 +152,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::put('/admin/subscriptions-plans', 'AdminController@newSubscriptionsPlan')->name('admin.subscriptions-plans.add');
         Route::patch('/admin/subscriptions-plans/{id}', 'AdminController@updateSubscriptionsPlan')->name('admin.subscriptions-plans.update');
         Route::delete('/admin/subscriptions-plans/{id}', 'AdminController@deleteSubscriptionsPlan')->name('admin.subscriptions-plans.delete');
-        Route::put('/admin/subscriptions-plans-feature', 'AdminController@newSubscriptionsPlanFeature')->name('admin.subscriptions-plans-feature.add');
+        Route::get('/admin/subscriptions-plans/features', 'AdminController@SubscriptionsPlanFeatures')->name('admin.subscriptions-plans.features');
+        Route::put('/admin/subscriptions-plans/features', 'AdminController@newSubscriptionsPlanFeature')->name('admin.subscriptions-plans.feature.add');
+        Route::patch('/admin/subscriptions-plans/features/{id}', 'AdminController@updateSubscriptionsPlanFeature')->name('admin.subscriptions-plans.feature.update');
+        Route::delete('/admin/subscriptions-plans/features/{id}', 'AdminController@deleteSubscriptionsPlanFeature')->name('admin.subscriptions-plans.feature.delete');
     });
 });

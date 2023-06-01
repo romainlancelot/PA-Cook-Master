@@ -11,13 +11,13 @@ class RoomController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        // Retrieve all rooms from the database
-        $rooms = Room::all();
-        // Redirect to the index view
-        return view('rooms.index', compact('rooms'));
-    }
+    // public function index()
+    // {
+    //     // Retrieve all rooms from the database
+    //     $rooms = Room::all();
+    //     // Redirect to the index view
+    //     return view('rooms.index', compact('rooms'));
+    // }
 
     /**
      * Show the form for creating a new resource.

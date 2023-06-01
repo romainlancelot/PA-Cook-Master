@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRoomEquipmentRequest;
 use App\Http\Requests\UpdateRoomEquipmentRequest;
+use App\Models\Equipment;
+use App\Models\Room;
 use App\Models\RoomEquipment;
 
 class RoomEquipmentController extends Controller
@@ -13,7 +15,12 @@ class RoomEquipmentController extends Controller
      */
     public function index()
     {
-        //
+        
+        // Retrieve all rooms from the database
+        $rooms = Room::all();
+        $equipments = Equipment::all();
+        // Redirect to the index view
+        return view('roomequipments.index', compact('rooms', 'equipments'));
     }
 
     /**
