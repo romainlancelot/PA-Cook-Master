@@ -1,0 +1,27 @@
+.slider-container {
+  overflow: hidden;
+}
+
+.slider {
+  display: flex;
+  animation: slide 20s infinite linear;
+}
+
+.room-card {
+    /* Existing styles for the room card */
+  transition: transform 0.3s;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.room-card:hover {
+  transform: scale(1.1);
+}
+  
