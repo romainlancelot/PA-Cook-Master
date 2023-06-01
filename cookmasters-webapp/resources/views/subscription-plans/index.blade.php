@@ -69,7 +69,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($features as $feature)
+                @foreach ($features as $feature) 
                     <tr>
                         <th scope="row" class="text-start">{{ $feature->name }}</th>
                         @foreach ($subscriptionPlans as $plan)
