@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\PersonalAccessToken as PersonnalAccessToken;
 
 class AuthController extends Controller
 {
@@ -43,14 +44,9 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        if (!$request->hasHeader('Authorization')) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Authorization Header Missing'
-            ], 401);
-        }
-
-        $request->user()->currentAccessToken()->delete();
+        $requestToken = $request->bearerToken();
+        $token = PersonnalAccessToken::findToken($requestToken);
+        $token->delete();
 
         return response()->json([
             'success' => true,

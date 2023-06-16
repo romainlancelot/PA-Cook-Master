@@ -23,19 +23,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  * Auth Routes
  */
 Route::post('/login', 'App\Http\Controllers\API\AuthController@login')->name('login');
-Route::post('/logout', 'App\Http\Controllers\API\AuthController@logout')->name('logout');
-
 
 /**
  * Protected Routes
  */
 
 Route::group(['middleware' => 'auth.api'], function () {
+    /**
+     * Logout
+     */
+    Route::post('/logout', 'App\Http\Controllers\API\AuthController@logout')->name('logout');
+
+    /**
+     * Get user account informations
+     */
     Route::post('/account', 'App\Http\Controllers\API\AuthController@account')->name('account');
 
     /**
      * get users list
      */
-    Route::get('/users', 'App\Http\Controllers\API\UsersController@index')->name('users.index');
-
+    Route::get('/users', 'App\Http\Controllers\API\UsersController@index')->name('users.index');    
 });
