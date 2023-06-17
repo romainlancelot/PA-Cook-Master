@@ -36,7 +36,7 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'User Logged In',
             'data' => [
-                'user' => $user,
+                'user' => "$user->firstname $user->lastname",
                 'token' => $token
             ]
         ]);
