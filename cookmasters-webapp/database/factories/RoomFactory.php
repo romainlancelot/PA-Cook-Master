@@ -17,10 +17,14 @@ class RoomFactory extends Factory
     public function definition(): array
     {
         $photos = [
-            fake()->image('storage/app/public/images/rooms/', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
-            fake()->image('storage/app/public/images/rooms/', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
-            fake()->image('storage/app/public/images/rooms/', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
+            fake()->image('public/images/rooms', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
+            fake()->image('public/images/rooms', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
+            fake()->image('public/images/rooms', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
         ];
+
+        $photos = array_map(function ($photo) {
+            return str_replace('public/', '', $photo);
+        }, $photos);
 
         return [
             'name' => fake()->name(),
