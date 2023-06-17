@@ -19,7 +19,13 @@ class EquipmentFactory extends Factory
         $photos = [
             fake()->image('public/images/equipments', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
             fake()->image('public/images/equipments', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
-            fake()->image('public/images/equipments', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),        ];
+            fake()->image('public/images/equipments', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
+        ];
+
+        $photos = array_map(function ($photo) {
+            return str_replace('public/', '', $photo);
+        }, $photos);
+
         return [
             'name' => fake()->name(),
             'photos' => json_encode($photos),
