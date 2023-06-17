@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\EquipmentController;
+use App\Http\Controllers\RoomEquipmentController;
 use App\Http\Controllers\RoomOfferController;
 use App\Http\Controllers\ServiceController;
 use App\Models\Equipment;
+use App\Models\RoomEquipment;
 use App\Models\RoomOffer;
 use Illuminate\Support\Facades\Route;
 
@@ -31,10 +33,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      */
     Route::get('/', 'HomeController@index')->name('home.index');
 
+    /*
+     * Rooms Equipment
+     */
+    Route::resource('/roomequipments', RoomEquipmentController::class);
+
     /**
      * Romes Routes
-     */
-    Route::resource('/rooms', RoomController::class);
+    */
     // put
     Route::get('/rooms/create', 'RoomController@create')->name('rooms.create');
     Route::post('/rooms', 'RoomController@store')->name('rooms.store');
@@ -49,8 +55,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     /**
      * Equipments Routes
      */
-    Route::resource('/equipments', EquipmentController::class);
-    // put
     Route::get('/equipment/create', 'EquipmentController@create')->name('equipment.create');
     Route::post('/equipment', 'EquipmentController@store')->name('equipment.store');
     // delet

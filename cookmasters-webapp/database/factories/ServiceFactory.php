@@ -17,7 +17,7 @@ class ServiceFactory extends Factory
     public function definition(): array
     {
         $photos = [
-            fake()->image('public/images/services   ', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
+            fake()->image('public/images/services', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
             fake()->image('public/images/services', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
             fake()->image('public/images/services', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
         ];

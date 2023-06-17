@@ -22,6 +22,10 @@ class RoomFactory extends Factory
             fake()->image('public/images/rooms', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
         ];
 
+        $photos = array_map(function ($photo) {
+            return str_replace('public/', '', $photo);
+        }, $photos);
+
         return [
             'name' => fake()->name(),
             'address' => fake()->sentence(2),
