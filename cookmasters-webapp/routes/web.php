@@ -96,6 +96,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     // show
     Route::get('/service/{service}', 'ServiceController@show')->name('service.show');
 
+    /**
+     * Calendar Routes
+     */
+    Route::get('/calendar', 'CalendarController@index')->name('calendar.index');
+
     Route::group(['middleware' => ['guest']], function() {
         /**
          * Register Routes

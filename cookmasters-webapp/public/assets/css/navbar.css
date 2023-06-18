@@ -1,0 +1,23 @@
+#secondary-nav a {
+    font-size: 12px;
+}
+
+#main-nav a {
+    font-size: 16px;
+}
+
+.bg-idf {
+    background-color: #444474;
+}
+
+/* On screens that are 992px or less, set the background color */
+@media screen and (max-width: 992px) {
+    .nav {
+      background-color: #444474;
+    }
+}
+
+.opacity {
+    /* degradé qui part du haut de la navbar vers le bas pour laisser apparaître le background-image */
+    background: linear-gradient(to bottom,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.5));
+}
