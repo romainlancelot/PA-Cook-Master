@@ -1,40 +1,92 @@
-<header class="p-3 bg-dark text-white">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-            </a>
-            
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="{{ route('home.index') }}" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="{{ route('subscription-plans.index') }}" class="nav-link px-2 text-white">Subscription Plans</a></li>
-                <li><a href="{{ route('roomequipments.index') }}" class="nav-link px-2 text-white">Rooms/equipments</a></li>
-                <li><a href="{{ route('roomoffers.index') }}" class="nav-link px-2 text-white">Room offers</a></li>
-                <li><a href="{{ route('services.index') }}" class="nav-link px-2 text-white">Services</a></li>
-            </ul>
+<link type="text/css" href="{{ secure_asset('assets/css/navbar.css') }}" rel="stylesheet">
 
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-            </form>
-            
-            @auth
-            @if (auth()->user()->role_name() == 'admin')
-            <div class="text-end">
-                <a href="{{ route('admin.index') }}" class="btn btn-outline-light me-2">Admin</a>
+<nav class="navbar navbar-expand-xxl navbar-dark fixed-top opacity">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ route('home.index') }}">
+            <img src="{{ asset('images/cookmaster-logo.png') }}" alt="" class="d-inline-block align-text-top" style="width: 75px;">
+        </a>
+        <button
+            class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation"
+            >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse flex-column" id="navbarNav">
+            <div class="container-fluid">
+                <div class="row border-bottom">
+                    <div class="col">
+                        <ul class="navbar-nav me-auto" id="secondary-nav">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('subscription-plans.index') }}">SUBSCRIPTION PLANS</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-auto">
+                        @guest
+                            <a class="navbar-brand text-end" href="{{ route('login.perform') }}" alt="login">LOGIN</a>
+                            <a class="navbar-brand text-end" href="{{ route('register.perform') }}" alt="login">REGISTER</a>
+                        @endguest
+                        @auth
+                            {{-- <a class="navbar-brand text-end" href="{{ route('account.show') }}" alt="login">ACCOUNT</a> --}}
+                            <div class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    ACCOUNT
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('account.show') }}">MON COMPTE</a></li>
+                                    @if (auth()->user()->role_name() == 'admin')
+                                        <li><a class="dropdown-item" href="{{ route('admin.index') }}">PAGE ADMIN</a></li>
+                                    @endif
+                                    <li><a class="dropdown-item" href="{{ route('logout.perform') }}">DECONNEXION</a></li>
+                                </ul>
+                            </div>
+                        @endauth
+                    </div>
+                </div>
+
+                <div class="row" id="main-nav">
+                    <div class="col">
+                        <ul class="navbar-nav me-auto" id="main-nav">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('subscription-plans.index') }}">SUBSCRIPTION PLANS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('roomequipments.index')}}">ROOMS & EQUIPMENTS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('roomoffers.index')}}">ROOM OFFERS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('services.index')}}">SERVICES</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('calendar.index') }}">CALENDRIER</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-auto">
+                        <a class="nav-link text-white" href="./search.php">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                            </svg>
+                            SEARCH
+                        </a>
+                    </div>
+                </div>
             </div>
-            @endif
-            <div class="text-end">
-                <a href="{{ route('account.show') }}" class="btn btn-outline-light me-2">{{auth()->user()->username}}</a>
-                <a href="{{ route('logout.perform') }}" class="btn btn-outline-light me-2">Logout</a>
-            </div>
-            @endauth
-            
-            @guest
-            <div class="text-end">
-                <a href="{{ route('login.perform') }}" class="btn btn-outline-light me-2">Login</a>
-                <a href="{{ route('register.perform') }}" class="btn btn-warning">Sign-up</a>
-            </div>
-            @endguest
         </div>
     </div>
-</header>
+</nav>
+
+@if ($_SERVER['REQUEST_URI'] !== '/')
+    <div class="container-fluid mt-5 mb-5">&nbsp;</div>
+@endif
+
+<script type="text/javascript" src="{{ secure_asset('assets/js/navbar.js') }}"></script>
