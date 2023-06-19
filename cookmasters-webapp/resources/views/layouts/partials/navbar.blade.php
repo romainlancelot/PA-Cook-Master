@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-xxl navbar-dark fixed-top opacity">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ route('home.index') }}">
+        <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{ asset('images/cookmaster-logo.png') }}" alt="" class="d-inline-block align-text-top" style="width: 75px;">
         </a>
         <button
@@ -29,8 +29,8 @@
                     </div>
                     <div class="col-md-auto">
                         @guest
-                            <a class="navbar-brand text-end" href="{{ route('login.perform') }}" alt="login">LOGIN</a>
-                            <a class="navbar-brand text-end" href="{{ route('register.perform') }}" alt="login">REGISTER</a>
+                            <a class="navbar-brand text-end" href="{{ route('login') }}" alt="login">LOGIN</a>
+                            <a class="navbar-brand text-end" href="{{ route('register') }}" alt="login">REGISTER</a>
                         @endguest
                         @auth
                             {{-- <a class="navbar-brand text-end" href="{{ route('account.show') }}" alt="login">ACCOUNT</a> --}}
@@ -43,7 +43,7 @@
                                     @if (auth()->user()->role_name() == 'admin')
                                         <li><a class="dropdown-item" href="{{ route('admin.index') }}">PAGE ADMIN</a></li>
                                     @endif
-                                    <li><a class="dropdown-item" href="{{ route('logout.perform') }}">DECONNEXION</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('logout') }}">DECONNEXION</a></li>
                                 </ul>
                             </div>
                         @endauth
