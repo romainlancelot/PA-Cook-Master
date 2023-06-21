@@ -1,6 +1,6 @@
 @extends('layouts.app-master')
 
-@section('title', 'Romes')
+@section('title', 'Rooms')
 @section('content')
 <link href="{{ asset('assets/css/rooms.css') }}" rel="stylesheet">
 
@@ -36,23 +36,23 @@
                     <div>
                     <h3 class="card-title">{{$room->name}}</h3>
                     <div class="card-content">
-                      <p>{{$room->description}}</p>
+                        <p>{{$room->description}}</p>
                     </div>
-                  </div>
-                  <div class="card-link-wrapper card-footer">
+                </div>
+                <div class="card-link-wrapper card-footer">
                     <div class="row justify-content-center">
-                            <div class="col-auto">
-                                <p class="card-text">Capacity: {{ $room->capacity }}</p>
-                            </div>
-                            <div class="col-auto">
-                                <p class="card-text">Facilities: {{ $room->facilities }}</p>
-                            </div>
-                            <div class="col-auto">
-                                <p class="card-text">Availability: {{ $room->availabilities }}</p>
-                            </div>
-                        </div>  
-                  </div>
-                </li>
+                        <div class="col-auto">
+                            <p class="card-text">Capacity: {{ $room->capacity }}</p>
+                        </div>
+                        <div class="col-auto">
+                            <p class="card-text">Facilities: {{ $room->facilities }}</p>
+                        </div>
+                        <div class="col-auto">
+                            <p class="card-text">Availability: {{ $room->availabilities }}</p>
+                        </div>
+                    </div>  
+                </div>
+            </li>
             @endforeach
         </ul>
     </div>
@@ -60,27 +60,27 @@
         <ul class="cards">
             @foreach ($equipments as $equipment)
             <li class="card">
-                    <img class="card-img-top" src="{{ asset('storage/images/rooms/roomphoto.jpg') }}" alt="equipment Photo">
-                    <div>
+                <img class="card-img-top" src="{{ asset('storage/images/rooms/roomphoto.jpg') }}" alt="equipment Photo">
+                <div>
                     <h3 class="card-title">{{$equipment->name}}</h3>
                     <div class="card-content">
-                      <p>{{$equipment->description}}</p>
+                        <p>{{$equipment->description}}</p>
                     </div>
-                  </div>
-                  <div class="card-link-wrapper card-footer">
+                </div>
+                <div class="card-link-wrapper card-footer">
                     <div class="row justify-content-center">
-                            <div class="col-auto">
-                                <p class="card-text">Capacity: {{ $equipment->capacity }}</p>
-                            </div>
-                            <div class="col-auto">
-                                <p class="card-text">Facilities: {{ $equipment->facilities }}</p>
-                            </div>
-                            <div class="col-auto">
-                                <p class="card-text">Availability: {{ $equipment->availabilities }}</p>
-                            </div>
-                        </div>    
-                  </div>
-                </li>
+                        <div class="col-auto">
+                            <p class="card-text">Capacity: {{ $equipment->capacity }}</p>
+                        </div>
+                        <div class="col-auto">
+                            <p class="card-text">Facilities: {{ $equipment->facilities }}</p>
+                        </div>
+                        <div class="col-auto">
+                            <p class="card-text">Availability: {{ $equipment->availabilities }}</p>
+                        </div>
+                    </div>    
+                </div>
+            </li>
             @endforeach
         </ul>
     </div>
