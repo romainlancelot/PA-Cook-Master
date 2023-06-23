@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\AccountController;
-use App\Http\Controllers\EquipmentController;
-use App\Http\Controllers\RoomEquipmentController;
-use App\Http\Controllers\RoomOfferController;
-use App\Http\Controllers\ServiceController;
 use App\Models\Equipment;
-use App\Models\RoomEquipment;
 use App\Models\RoomOffer;
+use App\Models\RoomEquipment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\EquipmentController;
+use App\Http\Controllers\RoomOfferController;
+use App\Http\Controllers\RoomEquipmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     /**
      * Home Routes
      */
-    Route::get('/', 'HomeController@index')->name('home.index');
+    Route::get('/', 'HomeController@index')->name('home');
 
     /*
      * Rooms Equipment
@@ -96,21 +97,33 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     // show
     Route::get('/service/{service}', 'ServiceController@show')->name('service.show');
 
+    /**
+     * Calendar Routes
+     */
+    Route::get('/calendar', 'CalendarController@index')->name('calendar.index');
+
     Route::group(['middleware' => ['guest']], function() {
         /**
          * Register Routes
          */
-        Route::get('/register', 'RegisterController@show')->name('register.show');
-        Route::post('/register', 'RegisterController@register')->name('register.perform');
+        // Route::get('/register', 'RegisterController@show')->name('register.show');
+        // Route::post('/register', 'RegisterController@register')->name('register.perform');
 
         /**
          * Login Routes
          */
-        Route::get('/login', 'LoginController@show')->name('login.show');
-        Route::post('/login', 'LoginController@login')->name('login.perform');
+        // Route::get('/login', 'LoginController@show')->name('login.show');
+        // Route::post('/login', 'LoginController@login')->name('login.perform');
+
+        /**
+         * Email Verification Routes
+         */
+        // Route::get('/email/verify', 'VerificationController@show')->name('verification.notice');
+        // Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify');
+        // Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
     });
 
-    Route::group(['middleware' => ['auth']], function() {
+    Route::group(['middleware' => ['auth', 'verified']], function() {
         /**
          * Logout Routes
          */
@@ -122,6 +135,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/account', 'AccountController@show')->name('account.show');
         Route::patch('/account', 'AccountController@update')->name('account.update');
         Route::patch('/account/password', 'AccountController@updatePassword')->name('account.update.password');
+        Route::delete('/account', 'AccountController@delete')->name('account.delete');
 
         /**
          * Subscription Plans Routes
@@ -158,3 +172,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::delete('/admin/subscriptions-plans/features/{id}', 'AdminController@deleteSubscriptionsPlanFeature')->name('admin.subscriptions-plans.feature.delete');
     });
 });
+
+Auth::routes();
+Auth::routes(['verify' => true]);
