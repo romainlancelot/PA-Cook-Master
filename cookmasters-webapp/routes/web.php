@@ -39,69 +39,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      */
     Route::resource('/roomequipments', RoomEquipmentController::class);
 
-    /**
-     * Romes Routes
-    */
-    // put
-    Route::get('/rooms/create', 'RoomController@create')->name('rooms.create');
-    Route::post('/rooms', 'RoomController@store')->name('rooms.store');
-    // delet
-    Route::delete('/rooms/{room}', 'RoomController@destroy')->name('rooms.destroy');
-    // update
-    Route::get('/rooms/{room}/edit', 'RoomController@edit')->name('rooms.edit');
-    Route::put('/rooms/{room}', 'RoomController@update')->name('rooms.update');
-    // show
-    Route::get('/rooms/{room}', 'RoomController@show')->name('rooms.show');
-
-    /**
-     * Equipments Routes
-     */
-    Route::get('/equipment/create', 'EquipmentController@create')->name('equipment.create');
-    Route::post('/equipment', 'EquipmentController@store')->name('equipment.store');
-    // delet
-    Route::delete('/equipment/{equipment}', 'EquipmentController@destroy')->name('equipment.destroy');
-    // update
-    Route::get('/equipment/{equipment}/edit', 'EquipmentController@edit')->name('equipment.edit');
-    Route::put('/equipment/{equipment}', 'EquipmentController@update')->name('equipment.update');
-    // show
-    Route::get('/equipment/{equipment}', 'EquipmentController@show')->name('equipment.show');
-
-    /**
-     * RoomOffers Routes
-     */
-    Route::resource('/roomoffers', RoomOfferController::class);
-    // put
-    Route::get('/roomoffer/create', 'RoomOfferController@create')->name('roomoffer.create');
-    Route::post('/roomoffer', 'RoomOfferController@store')->name('roomoffer.store');
-    // delet
-    Route::delete('/roomoffer/{roomoffer}', 'RoomOfferController@destroy')->name('roomoffer.destroy');
-    // update
-    Route::get('/roomoffer/{roomoffer}/edit', 'RoomOfferController@edit')->name('roomoffer.edit');
-    Route::put('/roomoffer/{roomoffer}', 'RoomOfferController@update')->name('roomoffer.update');
-    // show
-    Route::get('/roomoffer/{roomoffer}', 'RoomOfferController@show')->name('roomoffer.show');
-
-    /** 
-     * Services Routes
-     */
-    Route::resource('/services', ServiceController::class);
-    Route::get('/services/{service}', 'ServiceController@showMore')->name('services.more');
-    // put
-    Route::get('/service/create', 'ServiceController@create')->name('service.create');
-    Route::post('/service', 'ServiceController@store')->name('service.store');
-    // delet
-    Route::delete('/service/{service}', 'ServiceController@destroy')->name('service.destroy');
-    // update
-    Route::get('/service/{service}/edit', 'ServiceController@edit')->name('service.edit');
-    Route::put('/service/{service}', 'ServiceController@update')->name('service.update');
-    // show
-    Route::get('/service/{service}', 'ServiceController@show')->name('service.show');
-
-    /**
-     * Calendar Routes
-     */
-    Route::get('/calendar', 'CalendarController@index')->name('calendar.index');
-
     Route::group(['middleware' => ['guest']], function() {
         /**
          * Register Routes
@@ -144,6 +81,78 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/subscription-plans/{user_id}/{plan_id}', 'SubscriptionPlansController@subscribe')->name('subscription-plans.subscribe');
         Route::get('/subscription-plans/check', 'SubscriptionPlansController@checkSubscription')->name('subscription-plans.check');
         Route::delete('/subscription-plans/{user_id}', 'SubscriptionPlansController@unsubscribe')->name('subscription-plans.unsubscribe');
+
+        /**
+        * Romes Routes
+        */
+        // put
+        Route::get('/rooms/create', 'RoomController@create')->name('rooms.create');
+        Route::post('/rooms', 'RoomController@store')->name('rooms.store');
+        // delet
+        Route::delete('/rooms/{room}', 'RoomController@destroy')->name('rooms.destroy');
+        // update
+        Route::get('/rooms/{room}/edit', 'RoomController@edit')->name('rooms.edit');
+        Route::put('/rooms/{room}', 'RoomController@update')->name('rooms.update');
+        // show
+        Route::get('/rooms/{room}', 'RoomController@show')->name('rooms.show');
+    
+        /**
+         * Equipments Routes
+         */
+        Route::get('/equipment/create', 'EquipmentController@create')->name('equipment.create');
+        Route::post('/equipment', 'EquipmentController@store')->name('equipment.store');
+        // delet
+        Route::delete('/equipment/{equipment}', 'EquipmentController@destroy')->name('equipment.destroy');
+        // update
+        Route::get('/equipment/{equipment}/edit', 'EquipmentController@edit')->name('equipment.edit');
+        Route::put('/equipment/{equipment}', 'EquipmentController@update')->name('equipment.update');
+        // show
+        Route::get('/equipment/{equipment}', 'EquipmentController@show')->name('equipment.show');
+    
+        /**
+         * RoomOffers Routes
+         */
+        Route::resource('/roomoffers', RoomOfferController::class);
+        // put
+        Route::get('/roomoffer/create', 'RoomOfferController@create')->name('roomoffer.create');
+        Route::post('/roomoffer', 'RoomOfferController@store')->name('roomoffer.store');
+        // delet
+        Route::delete('/roomoffer/{roomoffer}', 'RoomOfferController@destroy')->name('roomoffer.destroy');
+        // update
+        Route::get('/roomoffer/{roomoffer}/edit', 'RoomOfferController@edit')->name('roomoffer.edit');
+        Route::put('/roomoffer/{roomoffer}', 'RoomOfferController@update')->name('roomoffer.update');
+        // show
+        Route::get('/roomoffer/{roomoffer}', 'RoomOfferController@show')->name('roomoffer.show');
+    
+        /** 
+         * Services Routes
+         */
+        Route::resource('/services', ServiceController::class);
+        Route::get('/services/{service}', 'ServiceController@showMore')->name('services.more');
+        // put
+        Route::get('/service/create', 'ServiceController@create')->name('service.create');
+        Route::post('/service', 'ServiceController@store')->name('service.store');
+        // delet
+        Route::delete('/service/{service}', 'ServiceController@destroy')->name('service.destroy');
+        // update
+        Route::get('/service/{service}/edit', 'ServiceController@edit')->name('service.edit');
+        Route::put('/service/{service}', 'ServiceController@update')->name('service.update');
+        // show
+        Route::get('/service/{service}', 'ServiceController@show')->name('service.show');
+    
+        /**
+         * Calendar Routes
+         */
+        Route::get('/calendar', 'CalendarController@index')->name('calendar.index');
+
+
+        /**
+         * Cooking Recipes Routes
+         */
+        Route::get('/cooking-recipes', 'CookingRecipesController@index')->name('cooking-recipes.index');
+        Route::get('/cooking-recipes/create', 'CookingRecipesController@create')->name('cooking-recipes.create');
+        Route::post('/cooking-recipes', 'CookingRecipesController@store')->name('cooking-recipes.store');
+
     });
 
     Route::group(['middleware' => ['auth', 'admin']], function() {
