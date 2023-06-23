@@ -65,6 +65,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ route('services.index')}}">SERVICES</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('cooking-recipes.index')}}">COOKING RECIPES</a>
+                            </li>
+
 
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ route('calendar.index') }}">CALENDRIER</a>
