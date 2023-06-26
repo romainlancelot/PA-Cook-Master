@@ -32,6 +32,22 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      * Home Routes
      */
     Route::get('/', 'HomeController@index')->name('home.index');
+    
+    /**
+     * A propos Routes
+     */
+    Route::get('/about-us', 'AboutUs@index')->name('about-us');
+    
+    /**
+     * contact us Routes
+     */
+    Route::get('/contact', 'ContactUs@index')->name('contact-us');
+    Route::post('/contact/send', 'ContactUs@send')->name('contact.send');
+
+    /**
+     * workshop Routes
+     */
+    Route::resource('workshops', WorkshopController::class);
 
     /*
      * Rooms Equipment
@@ -42,6 +58,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      * Romes Routes
     */
     // put
+    Route::resource('/rooms', RoomController::class);
+
     Route::get('/rooms/create', 'RoomController@create')->name('rooms.create');
     Route::post('/rooms', 'RoomController@store')->name('rooms.store');
     // delet

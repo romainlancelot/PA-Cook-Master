@@ -6,17 +6,17 @@
             </a>
             
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="{{ route('home.index') }}" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="{{ route('subscription-plans.index') }}" class="nav-link px-2 text-white">Subscription Plans</a></li>
-                <li><a href="{{ route('roomequipments.index') }}" class="nav-link px-2 text-white">Rooms/equipments</a></li>
-                <li><a href="{{ route('roomoffers.index') }}" class="nav-link px-2 text-white">Room offers</a></li>
-                <li><a href="{{ route('services.index') }}" class="nav-link px-2 text-white">Services</a></li>
+                <li><a href="{{ route('home.index') }}" class="nav-link px-2 text-secondary">Accueil</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">Recettes</a></li>
+                <li><a href="roomequipments" class="nav-link px-2 text-white">Boutique</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">Événements</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">Formations</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">Panier</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">Messagerie</a></li>
+                <li><a href="/about-us" class="nav-link px-2 text-white">À propos</a></li>
+                <li><a href="/contact" class="nav-link px-2 text-white">Contact</a></li>
             </ul>
 
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-            </form>
-            
             @auth
             @if (auth()->user()->role_name() == 'admin')
             <div class="text-end">
