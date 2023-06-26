@@ -9,5 +9,20 @@
     </div>
     <a class="btn btn-primary" href="{{ route('cooking-recipes.create') }}">Create new Cooking recipe</a>
 
-    {{ $recipes }}
+    @foreach ($recipes as $recipe)
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ $recipe->name }}</h5>
+                <p class="card-text">{{ $recipe->description }}</p>
+                <a href="{{ route('cooking-recipes.show', $recipe->id) }}" class="btn btn-primary">View</a>
+                <a href="{{ route('cooking-recipes.edit', $recipe->id) }}" class="btn btn-secondary">Edit</a>
+                <form action="{{ route('cooking-recipes.destroy', $recipe->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    @endforeach
+
 @endsection

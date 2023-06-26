@@ -15,14 +15,7 @@ class CookingRecipesController extends Controller
      */
     public function index()
     {
-        $recipes = CookingRecipes::all();
-
-        foreach ($recipes as $key => $recipe) {
-            $recipes[$key]['steps'] = $recipe->steps;
-            $recipes[$key]['ingredients'] = $recipe->ingredients;
-        }
-
-        return view('cooking-recipes.index')->with('recipes', $recipes);
+        return view('cooking-recipes.index')->with('recipes', CookingRecipes::all());
     }
 
     /**
@@ -41,8 +34,8 @@ class CookingRecipesController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:100',
             'description' => 'nullable|required',
-            'duration' => 'required|integer',
-            'picture' => 'nullable|image',
+            'cooking_time' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'difficulty' => 'required|integer',
             'people' => 'required|integer',
             'steps' => 'nullable|array',
@@ -52,7 +45,6 @@ class CookingRecipesController extends Controller
             'ingredients.*.name' => 'string',
             'ingredients.*.quantity' => 'nullable|string',
         ]);
-
         $validatedData['user_id'] = auth()->user()->id;
 
         $recipe = CookingRecipes::where('name', $validatedData['name'])->first();
@@ -60,12 +52,17 @@ class CookingRecipesController extends Controller
             return redirect()->route('cooking-recipes.create')->withErrors(['name' => 'Recipe name already exists.']);
         }
 
+        if ($request->hasFile('image')) {
+            $imageName = $validatedData['name'] . '.' . $request->image->extension();
+            $request->image->move(public_path('images/recipes'), $imageName);
+            $validatedData['image'] = 'images/recipes/' . $imageName;
+        }
+
         try {
             $cookingRecipe = CookingRecipes::create($validatedData);
         } catch (\Exception $e) {
             return redirect()->route('cooking-recipes.create')->withErrors(['name' => "Error creating recipe " . $e->getMessage()]);
         }
-        // dd($request->all());
 
         if (isset($validatedData['steps'])) {
             foreach ($validatedData['steps'] as $step) {
@@ -93,7 +90,11 @@ class CookingRecipesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $recipe = CookingRecipes::find($id);
+        $recipe['steps'] = $recipe->steps;
+        $recipe['ingredients'] = $recipe->ingredients;
+
+        return view('cooking-recipes.show')->with('recipe', $recipe);
     }
 
     /**
@@ -101,7 +102,7 @@ class CookingRecipesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('cooking-recipes.edit')->with('recipe', CookingRecipes::find($id));
     }
 
     /**
@@ -109,7 +110,64 @@ class CookingRecipesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:100',
+            'description' => 'nullable|required',
+            'cooking_time' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'difficulty' => 'required|integer',
+            'people' => 'required|integer',
+            'steps' => 'nullable|array',
+            'steps.*.title' => 'string',
+            'steps.*.description' => 'nullable|string',
+            'ingredients' => 'nullable|array',
+            'ingredients.*.name' => 'string',
+            'ingredients.*.quantity' => 'nullable|string',
+        ]);
+
+        $recipe = CookingRecipes::where('name', $validatedData['name'])->first();
+        if ($recipe && $recipe->id != $id) {
+            return redirect()->route('cooking-recipes.edit', $id)->withErrors(['name' => 'Recipe name already exists.']);
+        }
+
+        if ($request->hasFile('image')) {
+            $imageName = $validatedData['name'] . '.' . $request->image->extension();
+            $request->image->move(public_path('images/recipes'), $imageName);
+            $validatedData['image'] = 'images/recipes/' . $imageName;
+        } elseif ($validatedData['name'] != CookingRecipes::find($id)->name) {
+            $imageName = $validatedData['name'] . '.' . explode('.', CookingRecipes::find($id)->image)[1];
+            rename(public_path(CookingRecipes::find($id)->image), public_path('images/recipes/' . $imageName));
+            $validatedData['image'] = 'images/recipes/' . $imageName;
+        }
+
+        try {
+            $cookingRecipe = CookingRecipes::find($id);
+            $cookingRecipe->update($validatedData);
+        } catch (\Exception $e) {
+            return redirect()->route('cooking-recipes.edit', $id)->withErrors(['name' => "Error updating recipe " . $e->getMessage()]);
+        }
+
+        RecipesSteps::where('recipe_id', $cookingRecipe->id)->delete();
+        if (isset($validatedData['steps'])) {
+            foreach ($validatedData['steps'] as $step) {
+                $step['recipe_id'] = $cookingRecipe->id;
+                RecipesSteps::create($step);
+            }
+        }
+
+        IngredientsRecipes::where('recipe_id', $cookingRecipe->id)->delete();
+        if (isset($validatedData['ingredients'])) {
+            foreach ($validatedData['ingredients'] as $ingredient) {
+                $ingredient['recipe_id'] = $cookingRecipe->id;
+                if (!Ingredients::where('name', $ingredient['name'])->first()) {
+                    Ingredients::create($ingredient);
+                }
+                $ingredient['ingredient_id'] = Ingredients::where('name', $ingredient['name'])->first()->id;
+                IngredientsRecipes::create($ingredient);
+            }
+        }
+
+        return redirect()->route('cooking-recipes.edit', $id)->with('success', 'Recipe updated successfully.');
     }
 
     /**
@@ -117,6 +175,16 @@ class CookingRecipesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $recipe = CookingRecipes::find($id);
+        $recipe->delete();
+
+        if (file_exists(public_path($recipe->image))) {
+            unlink(public_path($recipe->image));
+        }
+
+        RecipesSteps::where('recipe_id', $recipe->id)->delete();
+        IngredientsRecipes::where('recipe_id', $recipe->id)->delete();
+
+        return redirect()->route('cooking-recipes.index')->with('success', 'Recipe deleted successfully.');
     }
 }

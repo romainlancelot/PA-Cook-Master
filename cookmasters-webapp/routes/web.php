@@ -152,6 +152,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/cooking-recipes', 'CookingRecipesController@index')->name('cooking-recipes.index');
         Route::get('/cooking-recipes/create', 'CookingRecipesController@create')->name('cooking-recipes.create');
         Route::post('/cooking-recipes', 'CookingRecipesController@store')->name('cooking-recipes.store');
+        Route::get('/cooking-recipes/{cooking_recipe}', 'CookingRecipesController@show')->name('cooking-recipes.show');
+        Route::get('/cooking-recipes/{cooking_recipe}/edit', 'CookingRecipesController@edit')->name('cooking-recipes.edit');
+        Route::put('/cooking-recipes/{cooking_recipe}', 'CookingRecipesController@update')->name('cooking-recipes.update');
+        Route::delete('/cooking-recipes/{cooking_recipe}', 'CookingRecipesController@destroy')->name('cooking-recipes.destroy');
 
     });
 

@@ -13,31 +13,31 @@
         <h1>Create Room Offer</h1>
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ route('cooking-recipes.store') }}" method="POST">
+                <form action="{{ route('cooking-recipes.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group mb-3">
                         <label for="name">Name:</label>
-                        <input type="text" name="name" id="name" class="form-control" required>
+                        <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="description">Description:</label>
-                        <textarea name="description" id="description" class="form-control" required></textarea>
+                        <textarea name="description" id="description" class="form-control" value="{{ old('description') }}" required></textarea>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="duration">Duration (minutes):</label>
-                        <input type="number" name="duration" id="duration" class="form-control" required>
+                        <label for="cooking_time">Cooking time (minutes):</label>
+                        <input type="number" name="cooking_time" id="cooking_time" class="form-control" value="{{ old('cooking_time') }}" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="people">People:</label>
-                        <input type="number" name="people" id="people" class="form-control" required>
+                        <input type="number" name="people" id="people" class="form-control" value="{{ old('people') }}" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="picture">Picture:</label>
-                        <input type="file" name="picture" id="picture" class="form-control">
+                        <label for="image">Image:</label>
+                        <input type="file" accept="image/*" name="image" id="image" class="form-control" value="{{ old('image') }}">
                     </div>
                     <div class="form-group mb-3">
                         <label for="difficulty">Difficulty:</label>
-                        <input type="range" name="difficulty" id="difficulty" class="form-range " min="1" max="10" step="1" required>
+                        <input type="range" name="difficulty" id="difficulty" class="form-range " min="1" max="10" step="1" value="{{ old('difficulty') }}" required>
                     </div>
 
                     <div id="steps"></div>

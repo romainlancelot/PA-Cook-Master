@@ -21,3 +21,13 @@ function addIngredient() {
     ingredient.innerHTML += '<input type="text" name="ingredients[' + ingredient_nb + '][quantity]" id="ingredient_' + ingredient_nb + '_quantity" class="form-control">';
     document.getElementById("ingredients").appendChild(ingredient);
 }
+
+function removeStep(button) {
+    var step = button.parentElement.parentElement;
+    step.remove();
+}
+
+function removeIngredient(button) {
+    var ingredient = button.parentElement.parentElement;
+    ingredient.remove();
+}
