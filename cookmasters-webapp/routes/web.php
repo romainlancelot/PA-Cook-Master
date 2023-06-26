@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\ConversationsController;
 use App\Models\Equipment;
 use App\Models\RoomOffer;
 use App\Models\RoomEquipment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ServiceController;
@@ -65,6 +67,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Logout Routes
          */
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
+
+        /**
+         * Chat Routes
+         */
+        Route::resource('/chat', ConversationsController::class);
 
         /**
          * Account Routes
