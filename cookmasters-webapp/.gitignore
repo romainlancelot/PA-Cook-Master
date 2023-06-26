@@ -6,6 +6,7 @@
 /public/images/equipments
 /public/images/rooms
 /public/images/services
+/public/images/recipes
 /storage/*.key
 /vendor
 .env

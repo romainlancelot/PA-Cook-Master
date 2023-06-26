@@ -1,28 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Models\Ingredients;
 
-class UsersController extends Controller
+class IngredientsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = User::all();
-        foreach ($data as $key => $value) {
-            $data[$key]['subscription_plan'] = $value->subscriptionPlan;
-        }
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Users List',
-            'data' => $data
-        ]);
+        //
     }
 
     /**
@@ -71,5 +61,18 @@ class UsersController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+    /**
+     * Autocomplete search
+     */
+    public function autocomplete(Request $request)
+    {
+        $data = Ingredients::select("name")
+                ->where("name","LIKE","%{$request->input('query')}%")
+                ->get();
+        
+        return response()->json($data); 
     }
 }
