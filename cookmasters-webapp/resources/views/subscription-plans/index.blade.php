@@ -40,7 +40,7 @@
                                 <button type="submit" class="w-100 btn btn-lg btn-outline-primary">Back to free plan</button>
                             </form>
                         @elseif ($plan->price == 0)
-                            <a type="button" class="w-100 btn btn-lg btn-outline-primary" href="{{ route('register.show') }}">Sign up for free</a>
+                            <a type="button" class="w-100 btn btn-lg btn-outline-primary" href="{{ route('register') }}">Sign up for free</a>
                         @else
                             <form action="{{ route('subscription-plans.subscribe', [auth()->user()->id, $plan->id]) }}" method="POST">
                                 @csrf

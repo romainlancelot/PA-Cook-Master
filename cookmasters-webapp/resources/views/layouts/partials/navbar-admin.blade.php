@@ -6,7 +6,7 @@
             </a>
             
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="{{ route('home.index') }}" class="nav-link px-2 text-secondary">Home</a></li>
+                <li><a href="{{ route('home') }}" class="nav-link px-2 text-secondary">Home</a></li>
                 <li><a href="{{ route('admin.users')}}" class="nav-link px-2 text-white">Gestion des utilisateurs</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,8 +38,8 @@
             
             @guest
             <div class="text-end">
-                <a href="{{ route('login.perform') }}" class="btn btn-outline-light me-2">Login</a>
-                <a href="{{ route('register.perform') }}" class="btn btn-warning">Sign-up</a>
+                <a href="{{ route('login') }}" class="btn btn-outline-light me-2">Login</a>
+                <a href="{{ route('register') }}" class="btn btn-warning">Sign-up</a>
             </div>
             @endguest
         </div>

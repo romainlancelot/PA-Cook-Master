@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('phone')->unique()->nullable();
             $table->string('username')->unique();
             $table->date('birthday')->nullable();
-            $table->boolean('varified')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->foreignId('subscription_plan_id')->default(1)->constrained('subscription_plans')->onDelete('cascade');
             $table->string('stripe_id')->nullable();
@@ -38,7 +37,6 @@ return new class extends Migration
             'username' => 'admin',
             'password' => bcrypt('jke7d4gDhU2862b'),
             'role_id' => 1,
-            'varified' => true,
             'email_verified_at' => now(),
         ]);
     }

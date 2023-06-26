@@ -85,7 +85,7 @@
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" for="newPasswordConfirmation">Confirmer le nouveau mot de passe</span>
-                            <input type="password" class="form-control" id="newPasswordConfirmation" name="newPasswordConfirmation">
+                            <input type="password" class="form-control" id="newPasswordConfirmation" name="newPasswordConfirmation" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -97,6 +97,37 @@
         </form>
     </div>
 
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccount">
+        Supprimer mon compte
+    </button>
+    <div class="modal modal-lg fade" id="deleteAccount" tabindex="-1" aria-labelledby="deleteAccountLabel" aria-hidden="true">
+        <form action="{{ route('account.delete') }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="deleteAccountLabel">Supprimer le compte de {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center mb-3">
+                            Attention, votre compte sera supprimé ainsi que toutes les données qui y sont liées.<br>
+                            <b class="text-danger">Cette action est irréversible.</b>
+                        </p>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" for="password">Mot de passe</span>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 
     <hr>
 

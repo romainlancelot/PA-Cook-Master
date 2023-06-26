@@ -16,7 +16,6 @@ class AccountController extends Controller
             if (auth()->user()->subscriptionPlan()->first()->price > 0) {
                 $subscription = $stripe->retriveSubscription($stripe_id);
             }
-
         }
         return view('auth.account')->with([
             'payments' => $payments ?? null,
@@ -64,6 +63,28 @@ class AccountController extends Controller
         $user->tokens()->delete();
         auth()->logout();
 
-        return redirect()->route('login.show')->with('success', 'Your password has been updated');
+        return redirect()->route('login')->with('success', 'Your password has been updated');
+    }
+
+    public function delete(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        if (!password_verify($request->password, auth()->user()->password)) {
+            return redirect()->back()->withErrors(['password' => 'The password does not match']);
+        }
+
+        $user = auth()->user();
+        $user->destroy($user->id);
+        $user->tokens()->delete();
+        auth()->logout();
+
+        return redirect()->route('login')->with('success', 'Your account has been deleted');
     }
 }

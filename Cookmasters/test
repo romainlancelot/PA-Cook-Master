@@ -1,0 +1,10 @@
+Auto-merging cookmasters-webapp/composer.lock
+Auto-merging cookmasters-webapp/resources/views/home/index.blade.php
+CONFLICT (content): Merge conflict in cookmasters-webapp/resources/views/home/index.blade.php
+Auto-merging cookmasters-webapp/resources/views/layouts/partials/navbar.blade.php
+CONFLICT (content): Merge conflict in cookmasters-webapp/resources/views/layouts/partials/navbar.blade.php
+Auto-merging cookmasters-webapp/resources/views/roomequipments/index.blade.php
+CONFLICT (content): Merge conflict in cookmasters-webapp/resources/views/roomequipments/index.blade.php
+Auto-merging cookmasters-webapp/routes/web.php
+CONFLICT (content): Merge conflict in cookmasters-webapp/routes/web.php
+Automatic merge failed; fix conflicts and then commit the result.
