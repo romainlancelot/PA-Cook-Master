@@ -287,7 +287,7 @@
                         </div>
                     </div>
 					<div id="chat-messages" class="card-body msg_card_body">
-							@foreach ($conversations as $conversation)
+						@foreach ($conversations as $conversation)
 							@if ($conversation->from_id != auth()->user()->id)
 	                        	<div class="d-flex justify-content-start mb-4">
 	                        	    <div class="img_cont_msg">
@@ -309,11 +309,11 @@
 	                        	    </div>
 	                        	</div>
 							@endif
-							@endforeach
+						@endforeach
 					</div>
 					<div class="card-footer">
                         <div class="input-group">
-                            <textarea id="message" name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
+                            <input id="message" name="" class="form-control type_msg" placeholder="Type your message..."></input>
                             <div class="input-group-append">
                                 <span id="submit-button" class="input-group-text send_btn h-100"><i class="bi bi-send-fill"></i></span>
                             </div>

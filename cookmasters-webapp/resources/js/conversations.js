@@ -4,13 +4,25 @@ const submitButton = document.getElementById("submit-button");
 
 const chatMessages = document.getElementById("chat-messages");
 
-submitButton.addEventListener("click", () => {
+function sendMessage() {
     console.log(from_id.value);
     console.log(message.value);
     axios.post('/chat', {
         message: message.value,
         from_id: from_id.value
     });
+    message.value = "";
+}
+
+submitButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    sendMessage();
+});
+
+message.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        sendMessage();
+    }
 });
 
 window.Echo.channel(`conversations`).listen('.chat-message', (e) => {
@@ -49,8 +61,11 @@ window.Echo.channel(`conversations`).listen('.chat-message', (e) => {
         message.appendChild(msg_cotainer);
     }
 
-
     chatMessages.appendChild(message);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
-Pusher.logToConsole = true;
+
+window.onload = function () {
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
