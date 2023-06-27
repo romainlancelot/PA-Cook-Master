@@ -17,15 +17,15 @@ composer install
 # Clear the old cache
 php artisan clear-compiled
 
-php artisan route:clear
-php artisan view:clear
-php artisan cache:clear
+php artisan event:cache
+php artisan route:cache
+php artisan view:cache
 
 # Recreate cache
 #php artisan optimize
 
 # Compile npm assets
-#npm run prod
+npm run build
 
 # Run database migrations
 php artisan migrate --force
@@ -34,4 +34,3 @@ php artisan migrate --force
 php artisan up
 
 echo "Deployment finished!"
-
