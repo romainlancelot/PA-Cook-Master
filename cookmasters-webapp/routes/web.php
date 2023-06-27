@@ -74,6 +74,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('/chat', ConversationsController::class);
 
         /**
+         * search Routes
+         */
+        Route::get('/search/users/{search}', 'SearchController@users')->name('search.users');
+
+        /**
          * Account Routes
          */
         Route::get('/account', 'AccountController@show')->name('account.show');
