@@ -25,6 +25,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ route('subscription-plans.index') }}">SUBSCRIPTION PLANS</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('chat.index') }}">CHAT</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="col-md-auto">
