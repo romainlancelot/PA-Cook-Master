@@ -1,27 +1,59 @@
-<header class="p-3 bg-dark text-white">
+<header class="p-3">
+    <style>
+        .nav-item.active .nav-link {
+            color: #FF4500;
+        }
+        .navbar {
+            border-radius: 10px;
+        }
+    </style>
     <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{{ route('home') }}">
+                <img src="{{ asset('images/cookmaster-logo.png') }}" width="45" height="45" alt="Cook Master logo">
             </a>
-            
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="{{ route('home.index') }}" class="nav-link px-2 text-secondary">Accueil</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Recettes</a></li>
-                <li><a href="roomequipments" class="nav-link px-2 text-white">Boutique</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Événements</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Formations</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Panier</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Messagerie</a></li>
-                <li><a href="/about-us" class="nav-link px-2 text-white">À propos</a></li>
-                <li><a href="/contact" class="nav-link px-2 text-white">Contact</a></li>
-            </ul>
-
-            @auth
-            @if (auth()->user()->role_name() == 'admin')
-            <div class="text-end">
-                <a href="{{ route('admin.index') }}" class="btn btn-outline-light me-2">Admin</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item {{ (request()->is('home')) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('home') }}">Accueil</a>
+                    </li>
+                    <!-- Additional navigation items... -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Recettes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="boutiques">Boutique</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Événements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Formations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Panier</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Messagerie</a>
+                    </li>
+                    <li class="nav-item {{ (request()->is('about-us')) ? 'active' : '' }}">
+                        <a class="nav-link" href="/about-us">À propos</a>
+                    </li>
+                    <li class="nav-item {{ (request()->is('contact')) ? 'active' : '' }}">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                    @auth
+                    @if (auth()->user()->role_name() == 'admin')
+                    <li class="nav-item {{ (request()->is('admin')) ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.index') }}">Admin</a>
+                    </li>
+                    @endif
+                    @endauth
+                </ul>
             </div>
-        </div>
+        </nav>
     </div>
 </header>

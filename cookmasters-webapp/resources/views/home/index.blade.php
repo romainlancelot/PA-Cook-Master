@@ -9,22 +9,16 @@
         object-fit: cover;
     }
 </style>
+      <h1 class='text-center' style="background-size: cover; padding: 100px 0; text-align: center;" >{{ __('index.title') }}</h1>
+
         @auth
-        <h1>{{ __('index.title') }}</h1>
-        <p class="lead">Only authenticated users can access this section.</p>
         @endauth
 
         @guest
-        <h1>{{ __('index.title') }}</h1>
-        <p class="lead">{{ __('index.description') }}</p>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Bannière ou diaporama -->
     <!-- ... -->
-    <div class="container mt-3">
+    <div class="container">
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
     <!-- Indicators -->
@@ -35,7 +29,7 @@
     </ul>
     
     <!-- The slideshow -->
-    <div class="carousel-inner">
+    <div class="carousel-inner" style="border-radius: 10px;">
   <div class="carousel-item">
     <img src="{{ asset('images/cookmaster_photo3.jpg') }}" alt="Image 1" width="1920" height="420">
     <div class="carousel-caption">

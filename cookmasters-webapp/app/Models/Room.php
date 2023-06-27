@@ -25,7 +25,7 @@ class Room extends Model
     {
         return $this->belongsToMany(Service::class, 'room_equipment', 'room_id', 'equipment_id');
     }
-    
+
     public function json2array($json)
     {
         $json = str_replace(array("\n", "\r"), "", $json);

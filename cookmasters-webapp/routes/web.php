@@ -10,6 +10,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\RoomOfferController;
 use App\Http\Controllers\RoomEquipmentController;
+use App\Http\Controllers\BoutiqueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,10 +31,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('lang/change', 'LangController@change')->name('changeLang');
 
     /**
-     * Home Routes
+     * Boutiques Routes
      */
-
-    // Route::get('/', 'HomeController@index')->name('home.index');
+    Route::resource('/boutiques', BoutiqueController::class);
+    // Route::get('/boutique', [BoutiqueController::class, 'index'])->name('boutique.index');
+    // Route::get('/boutique/{id}', [BoutiqueController::class, 'show'])->name('boutique.show');
     
     /**
      * A propos Routes
@@ -79,9 +81,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/equipment/create', 'EquipmentController@create')->name('equipment.create');
     Route::post('/equipment', 'EquipmentController@store')->name('equipment.store');
     // delet
-    Route::delete('/equipment/{equipment}', 'EquipmentController@destroy')->name('equipment.destroy');
+    Route::delete('/equipments/{equipment}', 'EquipmentController@destroy')->name('equipments.destroy');
+
     // update
-    Route::get('/equipment/{equipment}/edit', 'EquipmentController@edit')->name('equipment.edit');
+    Route::get('/equipment/{equipment}/edit', 'EquipmentController@edit')->name('equipments.edit');
     Route::put('/equipment/{equipment}', 'EquipmentController@update')->name('equipment.update');
     // show
     Route::get('/equipment/{equipment}', 'EquipmentController@show')->name('equipment.show');

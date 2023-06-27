@@ -16,7 +16,7 @@
 }
 
 </style>
-    <section class="hero" style="background-image: url('{{ asset('images/about-hero.jpg') }}'); background-size: cover; color: #fff; padding: 100px 0; text-align: center;">
+    <section class="hero" style="background-image: url('{{ asset('images/about-hero.jpg') }}'); background-size: cover; padding: 100px 0; text-align: center;">
         <div class="container">
             <h1 class="display-4">À propos de nous</h1>
             <p class="lead">Cook Master a été fondé avec une passion profonde pour la cuisine et la gastronomie. Depuis notre ouverture en 2016, nous nous sommes engagés à offrir des expériences culinaires exceptionnelles à nos clients.</p>

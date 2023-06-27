@@ -1,19 +1,17 @@
 <?php
 
 namespace App\Http\Requests;
-use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreEquipmentRequest extends FormRequest
+class UpdateBoutiqueRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        // return Auth::user()->can('create', Equipment::class);
-        return true;
+        return false;
     }
 
     /**
@@ -24,12 +22,7 @@ class StoreEquipmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255',
-            'description' => 'required',
-            'price' => 'required',
-            'photos' => 'required',
-            'availablequantity' => 'required',
-            'photos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            //
         ];
     }
 }

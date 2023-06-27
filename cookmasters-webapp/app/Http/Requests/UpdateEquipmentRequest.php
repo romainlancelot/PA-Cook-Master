@@ -11,7 +11,7 @@ class UpdateEquipmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -19,10 +19,15 @@ class UpdateEquipmentRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            //
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'availablequantity' => 'required|integer',
+            'price' => 'required|numeric',
+            'photos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
+    
 }
