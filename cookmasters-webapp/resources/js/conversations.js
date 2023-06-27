@@ -5,8 +5,6 @@ const submitButton = document.getElementById("submit-button");
 const chatMessages = document.getElementById("chat-messages");
 
 function sendMessage() {
-    console.log(from_id.value);
-    console.log(message.value);
     axios.post('/chat', {
         message: message.value,
         from_id: from_id.value
@@ -32,7 +30,7 @@ window.Echo.channel(`conversations`).listen('.chat-message', (e) => {
     img_cont_msg.className = "img_cont_msg";
 
     let img = document.createElement("img");
-    img.src = "";
+    img.src = e.image;
     img.className = "rounded-circle user_img_msg";
 
     let msg_cotainer = document.createElement("div");

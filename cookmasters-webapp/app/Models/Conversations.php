@@ -25,4 +25,12 @@ class Conversations extends Model
     {
         return $this->belongsTo(User::class, 'from_id');
     }
+
+    /**
+     * Get the profile picture of the user read the message.
+     */
+    public function fromImage()
+    {
+        return User::where('id', $this->from_id)->first()->image;
+    }
 }

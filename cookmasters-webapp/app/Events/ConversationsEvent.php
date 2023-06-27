@@ -19,6 +19,7 @@ class ConversationsEvent implements ShouldBroadcast
     public int $from_id;
     public int|null $to_id;
     public string $nickname;
+    public string $image;
     public string $message;
     public string $created_at;
 
@@ -30,6 +31,7 @@ class ConversationsEvent implements ShouldBroadcast
         $this->from_id = $conversation->from_id;
         $this->to_id = $conversation->to_id;
         $this->nickname = $conversation->user->username;
+        $this->image = $conversation->fromImage();
         $this->message = $conversation->message;
         $this->created_at = $conversation->created_at->format('d/m H:i');
     }

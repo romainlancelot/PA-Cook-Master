@@ -289,9 +289,9 @@
 					<div id="chat-messages" class="card-body msg_card_body">
 						@foreach ($conversations as $conversation)
 							@if ($conversation->from_id != auth()->user()->id)
-	                        	<div class="d-flex justify-content-start mb-4">
+								<div class="d-flex justify-content-start mb-4">
 	                        	    <div class="img_cont_msg">
-	                        	        <img src="" class="rounded-circle user_img_msg">
+	                        	        <img src="{{ $conversation->fromImage() }}" class="rounded-circle user_img_msg">
 	                        	    </div>
 	                        	    <div class="msg_cotainer">
 	                        	        {{ $conversation->message }}
@@ -305,7 +305,7 @@
 	                        	        <span class="msg_time_send">{{ $conversation->created_at->format('d/m H:i') }}</span>
 	                        	    </div>
 	                        	    <div class="img_cont_msg">
-	                        	        <img src="" class="rounded-circle user_img_msg">
+	                        	        <img src="@if (auth()->user()->image) {{ asset(auth()->user()->image) }} @else {{ secure_asset('images/users/default.png') }} @endif" class="rounded-circle user_img_msg">
 	                        	    </div>
 	                        	</div>
 							@endif
