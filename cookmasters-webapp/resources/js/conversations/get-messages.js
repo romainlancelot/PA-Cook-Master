@@ -12,7 +12,7 @@ function sendMessage() {
 }
 
 function sendMessageTo() {
-    axios.post('/chat/', {
+    axios.post('/chat', {
         message: message.value,
         to_username: window.location.pathname.split("/")[2]
     });
@@ -87,3 +87,6 @@ window.Echo.channel(`conversations`).listen('.chat-message', (e) => {
 window.onload = function () {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
+
+// debug pusher
+Pusher.logToConsole = true;
