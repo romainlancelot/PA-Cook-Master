@@ -286,36 +286,32 @@
                             </div>
                         </div>
                     </div>
-                    <div id="chat-messages" class="card-body msg_card_body">
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="" class="rounded-circle user_img_msg">
-                            </div>
-                            <div class="msg_cotainer">
-                                Hi, how are you samim?
-                                <span class="msg_time">8:40 AM, Today</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="" class="rounded-circle user_img_msg">
-                            </div>
-                            <div class="msg_cotainer">
-                                Hi, how are you samim?
-                                <span class="msg_time">8:40 AM, Today</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end mb-4">
-                            <div class="msg_cotainer_send">
-                                Hi Khalid i am good tnx how about you?
-                                <span class="msg_time_send">8:55 AM, Today</span>
-                            </div>
-                            <div class="img_cont_msg">
-                                <img src="" class="rounded-circle user_img_msg">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
+					<div id="chat-messages" class="card-body msg_card_body">
+							@foreach ($conversations as $conversation)
+							@if ($conversation->from_id != auth()->user()->id)
+	                        	<div class="d-flex justify-content-start mb-4">
+	                        	    <div class="img_cont_msg">
+	                        	        <img src="" class="rounded-circle user_img_msg">
+	                        	    </div>
+	                        	    <div class="msg_cotainer">
+	                        	        {{ $conversation->message }}
+	                        	        <span class="msg_time">{{ $conversation->created_at->format('d/m H:i') }}</span>
+	                        	    </div>
+	                        	</div>
+							@else
+								<div class="d-flex justify-content-end mb-4">
+	                        	    <div class="msg_cotainer_send">
+	                        	        {{ $conversation->message }}
+	                        	        <span class="msg_time_send">{{ $conversation->created_at->format('d/m H:i') }}</span>
+	                        	    </div>
+	                        	    <div class="img_cont_msg">
+	                        	        <img src="" class="rounded-circle user_img_msg">
+	                        	    </div>
+	                        	</div>
+							@endif
+							@endforeach
+					</div>
+					<div class="card-footer">
                         <div class="input-group">
                             <textarea id="message" name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
                             <div class="input-group-append">
@@ -323,7 +319,7 @@
                             </div>
                         </div>
                     </div>
-                    <input id="nickname" type="hidden" value="{{ auth()->user()->firstname }}"></input>
+                    <input id="user_id" type="hidden" value="{{ auth()->user()->id }}"></input>
                 </div>
             </div>
         </div>

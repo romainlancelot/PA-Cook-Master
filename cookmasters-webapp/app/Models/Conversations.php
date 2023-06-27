@@ -12,7 +12,7 @@ class Conversations extends Model
     protected $table = 'messages';
 
     protected $fillable = [
-        'content',
+        'message',
         'read_at',
         'from_id',
         'to_id'

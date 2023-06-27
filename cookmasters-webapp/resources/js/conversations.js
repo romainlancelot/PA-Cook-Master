@@ -1,21 +1,20 @@
-const nickname = document.getElementById("nickname");
+const from_id = document.getElementById("user_id");
 const message = document.getElementById("message");
 const submitButton = document.getElementById("submit-button");
 
 const chatMessages = document.getElementById("chat-messages");
 
 submitButton.addEventListener("click", () => {
-    console.log(nickname.value);
+    console.log(from_id.value);
     console.log(message.value);
     axios.post('/chat', {
-        nickname: nickname.value,
-        message: message.value
+        message: message.value,
+        from_id: from_id.value
     });
 });
 
 window.Echo.channel(`conversations`).listen('.chat-message', (e) => {
     let message = document.createElement("div");
-    message.className = "d-flex justify-content-start mb-4";
 
     let img_cont_msg = document.createElement("div");
     img_cont_msg.className = "img_cont_msg";
@@ -25,18 +24,31 @@ window.Echo.channel(`conversations`).listen('.chat-message', (e) => {
     img.className = "rounded-circle user_img_msg";
 
     let msg_cotainer = document.createElement("div");
-    msg_cotainer.className = "msg_cotainer";
     msg_cotainer.innerHTML = e.message;
 
     let msg_time = document.createElement("span");
-    msg_time.className = "msg_time";
-    msg_time.innerHTML = e.nickname;
+    msg_time.innerHTML = e.created_at;
 
     img_cont_msg.appendChild(img);
     msg_cotainer.appendChild(msg_time);
 
-    message.appendChild(img_cont_msg);
-    message.appendChild(msg_cotainer);
+    // check if the message is from the current user
+    if (e.from_id == from_id.value) {
+        message.className = "d-flex justify-content-end mb-4";
+        msg_cotainer.className = "msg_cotainer_send";
+        msg_time.className = "msg_time_send";
+
+        message.appendChild(msg_cotainer);
+        message.appendChild(img_cont_msg);
+    } else {
+        message.className = "d-flex justify-content-start mb-4";
+        msg_cotainer.className = "msg_cotainer";
+        msg_time.className = "msg_time";
+
+        message.appendChild(img_cont_msg);
+        message.appendChild(msg_cotainer);
+    }
+
 
     chatMessages.appendChild(message);
 });

@@ -13,7 +13,8 @@ class ConversationsController extends Controller
      */
     public function index()
     {
-        return view('conversations.index')->with('conversations', Conversations::all());
+        $conversations = Conversations::where('to_id', null)->get();
+        return view('conversations.index')->with('conversations', $conversations);
     }
 
     /**
@@ -29,7 +30,14 @@ class ConversationsController extends Controller
      */
     public function store(Request $request)
     {
-        event(new ConversationsEvent($request->nickname, $request->message));
+        $validatedData = $request->validate([
+            'message' => 'required|string',
+            'to_id' => 'nullable|integer',
+        ]);
+        $validatedData['from_id'] = auth()->user()->id;
+        $conversation = Conversations::create($validatedData);
+
+        event(new ConversationsEvent($conversation));
 
         return response()->json(['success' => 'Message sent successfully!']);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Conversations;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,16 +16,22 @@ class ConversationsEvent implements ShouldBroadcast
     // use Dispatchable, InteractsWithSockets, SerializesModels;
     use Dispatchable, InteractsWithSockets;
 
+    public int $from_id;
+    public int|null $to_id;
     public string $nickname;
     public string $message;
+    public string $created_at;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(string $nickname, string $message)
+    public function __construct(Conversations $conversation)
     {
-        $this->nickname = $nickname;
-        $this->message = $message;
+        $this->from_id = $conversation->from_id;
+        $this->to_id = $conversation->to_id;
+        $this->nickname = $conversation->user->username;
+        $this->message = $conversation->message;
+        $this->created_at = $conversation->created_at->format('d/m H:i');
     }
 
     /**
