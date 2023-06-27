@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\ConversationsController;
 use App\Models\Equipment;
 use App\Models\RoomOffer;
 use App\Models\RoomEquipment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ServiceController;
@@ -67,10 +69,21 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
 
         /**
+         * Chat Routes
+         */
+        Route::resource('/chat', ConversationsController::class);
+
+        /**
+         * search Routes
+         */
+        Route::get('/search/users/{search}', 'SearchController@users')->name('search.users');
+
+        /**
          * Account Routes
          */
         Route::get('/account', 'AccountController@show')->name('account.show');
         Route::patch('/account', 'AccountController@update')->name('account.update');
+        Route::patch('/account/profile-picture', 'AccountController@updateProfilePicture')->name('account.update.profile-picture');
         Route::patch('/account/password', 'AccountController@updatePassword')->name('account.update.password');
         Route::delete('/account', 'AccountController@delete')->name('account.delete');
 
