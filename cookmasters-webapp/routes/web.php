@@ -78,6 +78,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/account', 'AccountController@show')->name('account.show');
         Route::patch('/account', 'AccountController@update')->name('account.update');
+        Route::patch('/account/profile-picture', 'AccountController@updateProfilePicture')->name('account.update.profile-picture');
         Route::patch('/account/password', 'AccountController@updatePassword')->name('account.update.password');
         Route::delete('/account', 'AccountController@delete')->name('account.delete');
 
