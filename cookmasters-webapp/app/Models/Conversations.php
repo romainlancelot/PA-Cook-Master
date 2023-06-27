@@ -18,8 +18,9 @@ class Conversations extends Model
         'to_id'
     ];
 
+
     /**
-     * Get the user that owns the recipe.
+     * Get the user who sent the message.
      */
     public function user()
     {
@@ -27,10 +28,10 @@ class Conversations extends Model
     }
 
     /**
-     * Get the profile picture of the user read the message.
+     * Get the user who sent the message.
      */
-    public function fromImage()
+    public function fromUser()
     {
-        return User::where('id', $this->from_id)->first()->image;
+        return $this->belongsTo(User::class, 'from_id');
     }
 }
