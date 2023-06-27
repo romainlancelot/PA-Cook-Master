@@ -240,15 +240,15 @@
             <div class="col-md-4 col-xl-3 chat"><div class="card mb-sm-3 mb-md-0 contacts_card">
                 <div class="card-header">
                     <div class="input-group">
-                        <input type="text" placeholder="Search..." name="" class="form-control search">
+                        <input id="searchUser" type="text" placeholder="Search..." name="" class="form-control search">
                         <div class="input-group-prepend">
-                            <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
+                            <span class="input-group-text search_btn"><i class="bi bi-search"></i></span>
                         </div>
                     </div>
                 </div>
                 <div class="card-body contacts_body">
-                    <ui class="contacts">
-                        <li class="active">
+                    <ui id="contacts" class="contacts">
+                        <li class="@if (!isset($to_user)) active @endif" onclick="window.location.href = '{{ route('chat.index') }}'">
                             <div class="d-flex bd-highlight">
                                 <div class="img_cont">
                                     <img src="" class="rounded-circle user_img">
@@ -258,18 +258,32 @@
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <div class="d-flex bd-highlight">
-                                <div class="img_cont">
-                                    <img src="https://2.bp.blogspot.com/-8ytYF7cfPkQ/WkPe1-rtrcI/AAAAAAAAGqU/FGfTDVgkcIwmOTtjLka51vineFBExJuSACLcBGAs/s320/31.jpg" class="rounded-circle user_img">
-                                    <span class="online_icon offline"></span>
-                                </div>
-                                <div class="user_info">
-                                    <span>Taherah Big</span>
-                                    <p>Taherah left 7 mins ago</p>
-                                </div>
-                            </div>
-                        </li>
+						@foreach ($contacts as $contacts)
+							@if ($contacts->from_id != auth()->user()->id)
+                        		<li id="contacts_{{ $contacts->fromUser->username }}" onclick="window.location.href = '{{ route('chat.show', $contacts->fromUser->username) }}'">
+                        		    <div class="d-flex bd-highlight">
+                        		        <div class="img_cont">
+                        		            <img src="{{ secure_asset($contacts->fromUser->image) }}" class="rounded-circle user_img">
+                        		        </div>
+                        		        <div class="user_info">
+                        		            <span>{{ $contacts->fromUser->firstname }} {{ $contacts->fromUser->lastname }}</span>
+                        		        </div>
+                        		    </div>
+                        		</li>
+							@endif
+						@endforeach
+						@if (isset($newConversation) && $newConversation === true)
+							<li id="contacts_{{ $to_user->username }}" class="active" onclick="window.location.href = '{{ route('chat.show', $to_user->username) }}'">
+								<div class="d-flex bd-highlight">
+									<div class="img_cont">
+										<img src="{{ secure_asset($to_user->image) }}" class="rounded-circle user_img">
+									</div>
+									<div class="user_info">
+										<span>{{ $to_user->firstname }} {{ $to_user->lastname }}</span>
+									</div>
+								</div>
+							</li>
+						@endif
                     </ui>
                 </div>
                 <div class="card-footer"></div>
@@ -279,33 +293,37 @@
                     <div class="card-header msg_head">
                         <div class="d-flex bd-highlight">
                             <div class="img_cont">
-                                <img src="" class="rounded-circle user_img">
+                                <img src="@if (isset($to_user)) {{ secure_asset($to_user->image) }} @endif" class="rounded-circle user_img">
                             </div>
                             <div class="user_info">
-                                <span>Général chat</span>
+								@if (isset($to_user))
+									<span> {{ $to_user->firstname }} {{ $to_user->lastname }}</span>
+								@else
+									<span>Général</span>
+								@endif
                             </div>
                         </div>
                     </div>
 					<div id="chat-messages" class="card-body msg_card_body">
-						@foreach ($conversations as $conversation)
-							@if ($conversation->from_id != auth()->user()->id)
+						@foreach ($conversation as $conv)
+							@if ($conv->from_id != auth()->user()->id)
 								<div class="d-flex justify-content-start mb-4">
 	                        	    <div class="img_cont_msg">
-	                        	        <img src="{{ $conversation->fromImage() }}" class="rounded-circle user_img_msg">
+	                        	        <img src="{{ secure_asset($conv->fromUser->image) }}" class="rounded-circle user_img_msg">
 	                        	    </div>
 	                        	    <div class="msg_cotainer">
-	                        	        {{ $conversation->message }}
-	                        	        <span class="msg_time">{{ $conversation->created_at->format('d/m H:i') }}</span>
+	                        	        {{ $conv->message }}
+	                        	        <span class="msg_time">{{ $conv->created_at->format('d/m H:i') }}</span>
 	                        	    </div>
 	                        	</div>
 							@else
 								<div class="d-flex justify-content-end mb-4">
 	                        	    <div class="msg_cotainer_send">
-	                        	        {{ $conversation->message }}
-	                        	        <span class="msg_time_send">{{ $conversation->created_at->format('d/m H:i') }}</span>
+	                        	        {{ $conv->message }}
+	                        	        <span class="msg_time_send">{{ $conv->created_at->format('d/m H:i') }}</span>
 	                        	    </div>
 	                        	    <div class="img_cont_msg">
-	                        	        <img src="@if (auth()->user()->image) {{ asset(auth()->user()->image) }} @else {{ secure_asset('images/users/default.png') }} @endif" class="rounded-circle user_img_msg">
+	                        	        <img src="{{ secure_asset(auth()->user()->image) }}" class="rounded-circle user_img_msg">
 	                        	    </div>
 	                        	</div>
 							@endif

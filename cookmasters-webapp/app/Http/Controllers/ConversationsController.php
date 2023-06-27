@@ -4,17 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Events\ConversationsEvent;
 use App\Models\Conversations;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ConversationsController extends Controller
 {
+
+    /**
+     * Get contacts with open conversations
+     * 
+     * @return \Illuminate\Support\Collection
+     */
+    private function getContacts()
+    {
+        return Conversations::where('from_id', auth()->user()->id)
+            ->orWhere('to_id', auth()->user()->id)
+            ->get()
+            ->unique('from_id')
+            ->sortByDesc('created_at');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $conversations = Conversations::where('to_id', null)->get();
-        return view('conversations.index')->with('conversations', $conversations);
+        $conversation = Conversations::where('to_id', null)->get();
+        
+        return view('conversations.index')->with([
+            'contacts' => $this->getContacts(),
+            'conversation' => $conversation,
+        ]);
     }
 
     /**
@@ -32,8 +52,12 @@ class ConversationsController extends Controller
     {
         $validatedData = $request->validate([
             'message' => 'required|string',
-            'to_id' => 'nullable|integer',
+            'to_username' => 'nullable|string',
         ]);
+        if ($validatedData['to_username']) {
+            $validatedData['to_id'] = User::where('username', $validatedData['to_username'])->first()->id;
+            unset($validatedData['to_username']);
+        }
         $validatedData['from_id'] = auth()->user()->id;
         $conversation = Conversations::create($validatedData);
 
@@ -45,9 +69,32 @@ class ConversationsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $username)
     {
-        //
+        if (!User::where('username', $username)->exists()) {
+            return redirect()->route('chat.index')->withErrors('Conversation not found!');
+        }
+        $contacts = $this->getContacts();
+
+        $id = User::where('username', $username)->first()->id;
+
+        $conversation = Conversations::where('from_id', $id)
+            ->where('to_id', auth()->user()->id)
+            ->orWhere('from_id', auth()->user()->id)
+            ->where('to_id', $id)
+            ->get();
+
+        $newConversation = false;
+        if (!$contacts->contains('from_id', $id)) {
+            $newConversation = true;
+        }
+
+        return view('conversations.index')->with([
+            'contacts' => $contacts,
+            'conversation' => $conversation,
+            'to_user' => User::find($id),
+            'newConversation' => $newConversation,
+        ]);
     }
 
     /**
