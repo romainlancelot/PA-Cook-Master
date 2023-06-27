@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('phone')->unique()->nullable();
             $table->string('username')->unique();
             $table->date('birthday')->nullable();
-            $table->string('image')->nullable();
+            $table->string('image')->default('images/users/default.png');
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->integer('zip_code')->nullable();

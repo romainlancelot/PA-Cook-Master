@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-3 border-end">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img class="rounded-circle mt-5" width="150px" src="@if (auth()->user()->image != null) {{ secure_asset(auth()->user()->image) }} @else {{ secure_asset('images/users/default.png') }} @endif">
+                    <img class="rounded-circle mt-5" width="150px" src="{{ secure_asset(auth()->user()->image) }}">
                     <span class="font-weight-bold">{{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</span>
                     <span class="text-black-50">{{ auth()->user()->email }}</span>
                     <span></span>
@@ -81,7 +81,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="text-center">
-                            <img class="rounded-circle" width="150px" src="@if (auth()->user()->image != null) {{ secure_asset(auth()->user()->image) }} @else {{ secure_asset('images/users/default.png') }} @endif" class="img-fluid" alt="{{ auth()->user()->firstname }} {{ auth()->user()->lastname }}">
+                            <img class="rounded-circle" width="150px" src="{{ secure_asset(auth()->user()->image) }}" class="img-fluid" alt="{{ auth()->user()->firstname }} {{ auth()->user()->lastname }}">
                         </div>
                         <div class="input-group mb-3 mt-3">
                             <input type="file" class="form-control" id="image" name="image" accept="image/png, image/jpeg, image/jpg">

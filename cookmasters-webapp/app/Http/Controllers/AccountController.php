@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {
+    static private $DEFAULT_IMAGE_PATH = 'images/users/default.png';
+
     public function show() 
     {
         if (($stripe_id = auth()->user()->stripe_id) != null) {
@@ -53,12 +55,12 @@ class AccountController extends Controller
 
         $user = auth()->user();
 
-        if ($user->image != null) {
+        if ($user->image != null && $user->image != self::$DEFAULT_IMAGE_PATH) {
             unlink(public_path($user->image));
         }
 
         if (isset($request->removeImage) && $request->removeImage == 'true') {
-            $user->image = null;
+            $user->image = self::$DEFAULT_IMAGE_PATH;
             $user->save();
             return redirect()->back()->with('success', 'Your profile picture has been removed');
         }
