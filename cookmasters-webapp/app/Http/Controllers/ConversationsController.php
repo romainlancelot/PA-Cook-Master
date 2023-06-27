@@ -54,7 +54,7 @@ class ConversationsController extends Controller
             'message' => 'required|string',
             'to_username' => 'nullable|string',
         ]);
-        if ($validatedData['to_username']) {
+        if (isset($validatedData['to_username'])) {
             $validatedData['to_id'] = User::where('username', $validatedData['to_username'])->first()->id;
             unset($validatedData['to_username']);
         }

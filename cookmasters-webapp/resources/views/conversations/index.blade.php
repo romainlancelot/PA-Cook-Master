@@ -342,6 +342,6 @@
             </div>
         </div>
     </div>
-    @vite('resources/js/app')
+    @vite('resources/js/app.js')
 
 @endsection
