@@ -11,11 +11,6 @@
 </style>
       <h1 class='text-center' style="background-size: cover; padding: 100px 0; text-align: center;" >{{ __('index.title') }}</h1>
 
-        @auth
-        @endauth
-
-        @guest
-
     <!-- Bannière ou diaporama -->
     <!-- ... -->
     <div class="container">
@@ -306,5 +301,4 @@
     </section>
     <!-- Ajoutez la bibliothèque JavaScript de Bootstrap via un CDN -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        @endguest
 @endsection

@@ -34,8 +34,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      * Boutiques Routes
      */
     Route::resource('/boutiques', BoutiqueController::class);
-    // Route::get('/boutique', [BoutiqueController::class, 'index'])->name('boutique.index');
-    // Route::get('/boutique/{id}', [BoutiqueController::class, 'show'])->name('boutique.show');
     
     /**
      * A propos Routes
