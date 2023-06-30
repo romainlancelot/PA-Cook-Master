@@ -342,6 +342,6 @@
             </div>
         </div>
     </div>
-    @vite('resources/js/chat.js')
+    @vite('resources/js/conversations.js')
 
 @endsection
