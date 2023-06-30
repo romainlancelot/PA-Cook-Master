@@ -64,8 +64,8 @@ class ConversationsController extends Controller
 
         event(new ConversationsEvent($conversation));
 
-
-        $fields['include_player_ids'] = [$conversation->toUser->username];
+        $fields['include_player_ids'] = [$conversation->toUser->one_signal_id];
+        $fields['url'] = route('chat.show', $conversation->fromUser->username);
         OneSignal::sendPush($fields, $validatedData['message']);
 
         return response()->json(['success' => 'Message sent successfully!']);
