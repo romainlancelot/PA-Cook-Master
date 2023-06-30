@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
+use Ladumor\OneSignal\OneSignalServiceProvider;
 
 return [
 
@@ -168,6 +169,7 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Ladumor\OneSignal\OneSignalServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -184,6 +186,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
         'Redis' => Illuminate\Support\Facades\Redis::class,
+        'OneSignal' => \Ladumor\OneSignal\OneSignal::class,
     ])->toArray(),
 
 ];

@@ -6,6 +6,7 @@ use App\Events\ConversationsEvent;
 use App\Models\Conversations;
 use App\Models\User;
 use Illuminate\Http\Request;
+use OneSignal;
 
 class ConversationsController extends Controller
 {
@@ -62,6 +63,10 @@ class ConversationsController extends Controller
         $conversation = Conversations::create($validatedData);
 
         event(new ConversationsEvent($conversation));
+
+
+        $fields['include_player_ids'] = [$conversation->toUser->username];
+        OneSignal::sendPush($fields, $validatedData['message']);
 
         return response()->json(['success' => 'Message sent successfully!']);
     }

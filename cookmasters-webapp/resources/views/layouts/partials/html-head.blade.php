@@ -13,6 +13,17 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     </head>
 
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" defer></script>
+    <script>
+      window.OneSignal = window.OneSignal || [];
+      OneSignal.push(function() {
+        OneSignal.init({
+          appId: "9f9cccae-db89-4bb7-81ff-0c1058f0e864",
+          allowLocalhostAsSecureOrigin: true,
+        });
+      });
+    </script>
+
     @routes
     @yield('body')
 </html>

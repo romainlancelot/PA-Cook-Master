@@ -34,4 +34,12 @@ class Conversations extends Model
     {
         return $this->belongsTo(User::class, 'from_id');
     }
+
+    /**
+     * Get the user who received the message.
+     */
+    public function toUser()
+    {
+        return $this->belongsTo(User::class, 'to_id');
+    }
 }
