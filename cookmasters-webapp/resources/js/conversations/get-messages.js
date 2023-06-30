@@ -87,6 +87,3 @@ window.Echo.channel(`conversations`).listen('.chat-message', (e) => {
 window.onload = function () {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
-
-// debug pusher
-Pusher.logToConsole = true;
