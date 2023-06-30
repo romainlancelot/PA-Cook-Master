@@ -62,11 +62,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         // Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
     });
 
+    /**
+     * Logout Routes
+        */
+    Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
+
     Route::group(['middleware' => ['auth', 'verified']], function() {
         /**
-         * Logout Routes
+         * OneSignal Routes
          */
-        Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
+        Route::get('/onesignal/player-id', 'OneSignalController@getPlayerId')->name('onesignal.player-id');
+        Route::post('/onesignal/player-id', 'OneSignalController@savePlayerId')->name('onesignal.player-id');
 
         /**
          * Chat Routes

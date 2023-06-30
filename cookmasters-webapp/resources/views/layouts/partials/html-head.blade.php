@@ -14,15 +14,24 @@
     </head>
 
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" defer></script>
+    @auth
     <script>
-      window.OneSignal = window.OneSignal || [];
-      OneSignal.push(function() {
-        OneSignal.init({
-          appId: "9f9cccae-db89-4bb7-81ff-0c1058f0e864",
-          allowLocalhostAsSecureOrigin: true,
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+                appId: "{{ env('ONE_SIGNAL_APP_ID') }}",
+                allowLocalhostAsSecureOrigin: true,
+            });
         });
-      });
+        OneSignal.push(function() {
+            OneSignal.getUserId().then(function(userId) {
+                axios.post('/onesignal/player-id', {
+                    player_id: userId
+                });
+            });
+        });
     </script>
+    @endauth
 
     @routes
     @yield('body')
