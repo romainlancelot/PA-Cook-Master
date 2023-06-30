@@ -71,8 +71,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         /**
          * OneSignal Routes
          */
-        Route::get('/onesignal/player-id', 'OneSignalController@getPlayerId')->name('onesignal.player-id');
-        Route::post('/onesignal/player-id', 'OneSignalController@savePlayerId')->name('onesignal.player-id');
+        Route::get('/onesignal/player-id', 'OneSignalController@getPlayerId')->name('onesignal.get-player-id');
+        Route::post('/onesignal/player-id', 'OneSignalController@savePlayerId')->name('onesignal.save-player-id');
 
         /**
          * Chat Routes
