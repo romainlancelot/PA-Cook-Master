@@ -34,9 +34,6 @@
                         @guest
                             <a class="navbar-brand text-end" href="{{ route('login') }}" alt="login">LOGIN</a>
                             <a class="navbar-brand text-end" href="{{ route('register') }}" alt="login">REGISTER</a>
-                            <a class="navbar-brand text-end" href="/about-us">À PROPOS</a>
-                            <a class="navbar-brand text-end" href="/contact">CONTACT</a>
-        
                         @endguest
                         @auth
                             {{-- <a class="navbar-brand text-end" href="{{ route('account.show') }}" alt="login">ACCOUNT</a> --}}
@@ -93,4 +90,10 @@
             </div>
         </div>
     </div>
-</header>
+</nav>
+
+@if ($_SERVER['REQUEST_URI'] !== '/')
+    <div class="container-fluid mt-5 mb-5">&nbsp;</div>
+@endif
+
+<script type="text/javascript" src="{{ secure_asset('assets/js/navbar.js') }}"></script>

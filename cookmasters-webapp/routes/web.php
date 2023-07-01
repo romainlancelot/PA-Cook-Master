@@ -12,7 +12,6 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\RoomOfferController;
 use App\Http\Controllers\RoomEquipmentController;
-use App\Http\Controllers\BoutiqueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,25 +32,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('lang/change', 'LangController@change')->name('changeLang');
 
     /**
-     * Boutiques Routes
+     * Home Routes
      */
-    Route::resource('/boutiques', BoutiqueController::class);
-    
-    /**
-     * A propos Routes
-     */
-    Route::get('/about-us', 'AboutUs@index')->name('about-us');
-    
-    /**
-     * contact us Routes
-     */
-    Route::get('/contact', 'ContactUs@index')->name('contact-us');
-    Route::post('/contact/send', 'ContactUs@send')->name('contact.send');
-
-    /**
-     * workshop Routes
-     */
-    Route::resource('workshops', WorkshopController::class);
     Route::get('/', 'HomeController@index')->name('home');
 
     /*
@@ -123,8 +105,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         * Romes Routes
         */
         // put
-    Route::resource('/rooms', RoomController::class);
-
         Route::get('/rooms/create', 'RoomController@create')->name('rooms.create');
         Route::post('/rooms', 'RoomController@store')->name('rooms.store');
         // delet
@@ -141,10 +121,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/equipment/create', 'EquipmentController@create')->name('equipment.create');
         Route::post('/equipment', 'EquipmentController@store')->name('equipment.store');
         // delet
-        Route::delete('/equipments/{equipment}', 'EquipmentController@destroy')->name('equipments.destroy');
-
+        Route::delete('/equipment/{equipment}', 'EquipmentController@destroy')->name('equipment.destroy');
         // update
-        Route::get('/equipment/{equipment}/edit', 'EquipmentController@edit')->name('equipments.edit');
+        Route::get('/equipment/{equipment}/edit', 'EquipmentController@edit')->name('equipment.edit');
         Route::put('/equipment/{equipment}', 'EquipmentController@update')->name('equipment.update');
         // show
         Route::get('/equipment/{equipment}', 'EquipmentController@show')->name('equipment.show');
