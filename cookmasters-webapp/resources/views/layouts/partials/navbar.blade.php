@@ -25,7 +25,7 @@
                         <a class="nav-link" href="#">Recettes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="boutiques">Boutique</a>
+                        <a class="nav-link" href="#">Boutique</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Événements</a>

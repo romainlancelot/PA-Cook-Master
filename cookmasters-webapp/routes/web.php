@@ -33,7 +33,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     /**
      * Boutiques Routes
      */
-    Route::resource('/boutiques', BoutiqueController::class);
+    Route::resource('/boutique', BoutiqueController::class)->name('boutique', 'boutiques.index');
     
     /**
      * A propos Routes
