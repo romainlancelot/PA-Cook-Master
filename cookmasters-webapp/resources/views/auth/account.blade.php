@@ -6,102 +6,14 @@
     <h1>{{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</h1><br>
 
     <h2>Informations personnelles</h2>
-
-    <div class="container rounded bg-white mt-5 mb-5">
-        <div class="row">
-            <div class="col-md-3 border-end">
-                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img class="rounded-circle mt-5" width="150px" src="{{ secure_asset(auth()->user()->image) }}">
-                    <span class="font-weight-bold">{{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</span>
-                    <span class="text-black-50">{{ auth()->user()->email }}</span>
-                    <span></span>
-                </div>
-                <div class="mt-5 text-center">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#profilePicture">Modifier la photo de profil</button>
-                </div>
-
-            </div>
-            <div class="col-md-5 border-end">
-                <div class="p-3 py-5">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="text-right">Profile Settings</h4>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-md-6"><label class="labels">Firstname</label><input type="text" class="form-control" placeholder="firstname" value="{{ auth()->user()->firstname }}" disabled></div>
-                        <div class="col-md-6"><label class="labels">Lastname</label><input type="text" class="form-control" value="{{ auth()->user()->lastname }}" placeholder="lastname" disabled></div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12"><label class="labels">Username</label><input type="text" class="form-control" placeholder="username" value="{{ auth()->user()->username }}" disabled></div>
-                        <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="email" value="{{ auth()->user()->email }}" disabled></div>
-                    </div>
-                    <div class="mt-5 text-center">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userUpdate">Modifier</button><br>
-                    </div>
-                    <div class="mt-2 text-center">
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#changePassword">Changer de mot de passe</button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccount">Supprimer mon compte</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="p-3 py-5">
-                    <div class="d-flex justify-content-between align-items-center experience">
-                        <h4 class="text-right">Abonnement</h4>
-                    </div><br>
-                    <div class="col-md-12"><label class="labels">Current Plan</label><input type="text" class="form-control" placeholder="current plan" value="{{ auth()->user()->subscriptionPlan()->value('name') }}" disabled></div>
-                    <div class="col-md-12"><label class="labels">Price</label><input type="text" class="form-control" placeholder="price" value="{{ auth()->user()->subscriptionPlan()->value('price') }}€/mois" disabled></div>
-                    <div class="col-md-12"><label class="labels">Duration</label><input type="text" class="form-control" placeholder="duration" value="@if (auth()->user()->subscriptionPlan()->value('duration') == 0) Abonnement à vie @else {{ auth()->user()->subscriptionPlan()->value('duration') }} mois @endif" disabled></div>
-                    @if ($subscription != null)
-                        @foreach ($subscription as $sub)
-                            <div class="col-md-12"><label class="labels">Subscribed since</label><input type="text" class="form-control" placeholder="subscribed since" value="{{ date('d/m/Y', $sub->start_date) }}" disabled></div>
-                            <div class="col-md-12"><label class="labels">Last billing</label><input type="text" class="form-control" placeholder="last billing" value="{{ date('d/m/Y', $sub->current_period_start) }}" disabled></div>
-                            <div class="col-md-12"><label class="labels">Next billing</label><input type="text" class="form-control" placeholder="next billing" value="{{ date('d/m/Y', $sub->current_period_end) }}" disabled></div>
-                            <div class="col-md-12"><label class="labels">Status</label><input type="text" class="form-control" placeholder="status" value="{{ $sub->status }}" disabled></div>
-                        @endforeach
-                    @endif
-                    <div class="mt-5 text-center">
-                        <a href="{{ route('subscription-plans.index') }}" class="btn btn-primary">Voir les abonnements disponibles</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-    </div>
-
-    <div class="modal fade" id="profilePicture" tabindex="-1" aria-labelledby="profilePictureLabel" aria-hidden="true">
-        <form action="{{ route('account.update.profile-picture') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PATCH')
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="profilePictureLabel">Modifier la photo de profil de {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="text-center">
-                            <img class="rounded-circle" width="150px" src="{{ secure_asset(auth()->user()->image) }}" class="img-fluid" alt="{{ auth()->user()->firstname }} {{ auth()->user()->lastname }}">
-                        </div>
-                        <div class="input-group mb-3 mt-3">
-                            <input type="file" class="form-control" id="image" name="image" accept="image/png, image/jpeg, image/jpg">
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="removeImage" value="true" id="removeImage">
-                            <label class="form-check-label" for="removeImageDefault">
-                                Supprimer la photo de profil
-                            </label>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dprimaryismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Modifier</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-
+    <ul>
+        <li>Email: {{ auth()->user()->email }}</li>
+        <li>Username: {{ auth()->user()->username }}</li>
+    </ul>
+    
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userUpdate">
+        Modifier
+    </button>
     <div class="modal modal-lg fade" id="userUpdate" tabindex="-1" aria-labelledby="userUpdateLabel" aria-hidden="true">
         <form action="{{ route('account.update') }}" method="POST">
             @csrf
@@ -145,6 +57,9 @@
         </form>
     </div>
 
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#changePassword">
+        Changer de mot de passe
+    </button>
     <div class="modal modal-lg fade" id="changePassword" tabindex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true">
         <form action="{{ route('account.update.password') }}" method="POST">
             @csrf
@@ -182,6 +97,9 @@
         </form>
     </div>
 
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccount">
+        Supprimer mon compte
+    </button>
     <div class="modal modal-lg fade" id="deleteAccount" tabindex="-1" aria-labelledby="deleteAccountLabel" aria-hidden="true">
         <form action="{{ route('account.delete') }}" method="POST">
             @csrf
@@ -209,6 +127,38 @@
                 </div>
             </div>
         </form>
+    </div>
+
+    <hr>
+
+    <h2>Abonnement</h2>
+    <div class="row">
+        <div class="col">
+            @if (auth()->user()->subscription_plan_id == null)
+                <p>Vous n'avez aucun abonnement en cours.</p>
+                <a href="{{ route('subscription-plans.index') }}" class="btn btn-primary">Voir les abonnements disponibles</a>
+            @else
+                <p>Vous êtes abonné à :</p>
+                <ul>
+                    <li>{{ auth()->user()->subscriptionPlan()->value('name') }}</li>
+                    <li>{{ auth()->user()->subscriptionPlan()->value('price') }}€/mois</li>
+                    <li>
+                        @if (auth()->user()->subscriptionPlan()->value('duration') == 0)
+                            Abonnement à vie
+                        @else
+                            {{ auth()->user()->subscriptionPlan()->value('duration') }} mois
+                        @endif
+                    </li>
+            @endif
+            @if ($subscription != null)
+                @foreach ($subscription as $sub)
+                    <li>Abonné depuis le {{ date('d/m/Y', $sub->start_date) }}</li>
+                    <li>Dernière facturation : {{ date('d/m/Y', $sub->current_period_start) }}</li>
+                    <li>Prochaine facturation : {{ date('d/m/Y', $sub->current_period_end) }}</li>
+                    <li>Statut : {{ $sub->status }}</li>
+                @endforeach
+            @endif
+        </div>
     </div>
 
     @if ($payments != null)

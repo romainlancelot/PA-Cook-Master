@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {
-    static private $DEFAULT_IMAGE_PATH = 'images/users/default.png';
-
     public function show() 
     {
         if (($stripe_id = auth()->user()->stripe_id) != null) {
@@ -36,41 +34,6 @@ class AccountController extends Controller
         }
 
         return redirect()->back()->with('success', 'Your account has been updated');
-    }
-
-    public function updateProfilePicture(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'removeImage' => 'nullable|string',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
-        }
-
-        if (!isset($request->image) && !isset($request->removeImage)) {
-            return redirect()->back()->withErrors(['image' => 'Please select an image']);
-        }
-
-        $user = auth()->user();
-
-        if ($user->image != null && $user->image != self::$DEFAULT_IMAGE_PATH) {
-            unlink(public_path($user->image));
-        }
-
-        if (isset($request->removeImage) && $request->removeImage == 'true') {
-            $user->image = self::$DEFAULT_IMAGE_PATH;
-            $user->save();
-            return redirect()->back()->with('success', 'Your profile picture has been removed');
-        }
-
-        $imageName = $user->id . '.' . $request->image->extension();
-        $request->image->move(public_path('images/users'), $imageName);
-        $user->image = 'images/users/' . $imageName;
-        $user->save();
-
-        return redirect()->back()->with('success', 'Your profile picture has been updated');
     }
 
     public function updatePassword(Request $request)

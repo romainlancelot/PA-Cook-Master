@@ -5,6 +5,8 @@
   --black: #2b2d42;
   --white: #fff;
   --thumb: #edf2f4;
+  --darkbleu:  #3c39fa;
+  --bleu: #95adfe;
 }
 
 .container {
@@ -42,7 +44,7 @@ h2 {
 
 .card:hover {
   color: var(--white);
-  background: var(--orange);
+  background: var(--bleu);
 }
 
 .card .card-title {
@@ -62,18 +64,19 @@ h2 {
   display: inline-block;
   text-decoration: none;
   color: white;
-  background: var(--orange);
+  background: var(--bleu);
   padding: 6px 12px;
   border-radius: 8px;
   transition: background 0.2s;
 }
 
 .card:hover .card-link {
-  background: var(--darkorange);
+  background: var(--darkbleu);
 }
 
 .cards::-webkit-scrollbar {
   height: 12px;
+  --bleu: var(--bleu)
 }
 
 .cards::-webkit-scrollbar-thumb,
@@ -82,11 +85,12 @@ h2 {
 }
 
 .cards::-webkit-scrollbar-thumb {
-  background: var(--darkorange);
+  background: var(--darkbleu);
 }
 
 .cards::-webkit-scrollbar-track {
   background: var(--thumb);
+  --bleu: var(--bleu)
 }
 
 @media (min-width: 500px) {

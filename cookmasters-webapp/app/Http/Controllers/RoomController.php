@@ -27,6 +27,7 @@ class RoomController extends Controller
     {
         return view('rooms.create');       
     }
+
     
     /**
      * Store a newly created resource in storage.

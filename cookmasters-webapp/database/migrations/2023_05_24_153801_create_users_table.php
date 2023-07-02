@@ -22,15 +22,9 @@ return new class extends Migration
             $table->string('phone')->unique()->nullable();
             $table->string('username')->unique();
             $table->date('birthday')->nullable();
-            $table->string('image')->default('images/users/default.png');
-            $table->string('address')->nullable();
-            $table->string('city')->nullable();
-            $table->integer('zip_code')->nullable();
-            $table->string('country')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->foreignId('subscription_plan_id')->default(1)->constrained('subscription_plans')->onDelete('cascade');
             $table->string('stripe_id')->nullable();
-            $table->string('one_signal_id')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

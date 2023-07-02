@@ -11,5 +11,4 @@ php artisan db:seed --class=EquipmentSeeder
 php artisan db:seed --class=RoomEquipmentSeeder
 php artisan db:seed --class=RoomOfferSeeder
 php artisan db:seed --class=ServiceSeeder
-php artisan db:seed --class=UsersSeeder
 php artisan view:clear

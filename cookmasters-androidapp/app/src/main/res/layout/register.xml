@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/navbar_background">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@drawable/navbar_background"
+        android:id="@+id/navbar"
+
+        >
+        <ImageView
+            android:id="@+id/logoButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/image_logo" />
+        <Button
+            android:id="@+id/actionButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:drawableBottom="@drawable/baseline_chat_24"
+            />
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Cookmasters"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/creat_acount"
+        android:text="Create acount"
+        android:textSize="35dp"
+        android:textColor="@color/white"
+        android:layout_below="@id/navbar"
+        android:layout_margin="50dp"
+        android:textStyle="bold"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/creat_acount"
+        android:id="@+id/name"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/firstname"
+            android:text="First name"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:padding="30dp"
+            android:background="@drawable/button_simple"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lastname"
+            android:text="Last name"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:padding="30dp"
+            android:background="@drawable/button_simple"
+            />
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/email"
+        android:text="Email"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+        android:padding="30dp"
+        android:background="@drawable/button_simple"
+        android:layout_below="@id/name"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/email"
+        android:id="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/password1"
+            android:text="Password"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:padding="30dp"
+            android:background="@drawable/button_simple"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/password2"
+            android:text="Confirme password"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:padding="30dp"
+            android:background="@drawable/button_simple"
+            />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/terme_policy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:layout_marginStart="@android:dimen/app_icon_size"
+        android:layout_marginTop="@android:dimen/app_icon_size"
+        android:layout_marginEnd="@android:dimen/app_icon_size"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:text="By tapping 'Submit' you agree to our Terms.
+Learn how we process your data in our
+Privacy Policy and Cookies Policy." />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/terme_policy"
+        android:id="@+id/submit"
+        android:layout_marginHorizontal="75dp"
+        android:textColor="@color/white"
+        android:text="Submit"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/submit"
+        android:id="@+id/already_have_acout"
+        android:text="Already have an acout?"
+        android:gravity="center"
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/already_have_acout"
+        android:id="@+id/sign_in"
+        android:layout_marginHorizontal="75dp"
+        android:textColor="@color/primary_color"
+        android:background="@drawable/border_color"
+        android:text="Sign in"/>
+</RelativeLayout>

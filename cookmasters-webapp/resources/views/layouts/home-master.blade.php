@@ -2,6 +2,7 @@
 {{-- @routes --}}
 
 @section('styles')
+
 @endsection
 
 @section('body')
