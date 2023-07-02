@@ -56,7 +56,7 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        $reservations = $salle->reservations()->orderBy('date_debut')->get();
+        $reservations = $room->reservations()->orderBy('start_date')->get();
 
         return view('rooms.show', [
             'room' => $room,

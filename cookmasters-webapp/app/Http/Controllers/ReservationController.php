@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     // Affiche le formulaire de création d'une nouvelle réservation pour une salle spécifique
     public function create(Room $room)
