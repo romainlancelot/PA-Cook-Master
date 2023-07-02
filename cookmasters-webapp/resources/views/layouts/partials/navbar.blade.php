@@ -56,4 +56,10 @@
             </div>
         </nav>
     </div>
-</header>
+</nav>
+
+@if ($_SERVER['REQUEST_URI'] !== '/')
+    <div class="container-fluid mt-5 mb-5">&nbsp;</div>
+@endif
+
+<script type="text/javascript" src="{{ secure_asset('assets/js/navbar.js') }}"></script>

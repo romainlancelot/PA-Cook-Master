@@ -7,10 +7,10 @@
 @section('title', 'Services')
 @section('content')
     <h1 class="mt-4">Services</h1>
-<!-- 
+
     <div class="d-flex justify-content-center">
         <a href="{{ route('service.create') }}" class="btn btn-primary">Add Service</a>
-    </div> -->
+    </div>
 
     <div class="row">
         <div class="col-3">
@@ -62,12 +62,12 @@
                             </ul>
                         </p>
                     </div>
-                    <!-- <div class="card-footer text-center">
+                    <div class="card-footer text-center">
                         <small class="text-body-secondary">
                             <a href="{{ route('service.show', $serviceInfos->id) }}" class="btn btn-primary">View Details</a>
                             <a href="{{ route('service.edit', $serviceInfos->id) }}" class="btn btn-primary">Edit</a>
                         </small>
-                    </div> -->
+                    </div>
                 </div>
             @else
                 <div class="text-center mt-5">

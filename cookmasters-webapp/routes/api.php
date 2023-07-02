@@ -14,8 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::group(['namespace' => 'App\Http\Controllers\API'], function()
 {
+    /**
+     * Twilio Access Token
+     */
+    Route::get('/twilio/access_token', 'TwilioAccessTokenController@generate_token');
+
     /**
      * Auth Routes
      */

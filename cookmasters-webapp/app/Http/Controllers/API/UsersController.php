@@ -13,10 +13,15 @@ class UsersController extends Controller
      */
     public function index()
     {
+        $data = User::all();
+        foreach ($data as $key => $value) {
+            $data[$key]['subscription_plan'] = $value->subscriptionPlan;
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'Users List',
-            'data' => User::all()
+            'data' => $data
         ]);
     }
 
