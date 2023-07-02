@@ -28,6 +28,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ route('chat.index') }}">CHAT</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('chat.index.video') }}">VIDEO CHAT</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="col-md-auto">
