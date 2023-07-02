@@ -32,7 +32,23 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('lang/change', 'LangController@change')->name('changeLang');
 
     /**
-     * Home Routes
+     * Boutiques Routes
+     */
+    Route::resource('/boutiques', BoutiqueController::class);
+    
+    /**
+     * A propos Routes
+     */
+    Route::get('/about-us', 'AboutUs@index')->name('about-us');
+    
+    /**
+     * contact us Routes
+     */
+    Route::get('/contact', 'ContactUs@index')->name('contact-us');
+    Route::post('/contact/send', 'ContactUs@send')->name('contact.send');
+
+    /**
+     * workshop Routes
      */
     Route::get('/', 'HomeController@index')->name('home');
 
@@ -102,7 +118,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/subscription-plans/check', 'SubscriptionPlansController@checkSubscription')->name('subscription-plans.check');
         Route::delete('/subscription-plans/{user_id}', 'SubscriptionPlansController@unsubscribe')->name('subscription-plans.unsubscribe');
 
-        /**
+        Route::get('/rooms/{room}/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');
+    Route::post('/rooms/{room}/reservations', [ReservationController::class, 'store'])->name('reservations.store');
+    /**
         * Romes Routes
         */
         // put
