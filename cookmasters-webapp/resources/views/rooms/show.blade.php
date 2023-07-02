@@ -25,6 +25,8 @@
                     <div class="col-auto">
                         <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-primary">Edit</a>
                     </div>
+                    <div class="col-auto">
+                        <a href="{{ route('reservations.create', $room) }}">Réserver cette salle</a>
                 </div>
                 </div>
             </div>

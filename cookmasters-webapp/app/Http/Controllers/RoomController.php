@@ -14,7 +14,8 @@ class RoomController extends Controller
     public function index()
     {
         // Retrieve all rooms from the database
-        $rooms = Room::all();
+        $rooms = Room::paginate(6);
+
         // Redirect to the index view
         return view('rooms.index', compact('rooms'));
     }
@@ -27,6 +28,7 @@ class RoomController extends Controller
         return view('rooms.create');       
     }
 
+    
     /**
      * Store a newly created resource in storage.
      */
@@ -54,7 +56,12 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        return view('rooms.show', compact('room'));
+        $reservations = $salle->reservations()->orderBy('date_debut')->get();
+
+        return view('rooms.show', [
+            'room' => $room,
+            'reservations' => $reservations,
+        ]);
     }
 
     /**
