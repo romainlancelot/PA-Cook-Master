@@ -78,6 +78,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Chat Routes
          */
         Route::resource('/chat', ConversationsController::class);
+        Route::get('/video', 'ConversationsController@indexVideo')->name('chat.index.video');
 
         /**
          * search Routes

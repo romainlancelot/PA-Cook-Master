@@ -38,6 +38,12 @@ class ConversationsController extends Controller
         ]);
     }
 
+    public function indexVideo()
+    {
+        return view('conversations.video');
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */
