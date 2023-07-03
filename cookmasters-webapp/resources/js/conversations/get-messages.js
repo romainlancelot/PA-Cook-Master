@@ -54,11 +54,20 @@ window.Echo.channel(`conversations`).listen('.chat-message', (e) => {
     img.className = "rounded-circle user_img_msg";
 
     let msg_cotainer = document.createElement("div");
-    msg_cotainer.innerHTML = e.message;
+    if (e.to_id == null && e.from_id != from_id.value) {
+        console.log(e.nickname);
+        let small = document.createElement("small");
+        small.className = "text-muted";
+        small.innerHTML = e.nickname + "<br>";
+        msg_cotainer.appendChild(small);
+        msg_cotainer.innerHTML += e.message;
+    } else {
+        msg_cotainer.innerHTML = e.message;
+    }
 
     let msg_time = document.createElement("span");
     msg_time.innerHTML = e.created_at;
-
+    
     img_cont_msg.appendChild(img);
     msg_cotainer.appendChild(msg_time);
 
