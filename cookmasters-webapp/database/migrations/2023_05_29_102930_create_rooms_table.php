@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('capacity');
             $table->integer('facilities')->nullable();
             $table->integer('availabilities');
+            
             $table->string('price');
             $table->timestamps();
         });

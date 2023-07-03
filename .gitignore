@@ -16,3 +16,15 @@ yarn-error.log
 /.idea
 /.vscode
 /adam_docs
+/artisan
+/composer.phar
+/composer.lock
+/package-lock.json
+/phpunit.xml
+/server.php
+/vendor
+/web.config
+test-coverage
+```
+/test
+```

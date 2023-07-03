@@ -25,4 +25,18 @@ class Room extends Model
     {
         return $this->belongsToMany(Service::class, 'room_equipment', 'room_id', 'equipment_id');
     }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+    
+    public function json2array($json)
+    {
+        $json = str_replace(array("\n", "\r"), "", $json);
+        $json = preg_replace('/([{,]+)(\s*)([^"]+?)\s*:/','$1"$3":',$json);
+        $json = preg_replace('/(,)\s*}$/','}',$json);
+        
+        return json_decode($json, true);
+    }
 }
