@@ -61,11 +61,16 @@
             </div>
         <h4>Prix : € {{ $equipment->price }}</h4>
         <p>Disponibilité : @if($equipment->availablequantity > 0) En stock @else Non disponible @endif</p>
-        <input type="number" style="margin-bottom: 15px;" class="form-control" id="quantity" placeholder="Quantité">
         @if($equipment->availablequantity > 0)
             <div style="align-items: center;">
-                <button type="button" class="btn btn-primary">Ajouter au panier</button>
-                <button type="button" class="btn btn-success">Acheter maintenant</button>
+            <form action="{{ route('cart.store') }}" method="POST">
+                @csrf
+                <label for="quantity">Quantité</label>
+                <input type="number" style="margin-bottom: 15px;" class="form-control" id="quantity" name="quantity" value="1">
+                <input type="hidden" name="equipment_id" value="{{ $equipment->id }}">
+                <button type="submit" class="btn btn-success">Ajouter au panier</button>
+            </form>
+            {{-- <a href="#" type="button" class="btn btn-success">Acheter maintenant</a> --}}
             </div>
         @endif
         </div>
