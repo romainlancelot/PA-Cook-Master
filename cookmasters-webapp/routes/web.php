@@ -127,31 +127,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      */
     Route::get('/calendar', 'CalendarController@index')->name('calendar.index');
 
-    Route::group(['middleware' => ['guest']], function() {
-        /**
-         * Register Routes
-         */
-        // Route::get('/register', 'RegisterController@show')->name('register.show');
-        // Route::post('/register', 'RegisterController@register')->name('register.perform');
-
-        /**
-         * Login Routes
-         */
-        // Route::get('/login', 'LoginController@show')->name('login.show');
-        // Route::post('/login', 'LoginController@login')->name('login.perform');
-
-        /**
-         * Email Verification Routes
-         */
-        // Route::get('/email/verify', 'VerificationController@show')->name('verification.notice');
-        // Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify');
-        // Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
-    });
-
     /**
      * Logout Routes
-        */
+    */
     Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
+
+    // Route::group(['middleware' => ['guest']], function() {
+    // });
 
     Route::group(['middleware' => ['auth', 'verified']], function() {
         /**
@@ -188,7 +170,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/subscription-plans/check', 'SubscriptionPlansController@checkSubscription')->name('subscription-plans.check');
         Route::delete('/subscription-plans/{user_id}', 'SubscriptionPlansController@unsubscribe')->name('subscription-plans.unsubscribe');
     
-    
+        /**
+         * Stripe Routes
+         */
+        Route::resource('/cart', CartController::class);
+        Route::delete('/cartclear', 'CartController@clear')->name('cart.clear');
+        Route::post('/cart/checkout', 'CartController@checkout')->name('cart.checkout');
+        Route::get('/cartcheck', 'CartController@check')->name('cart.check');
+
         /**
          * Calendar Routes
          */
