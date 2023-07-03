@@ -23,6 +23,25 @@ class StripeController extends Controller
         return view('layouts.payment');
     }
 
+    public function createSession($cart)
+    {
+        $user = auth()->user();
+
+        if ($user->stripe_id == null) {
+            $this->createCustomer($user);
+        }
+
+        $session = $this->stripe->checkout->sessions->create([
+            'success_url' => route('cart.check') . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('cart.index'),
+            'customer' => $user->stripe_id,
+            'payment_method_types' => ['card'],
+            'mode' => 'payment',
+            'line_items' => $cart,
+        ]);
+        return $session;
+    }
+
     public function createPlan(SubscriptionPlans $subscriptionPlans)
     {
         $plan = $this->stripe->plans->create([
@@ -223,6 +242,25 @@ class StripeController extends Controller
             'customer' => $customer_id,
         ]);
         return $paymentIntents;
+    }
+
+    public function checkoutSummary($customer_id)
+    {
+        $customer = $this->retriveCustomer($customer_id);
+        $subscription = $this->retriveSubscription($customer_id);
+        $invoices = $this->retriveAllInvoices($customer_id);
+        $paymentIntents = $this->retriveAllPaymentIntents($customer_id);
+
+        $return_args = [
+            'customer' => $customer,
+            'subscription' => $subscription,
+            'invoices' => $invoices,
+            'paymentIntents' => $paymentIntents,
+        ];
+
+        dd($return_args);
+
+        return $return_args;
     }
 
     public function retriveAllPaymentIntentAndInvoices($customer_id)
