@@ -10,7 +10,10 @@
 
     <div class="p-5 rounded">
     <div class="container">
-        <h1>Create Room Offer</h1>
+        <div class="text-end">
+            <a class="btn btn-secondary mb-5" href="{{ route('cooking-recipes.index') }}">Back to Cooking recipes</a>
+        </div>
+        <h1>Create cooking recipe</h1>
         <div class="row">
             <div class="col-md-12">
                 <form action="{{ route('cooking-recipes.store') }}" method="POST" enctype="multipart/form-data">
