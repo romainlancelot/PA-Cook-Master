@@ -26,20 +26,53 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="text-right">Profile Settings</h4>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-md-6"><label class="labels">Firstname</label><input type="text" class="form-control" placeholder="firstname" value="{{ auth()->user()->firstname }}" disabled></div>
-                        <div class="col-md-6"><label class="labels">Lastname</label><input type="text" class="form-control" value="{{ auth()->user()->lastname }}" placeholder="lastname" disabled></div>
+                    <div class="row my-2">
+                        <div class="col-md-6">
+                            <label class="labels">Firstname</label>
+                            <input type="text" class="form-control" placeholder="firstname" value="{{ auth()->user()->firstname }}" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">Lastname</label>
+                            <input type="text" class="form-control" value="{{ auth()->user()->lastname }}" placeholder="lastname" disabled>
+                        </div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12"><label class="labels">Username</label><input type="text" class="form-control" placeholder="username" value="{{ auth()->user()->username }}" disabled></div>
-                        <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="email" value="{{ auth()->user()->email }}" disabled></div>
+                    <div class="mb-2">
+                        <label class="labels">Username</label>
+                        <input type="text" class="form-control" placeholder="username" value="{{ auth()->user()->username }}" disabled>
                     </div>
+                    <div class="mb-2">
+                        <label class="labels">Email</label>
+                        <input type="text" class="form-control" placeholder="email" value="{{ auth()->user()->email }}" disabled>
+                    </div>
+                    <div class="mb-2">
+                        <label class="labels">Phone</label>
+                        <input type="text" class="form-control" placeholder="phone" value="{{ auth()->user()->phone }}" disabled>
+                    </div>
+                    <div class="mb-2">
+                        <label class="labels">Address</label>
+                        <input type="text" class="form-control" placeholder="address" value="{{ auth()->user()->address }}" disabled>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <label class="labels">City</label>
+                            <input type="text" class="form-control" placeholder="city" value="{{ auth()->user()->city }}" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">Zip code</label>
+                            <input type="text" class="form-control" placeholder="zip code" value="{{ auth()->user()->zip_code }}" disabled>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label class="labels">Country</label>
+                        <input type="text" class="form-control" placeholder="country" value="{{ auth()->user()->country }}" disabled>
+                    </div>
+
                     <div class="mt-5 text-center">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userUpdate">Modifier</button><br>
                     </div>
                     <div class="mt-2 text-center">
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#changePassword">Changer de mot de passe</button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccount">Supprimer mon compte</button>
+                        <button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#changePassword">Changer de mot de passe</button>
+                        <button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#deleteAccount">Supprimer mon compte</button>
                     </div>
                 </div>
             </div>
@@ -135,6 +168,33 @@
                             <span class="input-group-text" for="email">Email</span>
                             <input type="email" class="form-control" id="email" name="email" value="{{ auth()->user()->email }}">
                         </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" for="phone">Téléphone</span>
+                            <input type="text" class="form-control" id="phone" name="phone" value="{{ auth()->user()->phone }}">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" for="address">Adresse</span>
+                            <input type="text" class="form-control" id="address" name="address" value="{{ auth()->user()->address }}">
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" for="city">Ville</span>
+                                    <input type="text" class="form-control" id="city" name="city" value="{{ auth()->user()->city }}">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" for="zip_code">Code postal</span>
+                                    <input type="text" class="form-control" id="zip_code" name="zip_code" value="{{ auth()->user()->zip_code }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" for="country">Pays</span>
+                            <input type="text" class="form-control" id="country" name="country" value="{{ auth()->user()->country }}">
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
