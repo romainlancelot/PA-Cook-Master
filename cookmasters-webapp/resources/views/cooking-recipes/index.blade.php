@@ -17,9 +17,7 @@
             </p>
         @endif
     </div>
-    @if (auth()->user()->role_name() == 'admin')
-        <a class="btn btn-primary mb-5" href="{{ route('cooking-recipes.create') }}">Create new Cooking recipe</a>
-    @endif
+    <a class="btn btn-primary mb-5" href="{{ route('cooking-recipes.create') }}">Create new Cooking recipe</a>
     <table class="table table-striped table-hover display" id="recipes-table">
         <thead>
             <th scope="col">Image</th>
@@ -60,7 +58,7 @@
                     </td>
                     <td>
                         <a href="{{ route('cooking-recipes.show', $recipe->id) }}" class="btn btn-primary">Voir la recette</a>
-                        @if (auth()->user()->role_name() == 'admin' || auth()->user()->role_name() == 'presta')
+                        @if (auth()->user()->role_name() == 'admin' || $recipe->user_id == auth()->user()->id)
                             <a href="{{ route('cooking-recipes.edit', $recipe->id) }}" class="btn btn-secondary">Modifier</a>
                             <form action="{{ route('cooking-recipes.destroy', $recipe->id) }}" method="POST" class="d-inline">
                                 @csrf
