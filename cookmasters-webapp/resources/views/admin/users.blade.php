@@ -2,10 +2,15 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @section('title', 'Admin')
 
+@section('styles')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+@endsection
+
+
 @section('content')
-    <h1>Gestion des utilisateurs</h1>
+    <h1 class="mt-3 mb-5">Gestion des utilisateurs</h1>
     
-    <table class="table shadow-sm">
+    <table class="table table-striped table-hover display" id="users-table">
         <thead>
             <tr>
                 <th scope="col">ID</th>
@@ -25,7 +30,7 @@
                     <td>{{ $user->lastname }}</td>
                     <td>{{ $user->username }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->role }}</td>
+                    <td>{{ $user->role_name() }}</td>
                     <td>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userUpdate{{ $loop->index+1 }}">
                             Modifier
@@ -64,12 +69,44 @@
                                                 <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
                                             </div>
                                             <div class="input-group mb-3">
+                                                <span class="input-group-text" for="phone">Téléphone</span>
+                                                <input type="text" class="form-control" id="phone" name="phone" value="{{ $user->phone }}">
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" for="birthday">Date de naissance</span>
+                                                <input type="date" class="form-control" id="birthday" name="birthday" value="{{ $user->birthday }}">
+                                            </div>
+                                            <div class="input-group mb-3">
                                                 <span class="input-group-text" for="role">Rôle</span>
-                                                <select class="form-select" aria-label="Default select example" id="role" name="role">
-                                                    <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
-                                                    <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
+                                                <select class="form-select" aria-label="Default select example" id="role" name="role_id">
+                                                    @foreach ($roles as $role)
+                                                        <option value="{{ $role->id }}" {{ $user->role == $role->name ? 'selected' : '' }}>{{ $role->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" for="adress">Adresse</span>
+                                                <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" for="city">Ville</span>
+                                                        <input type="text" class="form-control" id="city" name="city" value="{{ $user->city }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" for="zip_code">Code postal</span>
+                                                        <input type="text" class="form-control" id="zip_code" name="zip_code" value="{{ $user->zip_code }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" for="country">Pays</span>
+                                                <input type="text" class="form-control" id="country" name="country" value="{{ $user->country }}">
+                                            </div>
+
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -112,4 +149,12 @@
             @endforeach
         </tbody>
     </table>
+
+    @section('scripts')
+    <script type="text/javascript" src="{{ secure_asset('assets/js/admin/users/dataTables.js') }}"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    @endsection
+
 @endsection
