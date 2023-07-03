@@ -7,7 +7,7 @@
             border-radius: 10px;
         }
     </style>
-    <div class="container">
+    <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="{{ route('home') }}">
                 <img src="{{ asset('images/cookmaster-logo.png') }}" width="45" height="45" alt="Cook Master logo">
@@ -17,15 +17,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item {{ (request()->is('home')) ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('home') }}">Accueil</a>
-                    </li>
-                    <!-- Additional navigation items... -->
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Recettes</a>
+                        <a class="nav-link" href="{{ route('cooking-recipes.index') }}">Recettes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Boutique</a>
+                        <a class="nav-link" href="{{ route('boutique.index') }}">Boutique</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Événements</a>
@@ -37,7 +33,22 @@
                         <a class="nav-link" href="#">Panier</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Messagerie</a>
+                        <a class="nav-link" href="{{ route('services.index') }}">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('roomoffers.index') }}">Salles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('roomequipments.index') }}">Équipements</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuChat" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Messagerie
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuChat">
+                            <li><a class="dropdown-item" href="{{ route('chat.index') }}">Chat</a></li>
+                            <li><a class="dropdown-item" href="{{ route('chat.index.video') }}">Vidéo</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item {{ (request()->is('about-us')) ? 'active' : '' }}">
                         <a class="nav-link" href="/about-us">À propos</a>
@@ -45,12 +56,29 @@
                     <li class="nav-item {{ (request()->is('contact')) ? 'active' : '' }}">
                         <a class="nav-link" href="/contact">Contact</a>
                     </li>
+                    <span class="border-start mx-3"></span>
+                    @guest
+                        <li>
+                            <a class="navbar-brand" href="{{ route('login') }}" alt="login">LOGIN</a>
+                        </li>
+                        <li>
+                            <a class="navbar-brand text-end" href="{{ route('register') }}" alt="login">REGISTER</a>
+                        </li>
+                    @endguest
                     @auth
-                    @if (auth()->user()->role_name() == 'admin')
-                    <li class="nav-item {{ (request()->is('admin')) ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('admin.index') }}">Admin</a>
-                    </li>
-                    @endif
+                        <div class="nav-item dropdown">
+                            <a class="navbar-brand dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                ACCOUNT
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li><a class="dropdown-item" href="{{ route('account.show') }}">MON COMPTE</a></li>
+                                @if (auth()->user()->role_name() == 'admin')
+                                    <li><a class="dropdown-item" href="{{ route('admin.index') }}">PAGE ADMIN</a></li>
+                                @endif
+                                <li><a class="dropdown-item" href="{{ route('subscription-plans.index') }}">ABONNEMENTS</a></li>
+                                <li><a class="dropdown-item" href="{{ route('logout') }}">DECONNEXION</a></li>
+                            </ul>
+                        </div>
                     @endauth
                 </ul>
             </div>
