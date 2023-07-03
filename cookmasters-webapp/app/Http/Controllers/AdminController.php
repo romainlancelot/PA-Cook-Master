@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\SubscriptionPlans;
@@ -29,7 +30,10 @@ class AdminController extends Controller
      */
     public function users()
     {
-        return view('admin.users')->with('users', User::all());
+        return view('admin.users')->with([
+            'users' => User::all(),
+            'roles' => Roles::all()
+        ]);
     }
 
     public function updateUser(Request $request, $id)
@@ -42,7 +46,7 @@ class AdminController extends Controller
             'lastname' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username,'.$request->id,
             'email' => 'required|string|email|max:255|unique:users,email,'.$request->id,
-            'role' => 'required|in:admin,user',
+            'role_id' => 'required|numeric|exists:roles,id',
         ];
         $request->validate($validatedData);
         $user = User::find($request->id);
