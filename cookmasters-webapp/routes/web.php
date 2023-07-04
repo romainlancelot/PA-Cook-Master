@@ -177,6 +177,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::delete('/cartclear', 'CartController@clear')->name('cart.clear');
         Route::post('/cart/checkout', 'CartController@checkout')->name('cart.checkout');
         Route::get('/cartcheck', 'CartController@check')->name('cart.check');
+        Route::get('/cart/invoice/{transaction}', 'CartController@invoice')->name('cart.invoice');
 
         /**
          * Calendar Routes

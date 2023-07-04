@@ -279,7 +279,7 @@
                 @if ($payment['invoice'])
                     <a href="{{ $payment['invoice']->hosted_invoice_url }}" class="list-group-item list-group-item-action text-success">
                 @else
-                    <a href="#" class="list-group-item list-group-item-action text-warning">
+                    <a href="{{ route('cart.invoice', $payment['paymentIntent']->id) }}" class="list-group-item list-group-item-action text-warning">
                 @endif
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">
@@ -296,7 +296,6 @@
                     </p>
                     <small>Status : {{ $payment['paymentIntent']->status }}</small>
                 </a>
-                {{-- {{dd($payment)}}} --}}
             @endforeach
         </div>
     @endif

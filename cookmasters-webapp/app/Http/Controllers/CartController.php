@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transactions;
 use Exception;
 use App\Models\Equipment;
 use App\Models\User;
 use Illuminate\Http\Request;
+use PDF;
 
 class CartController extends Controller
 {
@@ -179,7 +181,7 @@ class CartController extends Controller
         $session = $stripe->createSession($order);
 
         if ($session) {
-            return redirect()->to($session->url)->with('success', 'Checkout successfully!');
+            return redirect()->to($session->url);
         } else {
             return redirect()->route('cart.index')->withErrors([
                 'error' => 'Checkout failed!'
@@ -189,7 +191,6 @@ class CartController extends Controller
 
     public function check(Request $request)
     {
-        // dd($request->all());
         try {
             $stripe = new StripeController();
             if (!($session = $stripe->retriveSession($request->session_id))) {
@@ -200,15 +201,53 @@ class CartController extends Controller
                 return redirect()->back()->withErrors(['error' => 'User not found please contact support.']);
             }
 
-            // $invoice = $stripe->retriveInvoice($session->invoice);
-            // dd($invoice);
+            $cart = session()->get('cart', []);
 
-            dd($session);
+            if ($this->subtotal() != $session->amount_total / 100) {
+                return redirect()->back()->withErrors(['error' => 'Amounts are not same please contact support.']);
+            }
+
+            foreach ($cart as $equipment) {
+                Transactions::create([
+                    'user_id' => $user->id,
+                    'equipment_id' => $equipment['equipment']->id,
+                    'quantity' => $equipment['quantity'],
+                    'price' => $equipment['equipment']->price,
+                    'stripe_payment_intent_id' => $session->payment_intent,
+                ]);
+            }
 
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
 
         return redirect()->route('cart.index')->with('success', 'Checkout successfully!');
+    }
+
+    public function invoice($transaction)
+    {
+        try {
+            $transaction = Transactions::where('stripe_payment_intent_id', $transaction)->get();
+            if ($transaction->count() == 0) {
+                throw new Exception('Transaction not found!');
+            }
+        } catch (Exception $e) {
+            return redirect()->route('account.show')->withErrors([
+                'error' => $e->getMessage()
+            ]);
+        }
+
+        $subtotal = 0;
+        foreach ($transaction as $item) {
+            $subtotal += $item->price * $item->quantity;
+        }
+        
+        $pdf = PDF::loadView('PDF.invoice', [
+            'transaction' => $transaction,
+            'user' => auth()->user(),
+            'subtotal' => $subtotal,
+        ]);
+
+        return $pdf->download('invoice.pdf');
     }
 }
