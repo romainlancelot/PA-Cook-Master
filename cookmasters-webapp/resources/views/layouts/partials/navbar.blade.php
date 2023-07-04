@@ -30,7 +30,7 @@
                         <a class="nav-link" href="#">Formations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Panier</a>
+                        <a class="nav-link" href="{{ route('cart.index') }}"">Panier</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('services.index') }}">Services</a>

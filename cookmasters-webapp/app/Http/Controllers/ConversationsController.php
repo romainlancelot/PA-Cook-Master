@@ -21,8 +21,12 @@ class ConversationsController extends Controller
         return Conversations::where('from_id', auth()->user()->id)
             ->orWhere('to_id', auth()->user()->id)
             ->get()
-            ->unique('from_id')
-            ->sortByDesc('created_at');
+            ->sortByDesc('created_at')
+            ->filter(function ($value, $key) {
+                return $value->to_id != null;
+            })->unique(function ($item) {
+                return $item->from_id > $item->to_id ? $item->from_id . $item->to_id : $item->to_id . $item->from_id;
+        });
     }
 
     /**
@@ -31,7 +35,7 @@ class ConversationsController extends Controller
     public function index()
     {
         $conversation = Conversations::where('to_id', null)->get();
-        
+
         return view('conversations.index')->with([
             'contacts' => $this->getContacts(),
             'conversation' => $conversation,
@@ -96,7 +100,7 @@ class ConversationsController extends Controller
             ->get();
 
         $newConversation = false;
-        if (!$contacts->contains('from_id', $id)) {
+        if (!$contacts->contains('from_id', $id) && !$contacts->contains('to_id', $id)) {
             $newConversation = true;
         }
 

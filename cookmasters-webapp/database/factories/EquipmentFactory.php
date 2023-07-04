@@ -32,7 +32,7 @@ class EquipmentFactory extends Factory
             'description' => fake()->paragraph(),
             'availabilities' => fake()->sentence(5),
             'availablequantity' => fake()->randomDigit(),
-            'price' => fake()->sentence(1),
+            'price' => fake()->randomFloat(2, 0, 1000),
         ];
     }
 }

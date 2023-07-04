@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Transactions;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,6 +17,7 @@ class UsersController extends Controller
         $data = User::all();
         foreach ($data as $key => $value) {
             $data[$key]['subscription_plan'] = $value->subscriptionPlan;
+            $data[$key]['transactions'] = Transactions::getUserTransactions($value->id);
         }
 
         return response()->json([

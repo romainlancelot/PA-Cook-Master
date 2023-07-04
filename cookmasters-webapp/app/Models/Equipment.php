@@ -9,11 +9,14 @@ class Equipment extends Model
 {
     use HasFactory;
 
+    protected $table = 'equipment';
+
     protected $fillable = [
         'name',
         'photos',
         'description',
         'price',
+        'availablequantity',
     ];
     /*
     * Get rooms associated to equipment
