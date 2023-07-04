@@ -126,12 +126,12 @@ class StripeController extends Controller
         $customer = $this->stripe->customers->create([
             'name' => $user->firstname . ' ' . $user->lastname,
             'email' => $user->email,
-            'phone' => $user->phone,
+            'phone' => 'France' ? substr($user->phone, 1) : $user->phone,
             'address' => [
                 'line1' => $user->address,
                 'city' => $user->city,
                 'postal_code' => $user->zip_code,
-                'country' => $user->country,
+                'country' => $user->country == 'France' ? 'FR' : $user->country,
             ],
         ]);
         $user->stripe_id = $customer->id;
@@ -145,12 +145,12 @@ class StripeController extends Controller
             [
                 'name' => $user->firstname . ' ' . $user->lastname,
                 'email' => $user->email,
-                'phone' => $user->phone,
+                'phone' => $user->country == 'France' ? substr($user->phone, 1) : $user->phone,
                 'address' => [
                     'line1' => $user->address,
                     'city' => $user->city,
                     'postal_code' => $user->zip_code,
-                    'country' => $user->country,
+                    'country' => $user->country == 'France' ? 'FR' : $user->country,
                 ],
             ]
         );
