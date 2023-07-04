@@ -5,19 +5,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Invoice</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid">
             <h1>Invoice</h1>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-6">
                     <h5>From:</h5>
                     <p>Cookmasters</p>
                     <p>242 Rue du Faubourg Saint-Antoine</p>
                     <p>75012, Paris, France</p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-6">
                     <h5>To:</h5>
                     <p>{{ $user->firstname }} {{ $user->lastname }}</p>
                     <p>{{ $user->email }} {{ $user->phone }}</p>
@@ -55,6 +55,7 @@
 
             <div class="d-flex justify-content-end">
                 <h4>Total: {{ $subtotal }} €</h4>
+                <small>Date: {{ $transaction[0]->created_at }}</small>
             </div>
     </body>
 </html>

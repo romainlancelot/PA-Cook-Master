@@ -241,8 +241,17 @@ class CartController extends Controller
         foreach ($transaction as $item) {
             $subtotal += $item->price * $item->quantity;
         }
+
+        $pdf = PDF::setOptions([
+            'dpi' => 150,
+            'defaultFont' => 'sans-serif',
+            'isHtml5ParserEnabled' => true,
+            'isRemoteEnabled' => true,
+            'isPhpEnabled' => true,
+            'isJavascriptEnabled' => true,
+        ]);
         
-        $pdf = PDF::loadView('PDF.invoice', [
+        $pdf->loadView('PDF.invoice', [
             'transaction' => $transaction,
             'user' => auth()->user(),
             'subtotal' => $subtotal,
