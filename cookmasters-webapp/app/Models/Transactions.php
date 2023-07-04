@@ -30,12 +30,15 @@ class Transactions extends Model
         return $this->belongsTo(User::class);
     }
 
-    static public function getUserTransactions()
+    static public function getUserTransactions($user_id = null)
     {
-        return Transactions::all()->where('user_id', auth()->user()->id)
+        if (!$user_id) {
+            $user_id = auth()->user()->id;
+        }
+        
+        $transactions = Transactions::all()->where('user_id', $user_id)
         ->where('returned_at', null)
         ->groupBy('created_at')
-        // list all items
         ->map(function ($item) {
             return $item->map(function ($item) {
                 return [
@@ -49,5 +52,18 @@ class Transactions extends Model
                 ];
             });
         });
+
+        $transactions = $transactions->map(function ($item) {
+            $total = 0;
+            foreach ($item as $key => $value) {
+                $total += $value['price'];
+            }
+            return [
+                'total' => $total,
+                'items' => $item
+            ];
+        });
+
+        return $transactions;
     }
 }
