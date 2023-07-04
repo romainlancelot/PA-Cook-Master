@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('cooking_time');
             $table->integer('difficulty');
             $table->integer('people');
+            $table->boolean('deliverable')->default(false);
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
     }

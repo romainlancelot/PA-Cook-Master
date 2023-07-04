@@ -27,6 +27,7 @@
                                         <th scope="col">Cooking time</th>
                                         <th scope="col">People</th>
                                         <th scope="col">Difficulty</th>
+                                        <th scope="col">Deliverable</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -34,6 +35,7 @@
                                         <td>{{ $recipe->cooking_time }} minutes</td>
                                         <td>{{ $recipe->people }}</td>
                                         <td>{{ $recipe->difficulty }} / 10</td>
+                                        <td>@if ($recipe->deliverable) <i class="bi bi-check2-circle"></i> @else <i class="bi bi-x"></i> @endif</td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -13,14 +13,25 @@
         <div class="text-end">
             <a class="btn btn-secondary mb-5" href="{{ route('cooking-recipes.index') }}">Back to Cooking recipes</a>
         </div>
-        <h1>Create cooking recipe</h1>
         <div class="row">
             <div class="col-md-12">
                 <form action="{{ route('cooking-recipes.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-group mb-3">
-                        <label for="name">Name:</label>
-                        <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="form-group mb-3">
+                                <label for="name">Name:</label>
+                                <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
+                            </div>
+                        </div>
+                        <div class="col-2 d-flex align-items-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" name="deliverable" id="flexCheckDeliverable">
+                                <label class="form-check-label" for="flexCheckDeliverable">
+                                    Deliverable
+                                </label>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group mb-3">
                         <label for="description">Description:</label>
