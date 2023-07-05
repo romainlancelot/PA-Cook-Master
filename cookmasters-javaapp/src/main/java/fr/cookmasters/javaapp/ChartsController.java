@@ -1,4 +1,4 @@
-package com.example.applijavapa2;
+package fr.cookmasters.javaapp;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +23,7 @@ public class ChartsController {
     @FXML
     private Button btnCamenbert;
     int pro, free, basic;
-    String path = "C:\\Users\\sagej\\OneDrive\\Documents\\ESGI\\2ème année\\2ème Semestre\\Java\\Projets\\APPLIJAVAPA2\\json\\data.json";
+    // String path = "C:\\Users\\sagej\\OneDrive\\Documents\\ESGI\\2ème année\\2ème Semestre\\Java\\Projets\\APPLIJAVAPA2\\json\\data.json";
 
     private ApiConnection api = null;
 

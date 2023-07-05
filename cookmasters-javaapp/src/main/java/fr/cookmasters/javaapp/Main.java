@@ -1,4 +1,4 @@
-package com.example.applijavapa2;
+package fr.cookmasters.javaapp;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,14 +7,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import com.google.gson.JsonObject;
-
-public class HelloApplication extends Application {
+public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
 
-        ApiConnection api = new ApiConnection("", "");
+        ApiConnection api = new ApiConnection("rlancelot@myges.fr", "jke7d4gDhU2862b");
         try {
             api.login();
         } catch (IOException e) {

@@ -1,4 +1,4 @@
-package com.example.applijavapa2;
+package fr.cookmasters.javaapp;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

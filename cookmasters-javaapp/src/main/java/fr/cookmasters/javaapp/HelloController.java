@@ -1,4 +1,4 @@
-package com.example.applijavapa2;
+package fr.cookmasters.javaapp;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
