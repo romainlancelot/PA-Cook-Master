@@ -14,11 +14,22 @@ return new class extends Migration
         Schema::create('equipment', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('category');
+            $table->string('marque');
+            $table->json('key_features')->nullable();
+            $table->json('colors')->nullable();
+            $table->string('simple_description');
+            $table->string('warranty_url');
+            $table->string('height');
+            $table->string('width');
+            $table->string('depth');
+            $table->string('dimensional_guide_url');
+            $table->string('name_3d');
+            $table->string('manual_url');
             $table->json('photos')->nullable();
             $table->string('description');
-            $table->string('availabilities');
-            $table->integer('availablequantity');
             $table->string('price');
+            $table->integer('availablequantity');
             $table->timestamps();
         });
     }

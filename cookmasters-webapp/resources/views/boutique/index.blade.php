@@ -49,33 +49,49 @@
         <a href="{{ route('equipment.create') }}" class="btn btn-success text-center">Ajouter</a>
     @endif
 @endauth
+
 <div class="container boutique my-5">
     <div class="row">
-        
         <!-- Sidebar pour les filtres -->
-        <div class="col-md-2">
-            <div class="list-group">
-                <h3 class="my-4">Catégories</h3>
-                <a href="#" class="list-group-item">Ustensiles de cuisine</a>
-                <a href="#" class="list-group-item">Appareils électroménagers</a>
-                <a href="#" class="list-group-item">Livres de recettes</a>
-                <!-- Ajoutez plus de catégories si nécessaire -->
-            </div>
-            <div class="my-4">
-                <h3 class="my-4">Prix</h3>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <input type="number" class="form-control" id="min-price" placeholder="Min Prix">
+
+            <div class="col-md-2">
+                <form method="GET" action="{{ route('boutique.index') }}">
+                    <div class="list-group">
+                        <h3 class="my-4">Catégories</h3>
+                        <div class="form-check list-group-item">
+                            <input class="form-check-input" type="checkbox" value="Batteurs sur socle" id="Batteurs-sur-socle" name="categories[]">
+                            <label class="form-check-label" for="Batteurs-sur-socle">Batteurs sur socle</label>
+                        </div>
+                        <div class="form-check list-group-item">
+                            <input class="form-check-input" type="checkbox" value="Appareils électroménagers" id="Appareils-électroménagers" name="categories[]">
+                            <label class="form-check-label" for="Appareils-électroménagers">Appareils électroménagers</label>
+                        </div>
+                        <div class="form-check list-group-item">
+                            <input class="form-check-input" type="checkbox" value="Appareils de comptoirs" id="Appareils-de-comptoirs" name="categories[]">
+                            <label class="form-check-label" for="Appareils-de-comptoirs">Appareils de comptoirs</label>
+                        </div>
+                        <!-- Ajoutez plus de catégories si nécessaire -->
                     </div>
-                    <div class="col-sm-6">
-                        <input type="number" class="form-control" id="max-price" placeholder="Max Prix">
+                    <div>
+                        <h3 class="my-4">Prix</h3>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" name="price_min" placeholder="Min Prix">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" name="price_max" placeholder="Max Prix">
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <div class="my-4">
+                        <h3 class="my-4">Rechercher</h3>
+                        <input class="form-control mb-4" name="search" type="text" placeholder="Rechercher par nom">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Filtrer</button>
+                    </div>
+                </form>                
             </div>
-            
-            <!-- Ajoutez plus de filtres si nécessaire -->
-        </div>
-        
         <!-- Produits -->
         
         <div class="col-md-10">
@@ -87,16 +103,19 @@
                         $photos = json_decode($equipment->photos);
                         @endphp
                         @if(count($photos) > 0)
-                        <img id="main-image" class="img-fluid" style="border-radius: 10px; width: auto; height: 120px; object-fit: cover;" src="{{ secure_asset('storage/images/'.$photos[0]) }}" alt="{{ $equipment->name }}">
+                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: auto; height: 120px; object-fit: cover;" src="{{ asset('storage/equipments/'.$photos[0]) }}" alt="{{ $equipment->name }}">
                         @endif
                         <div class="card-body d-flex flex-column"> <!-- Utilisation de flexbox pour l'alignement des éléments -->
                             <h5 class="card-title">{{$equipment->name}}</h5>
-                            <p class="card-text flex-grow-1">{{$equipment->description}}</p> <!-- Ajout de flex-grow-1 pour que le texte prenne tout l'espace disponible -->
                             <div class="mt-auto"> <!-- Ajout de mt-auto pour coller les éléments restants en bas -->
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group mb-4">
-                                        <a href="{{ route('equipment.show', $equipment->id) }}" type="button" class="btn btn-sm btn-outline-secondary">Voir plus de détails</a> <!-- Nouveau bouton -->
-                                        <small class="text-muted"> {{$equipment->price}}€ Prix</small>
+                                    <div class="btn-group row">
+                                        <div class="col-md-6">
+                                            <a href="{{ route('equipment.show', $equipment->id) }}" type="button" class="btn btn-sm btn-outline-secondary">Voir plus de détails</a> <!-- Nouveau bouton -->
+                                        </div>
+                                        <div class="col-md-6">
+                                            <small class="text-muted"> {{$equipment->price}}€ Prix</small>
+                                        </div>
                                     </div>
                                 </div>
                                 @auth

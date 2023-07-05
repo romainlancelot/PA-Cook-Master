@@ -37,6 +37,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      */
     Route::resource('/boutique', BoutiqueController::class)->name('boutique', 'boutiques.index');
     
+    Route::post('', 'CommentsController@store')->name('comments.store');
+
     /**
      * A propos Routes
      */

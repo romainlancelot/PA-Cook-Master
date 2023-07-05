@@ -43,7 +43,7 @@
                 @endphp
                 @foreach($photos as $photo)
                     <div class="col-12 mb-4">
-                        <img class="img-fluid img-thumbnail img-select" style="width: 80px; height: 80px; object-fit: cover;" src="{{ asset('storage/images/'.$photo) }}" alt="{{ $equipment->name }}">
+                        <img class="img-fluid img-thumbnail img-select" style="width: 80px; height: 80px; object-fit: cover;" src="{{ asset('storage/equipments/'.$photo) }}" alt="{{ $equipment->name }}">
                     </div>
                 @endforeach
             </div>
@@ -51,13 +51,24 @@
 
         <div class="col-md-4">
             @if(count($photos) > 0)
-                <img id="main-image" class="img-fluid img-thumbnail" style="width: 300px; height: 300px; object-fit: cover;" src="{{ asset('storage/images/'.$photos[0]) }}" alt="{{ $equipment->name }}">
+                <img id="main-image" class="img-fluid img-thumbnail" style="width: 300px; height: 300px; object-fit: cover;" src="{{ asset('storage/equipments/'.$photos[0]) }}" alt="{{ $equipment->name }}">
             @endif
         </div>
 
         <div class="col-md-6">
             <div class="description-box">
                 <p>{{ $equipment->name }}</p>
+            </div>
+            <div class="key_features">
+                @php
+                    $key_features = json_decode($equipment->key_features);
+                @endphp
+                <h4>Caractéristiques:</h4>
+                <ul>
+                    @foreach($key_features as $key_feature)
+                        <li>{{ $key_feature }}</li>
+                    @endforeach
+                </ul>
             </div>
         <h4>Prix : € {{ $equipment->price }}</h4>
         <p>Disponibilité : @if($equipment->availablequantity > 0) En stock @else Non disponible @endif</p>
@@ -79,22 +90,103 @@
     </div>
     <div class="row mt-5">
         <div class="col-md-12">
-            <h2>Détails du produit</h2>
+            <h2>Déscription :</h2>
             <div class="details-box">
                 <p>{{ $equipment->description }}</p>
+            </div>
+
+            <h2>Dimension :</h2>
+            <div class="dimension">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>Longueur : {{ $equipment->height }} </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>Largeur : {{ $equipment->width }} </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>Profondeur : {{ $equipment->depth }} </p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Manuals & Documents :</h2>
+            <div class="document">
+                <div class="row">
+                    <div class="col-md-4 badge">
+                        <h4>
+                            <a href="{{ $equipment->manual_url }}" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg>
+                                Manuals</a>
+                        </h4>
+                    </div>
+                    <div class="col-md-4 badge">
+                        <h4>
+                            <a href="{{ $equipment->warranty_url }}" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg>
+                                Garantie</a>
+                        </h4>
+                    </div>
+                    <div class="col-md-4 badge">
+                        <h4>
+                            <a href="{{ $equipment->dimensional_guide_url }}" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg>
+                                Autre</a>
+                        </h4>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="row mt-5">
         <div class="col-md-12">
             <h2>Avis des clients</h2>
-            <!-- Ici, vous pouvez ajouter des avis de clients -->
+            @include('layouts.partials.commentForm')
         </div>
     </div>
     <div class="row mt-5">
         <div class="col-md-12">
             <h2>Produits similaires</h2>
-            <!-- Ici, vous pouvez ajouter des produits similaires -->
+            <div class="row">
+                @foreach ($equipments as $e)
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        @php
+                        $photos = json_decode($e->photos);
+                        @endphp
+                        @if(count($photos) > 0)
+                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: auto; height: 120px; object-fit: cover;" src="{{ asset('storage/equipments/'.$photos[0]) }}" alt="{{ $e->name }}">
+                        @endif
+                        <div class="card-body d-flex flex-column"> <!-- Utilisation de flexbox pour l'alignement des éléments -->
+                            <h5 class="card-title">{{$e->name}}</h5>
+                            <div class="mt-auto"> <!-- Ajout de mt-auto pour coller les éléments restants en bas -->
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group row">
+                                        <div class="col-md-6">
+                                            <a href="{{ route('equipment.show', $e->id) }}" type="button" class="btn btn-sm btn-outline-secondary">Voir plus de détails</a> <!-- Nouveau bouton -->
+                                        </div>
+                                        <div class="col-md-6">
+                                            <small class="text-muted"> {{$e->price}}€ Prix</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                @auth
+                                @if (auth()->user()->role_name() == 'admin')
+                                <a href="{{ route('equipments.destroy', $e->id) }}" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $e->id }}').submit();">Delete</a>
+                                <form id="delete-form-{{ $e->id }}" action="{{ route('equipments.destroy', $e->id) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                                <a href="{{ route('equipments.edit', $e->id) }}" class="btn btn-primary">Modifier</a>
+                                @endif
+                                @endauth
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
         </div>
     </div>
 </div>

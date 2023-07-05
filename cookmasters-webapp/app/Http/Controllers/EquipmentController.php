@@ -40,13 +40,41 @@ class EquipmentController extends Controller
             foreach($request->file('photos') as $image)
             {
                 $name = time().'_'.$image->getClientOriginalName();
-                $image->storeAs('public/images', $name);
+                $image->storeAs('public/equipments', $name);
                 $data[] = $name;
             }
         }
-    
+        $key_features = [];
+        if($request->has('key_features'))
+        {
+            foreach($request->get('key_features') as $key_feature)
+            {
+                $key_features[] = $key_feature;
+            }
+        }
+        $colors = [];
+        if($request->has('colors'))
+        {
+            foreach($request->get('colors') as $color)
+            {
+                $colors[] = $color;
+            }
+        }
+
         $equipment = new Equipment();
         $equipment->name = $request->get('name');
+        $equipment->category = $request->get('category');
+        $equipment->marque = $request->get('marque');
+        $equipment->key_features = json_encode($key_features);
+        $equipment->colors = json_encode($colors);
+        $equipment->simple_description = $request->get('simple_description');
+        $equipment->warranty_url = $request->get('warranty_url');
+        $equipment->height = $request->get('height');
+        $equipment->width = $request->get('width');
+        $equipment->depth = $request->get('depth');
+        $equipment->dimensional_guide_url = $request->get('dimensional_guide_url');
+        $equipment->name_3d = $request->get('name_3d');
+        $equipment->manual_url = $request->get('manual_url');
         $equipment->availablequantity = $request->get('availablequantity');
         $equipment->price = $request->get('price');
         $equipment->description = $request->get('description');
@@ -62,9 +90,23 @@ class EquipmentController extends Controller
      */
     public function show(Equipment $equipment)
     {
-        return view('equipments.show', compact('equipment'));
+        $equipments = Equipment::query();
+        $equipments->where('category', $equipment->category);
+        $equipments->where('marque', $equipment->marque);
+        $equipments = $equipments->get();
+
+        if ($equipments->count() > 3) {
+            $equipments = $equipments->random(3);
+        } else {
+            if (Equipment::all()->count() >= 3) {
+                $equipments = Equipment::all()->random(3);
+            } else {
+                $equipments = Equipment::all();
+            }
+        }
+        return view('equipments.show', compact('equipments', 'equipment'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */

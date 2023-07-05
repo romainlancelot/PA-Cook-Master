@@ -12,8 +12,8 @@ class StoreEquipmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::user()->role_name() == 'admin';
-        // return true;
+        // return Auth::user()->role_name() == 'admin';
+        return true;
     }
 
     /**
@@ -25,6 +25,18 @@ class StoreEquipmentRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
+            'category' => '',
+            'marque' => '',
+            'key_features' => '',
+            'colors' => '',
+            'simple_description' => '',
+            'warranty_url' => '',
+            'height' => '',
+            'width' => '',
+            'depth' => '',
+            'dimensional_guide_url' => '',
+            'name_3d' => '',
+            'manual_url' => '',
             'description' => 'required',
             'price' => 'required',
             'photos' => 'required',

@@ -13,6 +13,18 @@ class Equipment extends Model
 
     protected $fillable = [
         'name',
+        'category',
+        'marque',
+        'key_features',
+        'colors',
+        'simple_description',
+        'warranty_url',
+        'height',
+        'width',
+        'depth',
+        'dimensional_guide_url',
+        'name_3d',
+        'manual_url',
         'photos',
         'description',
         'price',

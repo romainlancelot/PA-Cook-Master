@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCommentsRequest;
 use App\Http\Requests\UpdateCommentsRequest;
 use App\Models\Comments;
+use Illuminate\Http\Request;
+use App\Models\Equipment;
 
 class CommentsController extends Controller
 {
@@ -27,24 +29,20 @@ class CommentsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store_room(Room $room, Request $request)
+    public function store(Equipment $equipment, equest $request)
     {
-        $comment = new Comments();
-        $comment->service_id = $room->id;
-        $comment->content = $request->input('content');
-        $comment->save();
+        dd($equipment);
+        $request->validate([
+            'body' => 'required',
+            'rating' => 'required|integer|min:1|max:5', // Assurez-vous que la note est un entier entre 1 et 5
+        ]);
     
-        return redirect()->back()->with('success', 'Comment added successfully');
-    }
-    
-    public function store_equipment(Equipment $equipment, Request $request)
-    {
-        $comment = new Comments();
-        $comment->service_id = $equipment->id;
-        $comment->content = $request->input('content');
-        $comment->save();
-    
-        return redirect()->back()->with('success', 'Comment added successfully');
+        $equipment->comments()->create([
+            'user_id' => auth()->id(),
+            'body' => $request->body,
+            'rating' => $request->rating, // Ajoutez cette ligne pour la notation par étoiles
+        ]);
+        return back();
     }
 
     /**
