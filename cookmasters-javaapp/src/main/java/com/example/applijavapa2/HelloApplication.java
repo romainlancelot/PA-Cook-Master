@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import com.google.gson.JsonObject;
+
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
@@ -19,5 +21,18 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
+
+        /**
+         * Example of ApiConnection connection
+         */
+        ApiConnection api = new ApiConnection("", "");
+        try {
+            api.login();
+            JsonObject users = api.getUsers();
+            System.out.println(users);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
     }
 }
