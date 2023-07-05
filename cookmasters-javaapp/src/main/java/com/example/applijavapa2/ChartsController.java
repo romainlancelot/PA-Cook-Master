@@ -8,17 +8,14 @@ import com.google.gson.*;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 
-import java.io.FileReader;
+import java.io.IOException;
 
 public class ChartsController {
-
     @FXML
     private PieChart camenbert;
 
-
     @FXML
     private BarChart<String, Number> age;
-
 
     @FXML
     private BarChart<String, Number> revenu;
@@ -28,21 +25,40 @@ public class ChartsController {
     int pro, free, basic;
     String path = "C:\\Users\\sagej\\OneDrive\\Documents\\ESGI\\2ème année\\2ème Semestre\\Java\\Projets\\APPLIJAVAPA2\\json\\data.json";
 
+    private ApiConnection api = null;
+
+    /**
+     * Constructor
+     * 
+     * @param api
+     */
+    public ChartsController(ApiConnection api) {
+        this.api = api;
+    }
+
+
+    /**
+     * Generate charts
+     * 
+     * @param Event
+     * @throws IOException
+     * 
+     * @return void
+     */
     @FXML
-    void generate(ActionEvent Event){
+    void generate(ActionEvent Event) throws IOException {
         camenbert.getData().clear();
         age.getData().clear();
 
-        try(FileReader fileReader = new FileReader(path)){
-            JsonElement jsonElement = JsonParser.parseReader(fileReader);
-            JsonObject jsonObject = jsonElement.getAsJsonObject();
-            JsonElement dataElement = jsonObject.get("data");
-            JsonElement spElement = jsonObject.get("subscription_plan_id");
+        try {
+            JsonObject users = api.getUsers();
+            JsonElement dataElement = users.get("data");
+            JsonElement spElement = users.get("subscription_plan_id");
             JsonArray dataArray = JsonParser.parseString(String.valueOf(dataElement)).getAsJsonArray();
-            for (JsonElement element:dataArray){
+            for (JsonElement element:dataArray) {
                 JsonObject dataList = element.getAsJsonObject();
                 int spData = dataList.get("subscription_plan_id").getAsInt();
-                switch (spData){
+                switch (spData) {
                     case 1: free++;
                     break;
                     case 2: basic++;
