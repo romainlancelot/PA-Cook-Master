@@ -61,3 +61,11 @@ function removeIngredient(button) {
     var ingredient = button.parentElement.parentElement;
     ingredient.remove();
 }
+
+document.getElementById('flexCheckDeliverable').addEventListener('change', function() {
+    if (this.checked) {
+        this.value = 1;
+    } else {
+        this.value = 0;
+    }
+});

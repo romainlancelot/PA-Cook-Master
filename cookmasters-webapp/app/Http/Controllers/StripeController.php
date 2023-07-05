@@ -29,15 +29,24 @@ class StripeController extends Controller
 
         if ($user->stripe_id == null) {
             $this->createCustomer($user);
+        } else {
+            $this->updateCustomer($user);
         }
 
         $session = $this->stripe->checkout->sessions->create([
             'success_url' => route('cart.check') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('cart.index'),
             'customer' => $user->stripe_id,
+            'client_reference_id' => $user->firstname . ' ' . $user->lastname,
             'payment_method_types' => ['card'],
             'mode' => 'payment',
             'line_items' => $cart,
+            'shipping_address_collection' => [
+                'allowed_countries' => ['FR'],
+            ],
+            'phone_number_collection' => [
+                'enabled' => true,
+            ],
         ]);
         return $session;
     }
@@ -117,7 +126,13 @@ class StripeController extends Controller
         $customer = $this->stripe->customers->create([
             'name' => $user->firstname . ' ' . $user->lastname,
             'email' => $user->email,
-            'phone' => $user->phone,
+            'phone' => 'France' ? substr($user->phone, 1) : $user->phone,
+            'address' => [
+                'line1' => $user->address,
+                'city' => $user->city,
+                'postal_code' => $user->zip_code,
+                'country' => $user->country == 'France' ? 'FR' : $user->country,
+            ],
         ]);
         $user->stripe_id = $customer->id;
         $user->save();
@@ -130,7 +145,13 @@ class StripeController extends Controller
             [
                 'name' => $user->firstname . ' ' . $user->lastname,
                 'email' => $user->email,
-                'phone' => $user->phone,
+                'phone' => $user->country == 'France' ? substr($user->phone, 1) : $user->phone,
+                'address' => [
+                    'line1' => $user->address,
+                    'city' => $user->city,
+                    'postal_code' => $user->zip_code,
+                    'country' => $user->country == 'France' ? 'FR' : $user->country,
+                ],
             ]
         );
     }
