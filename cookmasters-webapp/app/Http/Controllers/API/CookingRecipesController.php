@@ -15,7 +15,6 @@ class CookingRecipesController extends Controller
      */
     public function getCookingRecipes()
     {
-        dd('hello');
         $data = CookingRecipes::all();
         foreach ($data as $key => $value) {
             $data[$key]['ingredients'] = $value->ingredients()->get();
