@@ -20,7 +20,9 @@ class CookingRecipes extends Model
         'difficulty',
         'people',
         'user_id',
-        'deliverable'
+        'deliverable',
+        'price',
+        'availablequantity',
     ];
 
     /**

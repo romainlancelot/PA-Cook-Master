@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('equipment_id')->constrained('equipment')->onDelete('cascade');
+            $table->foreignId('equipment_id')->nullable()->constrained('equipment')->onDelete('cascade');
+            $table->foreignId('cooking_recipe_id')->nullable()->constrained('cooking_recipes')->onDelete('cascade');
             $table->integer('quantity');
             $table->string('price');
             $table->string('stripe_payment_intent_id')->nullable();

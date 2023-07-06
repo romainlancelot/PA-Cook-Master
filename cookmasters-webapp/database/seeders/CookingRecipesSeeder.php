@@ -134,6 +134,9 @@ class CookingRecipesSeeder extends Seeder
         ];
 
         foreach ($recipes as $recipe) {
+            $recipe['deliverable'] = rand(0, 1);
+            $recipe['price'] = rand(5, 20);
+            $recipe['availablequantity'] = rand(0, 20);
             CookingRecipes::create($recipe);
         }
     }
