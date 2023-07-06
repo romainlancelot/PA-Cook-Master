@@ -198,6 +198,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::put('/cooking-recipes/{cooking_recipe}', 'CookingRecipesController@update')->name('cooking-recipes.update');
         Route::delete('/cooking-recipes/{cooking_recipe}', 'CookingRecipesController@destroy')->name('cooking-recipes.destroy');
 
+        /**
+         * UberCook Routes
+         */
+        Route::resource('/ubercook', UberCookController::class);
     });
 
     Route::group(['middleware' => ['auth', 'admin']], function() {
