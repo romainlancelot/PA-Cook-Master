@@ -45,6 +45,11 @@ Route::group(['namespace' => 'App\Http\Controllers\API'], function()
         /**
          * get users list
          */
-        Route::get('/users', 'UsersController@index');    
+        Route::get('/users', 'UsersController@index');
+
+        /**
+         * get cooking recipes list
+         */
+        Route::get('/cookingrecipes', 'CookingRecipesController@getCookingRecipes');
     });
 });
