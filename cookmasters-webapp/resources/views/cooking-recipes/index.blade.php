@@ -73,6 +73,8 @@
         </tbody>
     </table>
 
+    <div class="my-5"></div>
+
     @section('scripts')
         <script type="text/javascript" src="{{ secure_asset('assets/js/cooking-recipes/dataTables.js') }}"></script>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
