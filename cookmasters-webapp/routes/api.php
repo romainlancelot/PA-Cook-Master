@@ -50,6 +50,6 @@ Route::group(['namespace' => 'App\Http\Controllers\API'], function()
         /**
          * get cooking recipes list
          */
-        Route::get('/cookingrecipes', 'CookingRecipesController@getCookingRecipes');
+        Route::get('/cooking-recipes', 'CookingRecipesController@getCookingRecipes');
     });
 });
