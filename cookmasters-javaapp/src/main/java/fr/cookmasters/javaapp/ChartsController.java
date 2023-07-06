@@ -52,11 +52,16 @@ public class ChartsController {
 
         try {
             JsonObject users = api.getUsers();
+            System.out.println(users);
             JsonElement dataElement = users.get("data");
+            JsonElement nameElement = users.get("firstname");
+
             JsonElement spElement = users.get("subscription_plan_id");
             JsonArray dataArray = JsonParser.parseString(String.valueOf(dataElement)).getAsJsonArray();
             for (JsonElement element:dataArray) {
                 JsonObject dataList = element.getAsJsonObject();
+                String spFirstname = dataList.get("firstname").getAsString();
+                System.out.println(spFirstname);
                 int spData = dataList.get("subscription_plan_id").getAsInt();
                 switch (spData) {
                     case 1: free++;
