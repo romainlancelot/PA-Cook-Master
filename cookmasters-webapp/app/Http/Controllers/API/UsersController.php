@@ -16,6 +16,7 @@ class UsersController extends Controller
     {
         $data = User::all();
         foreach ($data as $key => $value) {
+            $data[$key]['role'] = $value->role->name;
             $data[$key]['subscription_plan'] = $value->subscriptionPlan;
             $data[$key]['transactions'] = Transactions::getUserTransactions($value->id);
         }
