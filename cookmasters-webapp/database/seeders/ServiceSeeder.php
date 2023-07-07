@@ -14,11 +14,11 @@ class ServiceSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i != 5; $i++) {
-            $roomEquipment = RoomEquipment::inRandomOrder()->first();
-            $service = Service::factory()->create();
-            $service->roomEquipment()->associate($roomEquipment);
-            $service->save();
-        }
+        // for ($i = 0; $i != 5; $i++) {
+        //     $roomEquipment = RoomEquipment::inRandomOrder()->first();
+        //     $service = Service::factory()->create();
+        //     $service->roomEquipment()->associate($roomEquipment);
+        //     $service->save();
+        // }
     }
 }

@@ -186,6 +186,7 @@
             </div>
         @endforeach
     </div>
+    @auth
     <div class="row">
         <div class="col-md-12">
             <div class="text-center" style="margin: 10px;">
@@ -193,6 +194,8 @@
             </div>
         </div>
     </div>
+    @endauth
+
 </div>
 </section>
     
