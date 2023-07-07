@@ -24,6 +24,11 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuRecipes">
                             <li><a class="dropdown-item" href="{{ route('cooking-recipes.index') }}">Recettes</a></li>
                             <li><a class="dropdown-item" href="{{ route('ubercook.index') }}">Commander</a></li>
+                            @auth
+                                @if (auth()->user()->role_name() == 'presta')
+                                    <li><a class="dropdown-item" href="{{ route('ubercooker.index') }}">Cuisiner</a></li>
+                                @endif
+                            @endauth
                         </ul>
                     </li>
                     <li class="nav-item">
