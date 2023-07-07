@@ -24,7 +24,7 @@ class UberCookerController extends Controller
             $tr = Transactions::where('created_at', $value->created_at)->get();
             foreach ($tr as $k => $v) {
                 $arr[$key][] = $v;
-            }   
+            }
         }
         
         return view('ubercooker.index')->with(
