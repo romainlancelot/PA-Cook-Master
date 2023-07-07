@@ -7,10 +7,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.applijavapa2.ChartsController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.cookmasters.javaapp.ChartsController">
    <children>
       <PieChart fx:id="camenbert" layoutX="400.0" prefHeight="190.0" prefWidth="194.0" />
-      <Button fx:id="btnCamenbert" layoutX="474.0" layoutY="241.0" mnemonicParsing="false" onAction="#generate" text="Button" />
+      <Button fx:id="btnCamenbert" layoutX="274.0" layoutY="201.0" mnemonicParsing="false" onAction="#generate" text="Button" />
       <BarChart fx:id="age" prefHeight="182.0" prefWidth="290.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
@@ -27,5 +27,6 @@
             <NumberAxis side="LEFT" />
          </yAxis>
       </BarChart>
+      <PieChart fx:id="camenbert1" layoutX="400.0" layoutY="214.0" prefHeight="190.0" prefWidth="194.0" />
    </children>
 </AnchorPane>

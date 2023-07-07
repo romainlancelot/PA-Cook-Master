@@ -18,9 +18,21 @@
                     <form action="{{ route('cooking-recipes.update', $recipe->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <div class="form-group">
-                            <label for="name">Name:</label>
-                            <input type="text" name="name" id="name" class="form-control" value="{{ $recipe->name }}" required>
+                        <div class="row">
+                            <div class="col-10">
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input type="text" name="name" id="name" class="form-control" value="{{ $recipe->name }}" required>
+                                </div>
+                            </div>
+                            <div class="col-2 d-flex align-items-center">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="{{ $recipe->deliverable }}" name="deliverable" id="flexCheckDeliverable" @if ($recipe->deliverable) checked @endif>
+                                    <label class="form-check-label" for="flexCheckDeliverable">
+                                        Deliverable
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="description">Description:</label>

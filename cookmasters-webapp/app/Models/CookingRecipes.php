@@ -19,7 +19,8 @@ class CookingRecipes extends Model
         'cooking_time',
         'difficulty',
         'people',
-        'user_id'
+        'user_id',
+        'deliverable'
     ];
 
     /**

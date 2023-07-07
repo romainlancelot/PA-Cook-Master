@@ -12,4 +12,9 @@ php artisan db:seed --class=RoomEquipmentSeeder
 php artisan db:seed --class=RoomOfferSeeder
 php artisan db:seed --class=ServiceSeeder
 php artisan db:seed --class=UsersSeeder
+php artisan db:seed --class=CookingRecipesSeeder
+php artisan db:seed --class=RecipesStepsSeeder
+php artisan db:seed --class=IngredientsSeeder
+php artisan db:seed --class=IngredientsRecipesSeeder
+
 php artisan view:clear

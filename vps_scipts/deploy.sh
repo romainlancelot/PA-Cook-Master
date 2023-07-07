@@ -25,6 +25,7 @@ php artisan view:cache
 #php artisan optimize
 
 # Compile npm assets
+npm i
 npm run build
 
 # Run database migrations

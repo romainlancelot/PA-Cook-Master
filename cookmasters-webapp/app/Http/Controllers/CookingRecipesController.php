@@ -36,6 +36,7 @@ class CookingRecipesController extends Controller
             'description' => 'nullable|required',
             'cooking_time' => 'required|integer',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'deliverable' => 'nullable|integer',
             'difficulty' => 'required|integer',
             'people' => 'required|integer',
             'steps' => 'nullable|array',
@@ -60,6 +61,11 @@ class CookingRecipesController extends Controller
 
         try {
             $cookingRecipe = CookingRecipes::create($validatedData);
+            if (isset($validatedData['deliverable'])) {
+                $cookingRecipe->update(['deliverable' => 1]);
+            } else {
+                $cookingRecipe->update(['deliverable' => 0]);
+            }
         } catch (\Exception $e) {
             return redirect()->route('cooking-recipes.create')->withErrors(['name' => "Error creating recipe " . $e->getMessage()]);
         }
@@ -117,6 +123,7 @@ class CookingRecipesController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'difficulty' => 'required|integer',
             'people' => 'required|integer',
+            'deliverable' => 'nullable|integer',
             'steps' => 'nullable|array',
             'steps.*.title' => 'string',
             'steps.*.description' => 'nullable|string',
@@ -143,6 +150,11 @@ class CookingRecipesController extends Controller
         try {
             $cookingRecipe = CookingRecipes::find($id);
             $cookingRecipe->update($validatedData);
+            if (isset($validatedData['deliverable'])) {
+                $cookingRecipe->update(['deliverable' => 1]);
+            } else {
+                $cookingRecipe->update(['deliverable' => 0]);
+            }
         } catch (\Exception $e) {
             return redirect()->route('cooking-recipes.edit', $id)->withErrors(['name' => "Error updating recipe " . $e->getMessage()]);
         }

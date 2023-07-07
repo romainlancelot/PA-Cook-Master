@@ -77,7 +77,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::delete('/rooms/{room}', 'RoomController@destroy')->name('rooms.destroy');
     // update
     Route::get('/rooms/{room}/edit', 'RoomController@edit')->name('rooms.edit');
-    Route::put('/rooms/{room}', 'RoomController@update')->name('rooms.update');
+    // Route::put('/rooms/{room}', 'RoomController@update')->name('rooms.update');
     // show
     Route::get('/rooms/{room}', 'RoomController@show')->name('rooms.show');
 
