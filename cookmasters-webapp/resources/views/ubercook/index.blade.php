@@ -17,7 +17,6 @@
             </p>
         @endif
     </div>
-    <a class="btn btn-primary mb-5" href="{{ route('cooking-recipes.create') }}">Create new Cooking recipe</a>
     <table class="table table-striped table-hover display" id="recipes-table">
         <thead>
             <th scope="col">Image</th>
@@ -44,8 +43,7 @@
                     <td>
                         <a href="{{ route('ubercook.show', $recipe->id) }}" class="btn btn-primary">Voir le plat</a>
                     </td>
-                    </div>
-                </div>
+                </tr>
             @endforeach
         </tbody>
     </table>
