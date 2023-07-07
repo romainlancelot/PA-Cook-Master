@@ -29,9 +29,8 @@ class CommentsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Equipment $equipment, equest $request)
+    public function store(Equipment $equipment, Request $request)
     {
-        dd($equipment);
         $request->validate([
             'body' => 'required',
             'rating' => 'required|integer|min:1|max:5', // Assurez-vous que la note est un entier entre 1 et 5
@@ -39,12 +38,14 @@ class CommentsController extends Controller
     
         $equipment->comments()->create([
             'user_id' => auth()->id(),
+            'firstname' => auth()->user()->firstname,
+            'lastname' => auth()->user()->lastname,
             'body' => $request->body,
             'rating' => $request->rating, // Ajoutez cette ligne pour la notation par étoiles
         ]);
         return back();
     }
-
+    
     /**
      * Display the specified resource.
      */
@@ -58,7 +59,6 @@ class CommentsController extends Controller
      */
     public function destroy(Comments $comments)
     {
-        
         $comments->delete();
         return redirect()->route('boutiques.index')->with('success', 'Comments deleted successfully');
     }

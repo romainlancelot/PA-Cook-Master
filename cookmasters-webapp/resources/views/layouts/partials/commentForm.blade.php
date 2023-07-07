@@ -48,7 +48,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="{{ route('comments.store') }}">
+        <form method="POST" action="{{ route('comments.store', $equipment->id) }}">
           @csrf
           <div class="form-group">
             <div class="rating">

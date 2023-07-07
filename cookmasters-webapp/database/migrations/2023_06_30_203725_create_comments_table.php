@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('firstname');
+            $table->string('lastname');
             $table->text('body');
             $table->integer('rating');
             $table->morphs('commentable'); // This adds commentable_id and commentable_type
             $table->timestamps();
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

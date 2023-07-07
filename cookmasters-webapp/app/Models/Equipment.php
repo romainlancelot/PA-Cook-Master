@@ -45,4 +45,8 @@ class Equipment extends Model
     {
         return $this->belongsToMany(Service::class, 'room_equipment', 'equipment_id', 'room_id');
     }
+    public function comments()
+    {
+        return $this->morphMany(Comments::class, 'commentable');
+    }
 }

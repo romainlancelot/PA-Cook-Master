@@ -13,6 +13,7 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\RoomOfferController;
 use App\Http\Controllers\RoomEquipmentController;
 use App\Http\Controllers\BoutiqueController;
+use App\Http\Controllers\CommentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      */
     Route::resource('/boutique', BoutiqueController::class)->name('boutique', 'boutiques.index');
     
-    Route::post('', 'CommentsController@store')->name('comments.store');
+    Route::post('/equipments/{equipment}/comments', 'CommentsController@store')->name('comments.store');
+    // Route::post('/equipments/{equipment}/comments', [CommentsController::class, 'store'])->name('comments.store');
 
     /**
      * A propos Routes
