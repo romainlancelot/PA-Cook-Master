@@ -1,31 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
-use App\Models\Transactions;
-use App\Models\User;
+use App\Models\CookingRecipes;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class UsersController extends Controller
+class UberCookController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = User::all();
-        foreach ($data as $key => $value) {
-            $data[$key]['role'] = $value->role->name;
-            $data[$key]['subscription_plan'] = $value->subscriptionPlan;
-            $data[$key]['transactions'] = Transactions::getUserTransactions($value->id);
-        }
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Users List',
-            'data' => $data
-        ]);
+        return view('ubercook.index')->with('recipes', CookingRecipes::where('deliverable', 1)->get());
     }
 
     /**
@@ -49,7 +36,7 @@ class UsersController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('ubercook.show')->with('recipe', CookingRecipes::find($id));
     }
 
     /**

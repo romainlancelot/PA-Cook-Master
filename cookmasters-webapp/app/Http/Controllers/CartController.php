@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CookingRecipes;
 use App\Models\Transactions;
 use Exception;
 use App\Models\Equipment;
@@ -42,10 +43,22 @@ class CartController extends Controller
     {
         $validatedData = $request->validate([
             'quantity' => 'required|integer|min:1',
-            'equipment_id' => 'required|exists:equipment,id'
+            'equipment_id' => 'nullable|exists:equipment,id',
+            'recipe_id' => 'nullable|exists:cooking_recipes,id',
         ]);
 
-        $equipment = Equipment::findOrFail($validatedData['equipment_id']);
+        if (!isset($validatedData['equipment_id']) && !isset($validatedData['recipe_id'])) {
+            return redirect()->route('cart.index')->withErrors([
+                'error' => 'No product selected!'
+            ]);
+        }
+
+        if (isset($validatedData['equipment_id'])) {
+            $equipment = Equipment::findOrFail($validatedData['equipment_id']);
+        }
+        if (isset($validatedData['recipe_id'])) {
+            $equipment = CookingRecipes::findOrFail($validatedData['recipe_id']);
+        }
 
         $cart = session()->get('cart', []);
 
@@ -95,19 +108,27 @@ class CartController extends Controller
         ]);
 
         $cart = session()->get('cart', []);
-
-        if (isset($cart[$id])) {
-            if ($cart[$id]['equipment']->availablequantity < $validatedData['quantity']) {
-                $cart[$id]['quantity'] = $cart[$id]['equipment']->availablequantity;
-                session()->put('cart', $cart);
-                return redirect()->route('cart.index')->withErrors([
-                    'availablequantity' => 'The available quantity is exceeded ' . $cart[$id]['equipment']->availablequantity . ' in stock!'
-                ]);
-            }
-            $cart[$id]['quantity'] = $validatedData['quantity'];
-            session()->put('cart', $cart);
-            return redirect()->route('cart.index')->with('success', 'Cart updated successfully!');
+        
+        if (isset($cart[$id]['equipment'])) {
+            $equipment = $cart[$id]['equipment'];
+            $availablequantity = $cart[$id]['equipment']->availablequantity;
         }
+        if (isset($cart[$id]['recipe'])) {
+            $equipment = $cart[$id]['recipe'];
+            $availablequantity = $cart[$id]['recipe']->availablequantity;
+        }
+
+        if ($validatedData['quantity'] > $availablequantity) {
+            $cart[$id]['quantity'] = $availablequantity;
+            session()->put('cart', $cart);
+            return redirect()->route('cart.index')->withErrors([
+                'availablequantity' => 'The available quantity is exceeded ' . $cart[$id]['equipment']->availablequantity . ' in stock!'
+            ]);
+        }
+
+        $cart[$id]['quantity'] = $validatedData['quantity'];
+        session()->put('cart', $cart);
+        return redirect()->route('cart.index')->with('success', 'Cart updated successfully!');
     }
 
     /**
@@ -160,15 +181,17 @@ class CartController extends Controller
             ]);
         }
 
+
         // format cart
         foreach ($cart as $equipment) {
+            if (isset($cart['equipment']))  { $equipment = $cart['equipment']; }
+            if (isset($cart['recipe']))     { $equipment = $cart['recipe']; }
             $order[] = [
                 'price_data' => [
                     'currency' => 'eur',
                     'unit_amount' => $equipment['equipment']->price * 100,
                     'product_data' => [
                         'name' => $equipment['equipment']->name,
-                        'images' => json_decode($equipment['equipment']->photos),
                     ],
                 ],
                 'quantity' => $equipment['quantity'],
@@ -208,13 +231,22 @@ class CartController extends Controller
             }
 
             foreach ($cart as $equipment) {
-                Transactions::create([
+                $transaction = Transactions::create([
                     'user_id' => $user->id,
-                    'equipment_id' => $equipment['equipment']->id,
                     'quantity' => $equipment['quantity'],
                     'price' => $equipment['equipment']->price,
                     'stripe_payment_intent_id' => $session->payment_intent,
                 ]);
+                if ($equipment['equipment'] instanceof Equipment) {
+                    $transaction->equipment_id = $equipment['equipment']->id;
+                }
+                if ($equipment['equipment'] instanceof CookingRecipes) {
+                    $transaction->cooking_recipe_id = $equipment['equipment']->id;
+                }
+                $transaction->save();
+
+                $equipment['equipment']->availablequantity -= $equipment['quantity'];
+                $equipment['equipment']->save();
             }
 
         } catch (Exception $e) {
