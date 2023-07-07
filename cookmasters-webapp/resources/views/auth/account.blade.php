@@ -271,6 +271,66 @@
         </form>
     </div>
 
+    @if($transactions != null)
+        <hr>
+        <h2>Transactions en cours</h2>
+        <div class="timeline">
+        <table class="table table-striped table-hover display">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">#</th>
+                    <th scope="col">Commandé</th>
+                    <th scope="col">Accepté</th>
+                    <th scope="col">En préparation</th>
+                    <th scope="col">En livraison</th>
+                    <th scope="col">Livré</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($transactions as $transaction)
+                    <tr class="text-center">
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        <td>
+                            <i class="bi bi-check-lg"></i><br>
+                            {{ $transaction->created_at->format('d/m/Y à H:i') }}</td>
+                        <td>
+                            @if (isset($transaction->accepted_at))
+                                <i class="bi bi-check-lg"></i><br>
+                                {{ $transaction->accepted_at->format('d/m/Y à H:i') }}
+                            @else
+                                <i class="bi bi-hourglass-split"></i>
+                            @endif
+                        </td>
+                        <td>
+                            @if (isset($transaction->in_preparation))
+                                <i class="bi bi-check-lg"></i><br>
+                                {{ $transaction->in_preparation->format('d/m/Y à H:i') }}
+                            @else
+                                <i class="bi bi-hourglass-split"></i>
+                            @endif
+                        </td>
+                        <td>
+                            @if (isset($transaction->in_delivery))
+                                <i class="bi bi-check-lg"></i><br>
+                                {{ $transaction->in_delivery->format('d/m/Y à H:i') }}
+                            @else
+                                <i class="bi bi-hourglass-split"></i>
+                            @endif
+                        </td>
+                        <td>
+                            @if (isset($transaction->delivered_at))
+                                <i class="bi bi-check-lg"></i><br>
+                                {{ $transaction->delivered_at->format('d/m/Y à H:i') }}
+                            @else
+                                <i class="bi bi-hourglass-split"></i>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
+            
     @if ($payments != null)
         <hr>
         <h2>Historique des commandes</h2>

@@ -18,6 +18,10 @@ class Transactions extends Model
         'returned_at',
         'price',
         'stripe_payment_intent_id',
+        'delivered_at',
+        'in_delivery',
+        'in_preparation',
+        'accepted_at',
     ];
 
     public function equipment()
