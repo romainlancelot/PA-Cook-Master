@@ -279,11 +279,11 @@
             <thead>
                 <tr class="text-center">
                     <th scope="col">#</th>
-                    <th scope="col">Commandé</th>
-                    <th scope="col">Accepté</th>
+                    <th scope="col">Commandée</th>
+                    <th scope="col">Acceptée</th>
                     <th scope="col">En préparation</th>
                     <th scope="col">En livraison</th>
-                    <th scope="col">Livré</th>
+                    <th scope="col">Livrée</th>
                 </tr>
             </thead>
             <tbody>
