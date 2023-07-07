@@ -18,11 +18,20 @@ class Transactions extends Model
         'returned_at',
         'price',
         'stripe_payment_intent_id',
+        'delivered_at',
+        'in_delivery',
+        'in_preparation',
+        'accepted_at',
     ];
 
     public function equipment()
     {
         return $this->belongsTo(Equipment::class);
+    }
+
+    public function cookingRecipe()
+    {
+        return $this->belongsTo(CookingRecipes::class);
     }
 
     public function user()
@@ -38,20 +47,18 @@ class Transactions extends Model
         
         $transactions = Transactions::all()->where('user_id', $user_id)
         ->where('returned_at', null)
-        ->groupBy('created_at')
-        ->map(function ($item) {
-            return $item->map(function ($item) {
-                return [
-                    'id' => $item->id,
-                    'equipment_id' => $item->equipment_id,
-                    'equipment_name' => $item->equipment->name,
-                    'equipment_image' => $item->equipment->image,
-                    'quantity' => $item->quantity,
-                    'price' => $item->price,
-                    'created_at' => $item->created_at,
-                ];
-            });
-        });
+        ->groupBy('created_at');
+
+        foreach ($transactions as $key => $value) {
+            foreach ($value as $k => $v) {
+                if ($v->equipment_id) {
+                    $transactions[$key][$k]['equipment'] = Equipment::find($v->equipment_id);
+                }
+                if ($v->cooking_recipe_id) {
+                    $transactions[$key][$k]['cooking_recipe'] = CookingRecipes::find($v->cooking_recipe_id);
+                }
+            }
+        }
 
         $transactions = $transactions->map(function ($item) {
             $total = 0;

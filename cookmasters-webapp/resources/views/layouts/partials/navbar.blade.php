@@ -17,8 +17,14 @@
             </button>
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('cooking-recipes.index') }}">Recettes</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuRecipes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Nos plats
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuRecipes">
+                            <li><a class="dropdown-item" href="{{ route('cooking-recipes.index') }}">Recettes</a></li>
+                            <li><a class="dropdown-item" href="{{ route('ubercook.index') }}">Commander</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('boutique.index') }}">Boutique</a>
