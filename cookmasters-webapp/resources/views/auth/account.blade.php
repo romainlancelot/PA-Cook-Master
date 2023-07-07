@@ -287,7 +287,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($transactions as $transaction)
+                @foreach ($transactionsInProcess as $transaction)
                     <tr class="text-center">
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>

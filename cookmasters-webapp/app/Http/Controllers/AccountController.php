@@ -20,12 +20,20 @@ class AccountController extends Controller
                 $subscription = $stripe->retriveSubscription($stripe_id);
             }
         }
-        $transaction = Transactions::where('user_id', auth()->user()->id)->where('delivered_at', null)->get();
+
+        $transaction = Transactions::where('user_id', auth()->user()->id)->get();
+
+        $transactionsInProcess = Transactions::where('user_id', auth()->user()->id)
+            ->where('delivered_at', null)
+            ->groupBy('created_at')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('auth.account')->with([
             'payments' => $payments ?? null,
             'subscription' => $subscription ?? null,
             'transactions' => $transaction->isNotEmpty() ? $transaction : null,
+            'transactionsInProcess' => $transactionsInProcess->isNotEmpty() ? $transactionsInProcess : null,
         ]);
     }
 
