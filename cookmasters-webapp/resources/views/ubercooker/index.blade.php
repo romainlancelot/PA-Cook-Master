@@ -59,7 +59,8 @@
                                     <button type="submit" class="btn btn-success">Commencer la préparation</button>
                                 </form>
                             @elseif ($transaction->in_preparation != null)
-                                <a class="btn btn-info" href="{{ route('ubercooker.dlticket', $transaction->created_at) }}" role="button">Imprimer le ticket de livraison</a>
+                                <a class="btn btn-info" href="{{ route('ubercooker.dlticket', $transaction->created_at) }}" role="button">Imprimer le ticket de livraison</a><br>
+                                En attente de prise en charge par un livreur
                             @endif
                         </td>
                         @endif
