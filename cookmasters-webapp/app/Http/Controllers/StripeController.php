@@ -307,4 +307,34 @@ class StripeController extends Controller
         
         return $return_args;
     }
+
+    /**
+     * Retrieve delivery address from payment intent
+     * 
+     * @param string $payment_intent
+     * @return array
+     */
+    public function retriveDeliveryAddress($payment_intent)
+    {
+        $paymentIntent = $this->stripe->paymentIntents->retrieve(
+            $payment_intent,
+            []
+        );
+
+        return $paymentIntent->shipping->address;
+    }
+
+    public function retriveDeliveryPhone($payment_intent)
+    {
+        $paymentIntent = $this->stripe->paymentIntents->retrieve(
+            $payment_intent,
+            []
+        );
+        $customer = $this->stripe->customers->retrieve(
+            $paymentIntent->customer,
+            []
+        );
+
+        return $customer->phone;
+    }
 }
