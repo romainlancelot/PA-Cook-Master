@@ -22,6 +22,7 @@ return new class extends Migration
             ['name' => 'admin'],
             ['name' => 'user'],
             ['name' => 'presta'],
+            ['name' => 'driver'],
         ]);
     }
 
