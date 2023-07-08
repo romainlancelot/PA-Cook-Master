@@ -23,7 +23,7 @@ public class Main extends Application {
         fxmlLoader.setControllerFactory(c -> new ChartsController(api));
 
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("Cookmasters");
         stage.setScene(scene);
         stage.show();
     }
