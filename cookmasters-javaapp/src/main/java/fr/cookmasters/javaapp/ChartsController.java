@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.StackedAreaChart;
+
 import com.google.gson.*;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -14,28 +16,37 @@ import java.util.HashMap;
 
 public class ChartsController {
     @FXML
-    private PieChart camenbert;
+    private Button btnReload;
 
     @FXML
-    private PieChart camenbert1;
-    @FXML
-    private BarChart<String, Number> age;
+    private BarChart<String, Number> graphAge;
 
     @FXML
-    private BarChart<Number, Number> vraiAge;
+    private BarChart<String, Number> graphInscriptionDate;
 
     @FXML
-    private Button btnCamenbert;
-    int pro, free, basic;
-    int user, admin;
-    // String path = "C:\\Users\\sagej\\OneDrive\\Documents\\ESGI\\2ème année\\2ème Semestre\\Java\\Projets\\APPLIJAVAPA2\\json\\data.json";
+    private PieChart graphSubscriptionType;
+
+    @FXML
+    private PieChart graphUsers;
 
     private ApiConnection api = null;
 
     HashMap<Integer, Integer> tableauAge = new HashMap<>();
-    Integer ageVariable = null;
+    Integer ageVariable;
     Integer nombreAge = 1;
 
+    HashMap<String, Integer> tableauRole = new HashMap<>();
+    String roleName;
+    Integer nombreRole = 1;
+
+    HashMap<String, Integer> tableauSubscription = new HashMap<>();
+    String subscriptionPlanType;
+    Integer nombreSubscription = 1;
+
+    HashMap<LocalDate, Integer> tableauInscription = new HashMap<>();
+    String inscriptionDate;
+    Integer nombreInscription = 1;
 
     /**
      * Constructor
@@ -58,20 +69,14 @@ public class ChartsController {
     @FXML
     void generate(ActionEvent Event) throws IOException {
         //remettre les graph a 0:
-        camenbert.getData().clear();
-        camenbert1.getData().clear();
-/*
-        age.getData().clear();
-*/
-        //remettre les var a 0:
-        pro = 0;
-        free = 0;
-        basic = 0;
-        user = 0;
-        admin = 0;
-/*
-        vraiAge.getData().clear();
-*/
+        graphAge.getData().clear();
+        graphInscriptionDate.getData().clear();
+        graphSubscriptionType.getData().clear();
+        graphUsers.getData().clear();
+
+        tableauAge.clear();
+        tableauRole.clear();
+        tableauSubscription.clear();
 
         try {
             JsonObject users = api.getUsers();
@@ -85,24 +90,20 @@ public class ChartsController {
                 String spFirstname = dataList.get("firstname").getAsString();
                 System.out.print("\n" + spFirstname + " ");
 
-
                 /////////////////////////////////////////////
                 //recup le nom de l'user :
                 String spLastname = dataList.get("lastname").getAsString();
                 System.out.println(spLastname);
-
 
                 /////////////////////////////////////////////
                 //recup l'email de l'user :
                 String spEmail = dataList.get("email").getAsString();
                 System.out.println("email : " + spEmail);
 
-
                 /////////////////////////////////////////////
                 //recup l'username de l'user :
                 String spUsername = dataList.get("username").getAsString();
                 System.out.println("username : " + spUsername);
-
 
                 /////////////////////////////////////////////
                 //recup le pays de l'user :
@@ -114,8 +115,7 @@ public class ChartsController {
                     // La valeur est nulle, faire quelque chose en conséquence
                     System.out.println("Pays inconnu.");
                 }
-
-
+                
                 /////////////////////////////////////////////
                 //recup l'age avec la birthday de l'user :
                 JsonElement birthdayElement = dataList.get("birthday");
@@ -131,7 +131,6 @@ public class ChartsController {
                     years = age.getYears();
 
                     // Utiliser l'âge
-                    Integer spAge = years;
                     System.out.println("date de naissance : " + birthday);
                     System.out.println("age : " + years + " ans.");
                     ageVariable = years;
@@ -140,119 +139,105 @@ public class ChartsController {
                         tableauAge.put(ageVariable, nombreAge + 1);
                     } else {
                         tableauAge.put(ageVariable, nombreAge);
-                        Integer nombreAge = tableauAge.get(ageVariable);
-                    }/*
-                    vraiAge.getData().clear(); // Efface toutes les séries de données existantes
-                    XYChart.Series<Number, Number> dataSeries = new XYChart.Series<>();
-                    for (int vraiAge : tableauAge.keySet()) {
-                        int count = tableauAge.get(vraiAge);
-                        dataSeries.getData().add(new XYChart.Data<>(vraiAge, count));
                     }
-
-                    vraiAge.getData().add(dataSeries); // Ajoute la nouvelle série de données au graphique
-
-                } else {
-                    // La valeur est nulle, faire quelque chose en conséquence
-                    System.out.println("Date de naissance inconnue.");
-                    System.out.println("age inconnu.");
                 }
-                /////////////////////////////////////////////
-
 
                 /////////////////////////////////////////////
                 //recup le type de subscription de l'user :
-                int spData = dataList.get("subscription_plan_id").getAsInt();
-                switch (spData) {
-                    case 1: free++;
-                    break;
-                    case 2: basic++;
-                    break;
-                    case 3: pro++;
-                    break;
+                String subscriptionPlanType = dataList.get("subscription_plan").getAsJsonObject().get("name").getAsString();
+                if (tableauSubscription.containsKey(subscriptionPlanType)) {
+                    Integer nombreSubscription = tableauSubscription.get(subscriptionPlanType);
+                    tableauSubscription.put(subscriptionPlanType, nombreSubscription + 1);
+                } else {
+                    tableauSubscription.put(subscriptionPlanType, nombreSubscription);
                 }
-                /////////////////////////////////////////////
 
                 /////////////////////////////////////////////
                 //recup le role de l'user :
                 String roleName = dataList.get("role").getAsJsonObject().get("name").getAsString();
-                System.out.println("role : " + roleName);
-                switch (roleName) {
-                    case "admin": admin++;
-                        break;
-                    case "user": user++;
-                        break;
+                if (tableauRole.containsKey(roleName)) {
+                    Integer nombreRole = tableauRole.get(roleName);
+                    tableauRole.put(roleName, nombreRole + 1);
+                } else {
+                    tableauRole.put(roleName, nombreRole);
                 }
+
                 /////////////////////////////////////////////
+                //recup la date d'inscription de l'user :
+                JsonElement inscriptionDate = dataList.get("created_at");
+                if (inscriptionDate != null && !(inscriptionDate instanceof JsonNull)) {
+                    String inscriptionDateString = inscriptionDate.getAsString();
+                    LocalDate inscriptionDateLocalDate = LocalDate.parse(inscriptionDateString.substring(0, 10));
+                    System.out.println("date d'inscription : " + inscriptionDateLocalDate);
+                    if (tableauInscription.containsKey(inscriptionDateLocalDate)) {
+                        Integer nombreInscription = tableauInscription.get(inscriptionDateLocalDate);
+                        tableauInscription.put(inscriptionDateLocalDate, nombreInscription + 1);
+                    } else {
+                        tableauInscription.put(inscriptionDateLocalDate, nombreInscription);
+                    }
+                } else {
+                    System.out.println("Date d'inscription inconnue.");
+                }
+                // if (tableauInscription.containsKey(inscriptionDate)) {
+                    // Integer nombreInscription = tableauInscription.get(inscriptionDate);
+                    // tableauInscription.put(inscriptionDate, nombreInscription + 1);
+                // } else {
+                    // tableauInscription.put(inscriptionDate, nombreInscription);
+                // }
             }
 
             //////////////////////////////////////////////////////////////////////////////////////////
             /////////////////////////////////////////////
-            //print le type de subscription de l'user :
+            //print le type de role de l'user :
             System.out.println("\n");
             System.out.println("roleName :");
-            System.out.println("admin : " + admin);
-            System.out.println("user : " + user);
-            System.out.println("\n");
+
+            tableauSubscription.keySet().stream().sorted().forEach(subscriptionPlanType -> {
+                System.out.println(subscriptionPlanType + " : " + tableauSubscription.get(subscriptionPlanType));
+                PieChart.Data data = new PieChart.Data(subscriptionPlanType, tableauSubscription.get(subscriptionPlanType));
+                graphUsers.getData().add(data);
+            });
+
 
             /////////////////////////////////////////////
-            //print le type de role de l'user :
-            System.out.println("subscriptionPlanType :");
-            System.out.println("free : " + free);
-            System.out.println("basic : " + basic);
-            System.out.println("pro : " + pro);
+            //print le type de subscription de l'user :
             System.out.println("\n");
+            System.out.println("subscriptionPlanType :");
 
-            //subscription id camenbert
-            PieChart.Data freeData = new PieChart.Data("free", free);
-            PieChart.Data basicData = new PieChart.Data("basic", basic);
-            PieChart.Data proData = new PieChart.Data("pro", pro);
-
-            camenbert.getData().add(freeData);
-            camenbert.getData().add(basicData);
-            camenbert.getData().add(proData);
-
-            //roleName camenbert
-            PieChart.Data userData = new PieChart.Data("user", user);
-            PieChart.Data adminData = new PieChart.Data("admin", admin);
-
-            camenbert1.getData().add(userData);
-            camenbert1.getData().add(adminData);
+            tableauRole.keySet().stream().sorted().forEach(roleName -> {
+                System.out.println(roleName + " : " + tableauRole.get(roleName));
+                PieChart.Data data = new PieChart.Data(roleName, tableauRole.get(roleName));
+                graphSubscriptionType.getData().add(data);
+            });
 
 
+            /////////////////////////////////////////////
+            //print l'age de l'user :
+            System.out.println("\n");
+            System.out.println("ageVariable :");
 
-
-           /* //nombre de ID
-            XYChart.Series identifiant = new XYChart.Series();
-            identifiant.setName("ID");
-            for (JsonElement element:dataArray){
-                JsonObject idElement = element.getAsJsonObject();
-                int id = idElement.get("id").getAsInt();
-                String idString = idElement.get("id").getAsString();
-                identifiant.getData().add(new XYChart.Data(idString, id));
-            }
-
-            age.getData().add(identifiant);*/
-
-            /*//vraiAge
-            XYChart.Series revenus = new XYChart.Series();
-            revenus.setName("AGE");
-
-            for (JsonElement element:dataArray){
-                JsonObject dataList = element.getAsJsonObject();
-            }
-
-            vraiAge.getData().add(identifiant);*/
-
-
-            for (Integer ageVariable : tableauAge.keySet()) {
+            tableauAge.keySet().stream().sorted().forEach(ageVariable -> {
                 System.out.println(ageVariable + " : " + tableauAge.get(ageVariable));
-            }
+                XYChart.Series<String, Number> series = new XYChart.Series<>();
+                series.getData().add(new XYChart.Data<>(ageVariable.toString(), tableauAge.get(ageVariable)));
+                graphAge.getData().add(series);
+            });
 
-        }
 
-        catch(Exception E){
+            /////////////////////////////////////////////
+            //print la date d'inscription de l'user :
+            System.out.println("\n");
+            System.out.println("inscriptionDate :");
+
+            tableauInscription.keySet().stream().sorted().forEach(inscriptionDate -> {
+                System.out.println(inscriptionDate + " : " + tableauInscription.get(inscriptionDate));
+                XYChart.Series<String, Number> series = new XYChart.Series<>();
+                series.getData().add(new XYChart.Data<>(inscriptionDate.toString(), tableauInscription.get(inscriptionDate)));
+                graphInscriptionDate.getData().add(series);
+            });
+
+        } catch(Exception E){
             E.printStackTrace();
         }
     }
-
 }
