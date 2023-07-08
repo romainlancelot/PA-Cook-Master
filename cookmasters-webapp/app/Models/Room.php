@@ -12,19 +12,48 @@ class Room extends Model
     /**
     * Get the equipments associated with the room.
     */
+
+    protected $fillable = [
+        'name',
+        'address',
+        'city',
+        'postal_code',
+        'country',
+        'photos',
+        'description',
+        'capacity',
+        'price',
+        'type',
+        'payment_type',
+        'surface',
+        'facilities',
+        'availability_days',
+        'minimum_reservation_hours',
+        'reservation_hours',
+        'allow_more_people',
+        'max_people',
+        'caution',
+        'activities',
+        'rules',
+        'options',
+        'user_id',
+    ];
+
     public function equipments()
     {
-       return $this->belongsToMany(Equipment::class, 'room_equipment', 'room_id', 'equipment_id');
-    }
-    public function roomOffers()
-    {
-        return $this->belongsToMany(RoomOffer::class, 'room_equipment', 'room_id', 'equipment_id');
+        return $this->belongsToMany(Equipment::class, 'room_equipment');
+        // 'room_equipment' est le nom de la table pivot
     }
 
-    public function service()
+    public function roomOffers()
     {
-        return $this->belongsToMany(Service::class, 'room_equipment', 'room_id', 'equipment_id');
+        return $this->hasMany(RoomOffer::class);
     }
+
+    // public function service()
+    // {
+    //     return $this->belongsToMany(Service::class, 'room_equipment', 'room_id', 'equipment_id');
+    // }
 
     public function reservations()
     {

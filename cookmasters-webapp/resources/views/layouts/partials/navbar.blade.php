@@ -44,9 +44,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('roomoffers.index') }}">Salles</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('roomequipments.index') }}">Équipements</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuChat" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Messagerie

@@ -18,9 +18,11 @@ return new class extends Migration
             $table->string('availabilities');
             $table->string('duration');
             $table->string('price');
-            $table->unsignedBigInteger('room_equipment_id')->nullable();
-
-            $table->foreign('room_equipment_id')->references('id')->on('room_equipment')->onDelete('cascade');
+            $table->unsignedBigInteger('room_id');
+            $table->unsignedBigInteger('equipment_id');
+    
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
+            $table->foreign('equipment_id')->references('id')->on('equipments')->onDelete('cascade');
             $table->timestamps();
         });
     }

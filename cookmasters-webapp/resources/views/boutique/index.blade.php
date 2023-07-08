@@ -46,9 +46,16 @@
 </style>
 @auth
     @if (auth()->user()->role_name() == 'admin')
-        <a href="{{ route('equipment.create') }}" class="btn btn-success text-center">Ajouter</a>
+    <section class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4 d-flex justify-content-around mb-3">
+                <a href="{{ route('equipment.create') }}" class="btn btn-outline-primary btn-lg">Créer un équipement</a>
+            </div>
+        </div>
+    </section>
     @endif
 @endauth
+
 
 <div class="container boutique my-5">
     <div class="row">

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Equipment;
+use App\Models\User;
 use App\Models\Comments;
 use Illuminate\Database\Seeder;
 
@@ -14,13 +15,15 @@ class EquipmentSeeder extends Seeder
     public function run(): void
     {
 
-        $this->call([
-            UsersSeeder::class,
-        ]);
+        $users = User::all();
+        $len_users = count($users);
+
         $equipments = [
             [
                 'id' => 1,
                 'name' => "Refrigerator",
+                'saleable' => true,
+                'reservable' => false, 
                 'category' => "Electroménager",
                 'marque' => "Samsung",
                 'key_features' => json_encode(["Intérieur de couleur platine avec accents métalliques","Finition PrintShield™","Système de gestion de température ExtendFresh™","Plateau coulissant","Étagère coulissante"]),
@@ -42,6 +45,8 @@ class EquipmentSeeder extends Seeder
             [
                 'id' => 2,
                 'name' => "Oven",
+                'saleable' => true,
+                'reservable' => false,
                 'category' => "Electroménager",
                 'marque' => "Samsung",
                 'key_features' => json_encode(["Intérieur de couleur platine avec accents métalliques","Finition PrintShield™","Système de gestion de température ExtendFresh™","Plateau coulissant","Étagère coulissante"]),
@@ -63,6 +68,8 @@ class EquipmentSeeder extends Seeder
             [
                 'id' => 3,
                 'name' => "Oven",
+                'saleable' => true,
+                'reservable' => false,
                 'category' => "Electroménager",
                 'marque' => "Samsung",
                 'key_features' => json_encode(["Intérieur de couleur platine avec accents métalliques","Finition PrintShield™","Système de gestion de température ExtendFresh™","Plateau coulissant","Étagère coulissante"]),
@@ -84,6 +91,8 @@ class EquipmentSeeder extends Seeder
             [
                 'id' => 4,
                 'name' => "Oven",
+                'saleable' => true,
+                'reservable' => false,
                 'category' => "Electroménager",
                 'marque' => "Samsung",
                 'key_features' => json_encode(["Intérieur de couleur platine avec accents métalliques","Finition PrintShield™","Système de gestion de température ExtendFresh™","Plateau coulissant","Étagère coulissante"]),
@@ -105,6 +114,8 @@ class EquipmentSeeder extends Seeder
             [
                 'id' => 5,
                 'name' => "Oven",
+                'saleable' => true,
+                'reservable' => false,
                 'category' => "Electroménager",
                 'marque' => "Samsung",
                 'key_features' => json_encode(["Intérieur de couleur platine avec accents métalliques","Finition PrintShield™","Système de gestion de température ExtendFresh™","Plateau coulissant","Étagère coulissante"]),
@@ -126,6 +137,8 @@ class EquipmentSeeder extends Seeder
             [
                 'id' => 6,
                 'name' => "Oven",
+                'saleable' => true,
+                'reservable' => false,
                 'category' => "Electroménager",
                 'marque' => "Samsung",
                 'key_features' => json_encode(["Intérieur de couleur platine avec accents métalliques","Finition PrintShield™","Système de gestion de température ExtendFresh™","Plateau coulissant","Étagère coulissante"]),
@@ -147,6 +160,8 @@ class EquipmentSeeder extends Seeder
             [
                 'id' => 7,
                 'name' => "Oven",
+                'saleable' => true,
+                'reservable' => false,
                 'category' => "Electroménager",
                 'marque' => "Samsung",
                 'key_features' => json_encode(["Intérieur de couleur platine avec accents métalliques","Finition PrintShield™","Système de gestion de température ExtendFresh™","Plateau coulissant","Étagère coulissante"]),
@@ -168,6 +183,8 @@ class EquipmentSeeder extends Seeder
             [
                 'id' => 8,
                 'name' => "Oven",
+                'saleable' => true,
+                'reservable' => false,
                 'category' => "Electroménager",
                 'marque' => "Samsung",
                 'key_features' => json_encode(["Intérieur de couleur platine avec accents métalliques","Finition PrintShield™","Système de gestion de température ExtendFresh™","Plateau coulissant","Étagère coulissante"]),
@@ -189,6 +206,54 @@ class EquipmentSeeder extends Seeder
             [
                 'id' => 9,
                 'name' => "Oven",
+                'saleable' => true,
+                'reservable' => false,
+                'category' => "Electroménager",
+                'marque' => "Samsung",
+                'key_features' => json_encode(["Intérieur de couleur platine avec accents métalliques","Finition PrintShield™","Système de gestion de température ExtendFresh™","Plateau coulissant","Étagère coulissante"]),
+                'colors' => json_encode(["black", "white", "grey", "red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "beige", "turquoise", "gold", "silver"]),
+                'simple_description' => "Four mural simple à convection véritable de 30 po avec technologie Even-Heat™",
+                'warranty_url' => "https://www.kitchenaid.com/content/dam/global/documents/202302/warranty-w11655296-revA.pdf",
+                'height' => "30 pouces",
+                'width' => "30 pouces",
+                'depth' => "24 pouces",
+                'dimensional_guide_url' => "https://www.kitchenaid.com/content/dam/global/documents/202304/repair-parts-list-w11659217-revb.pdf",
+                'name_3d' => "https://www.kitchenaid.com/content/dam/global/documents/202203/owners-manual-w11502338-revc.pdf",
+                'manual_url' => "https://www.kitchenaid.com/content/dam/global/documents/202203/owners-manual-w11502338-revc.pdf",
+                'photos' => json_encode(["3Double_Wall_Oven_with_Even-Heat_True_Convection1.jpeg","3Double_Wall_Oven_with_Even-Heat_True_Convection2.jpeg","3Double_Wall_Oven_with_Even-Heat_True_Convection3.jpeg"]),
+                'description' => "30-Inch Single Wall Oven with Even-Heat™ True Convection
+                This 30-inch single wall oven with Even-Heat™ true convection provides consistent heating and even cooking. A unique bow-tie shaped design and convection fan helps ensure there are no burnt edges or undercooked centers. The Temperature Probe delivers accurate measurement of internal temperatures of meats, poultry, and casseroles without opening the oven. Bold design details are the perfect balance of elegance and functionality.",
+                'price' => 2000,
+                'availablequantity' => 10,
+            ],
+            [
+                'id' => 10,
+                'name' => "Oven",
+                'saleable' => false,
+                'reservable' => true,
+                'category' => "Electroménager",
+                'marque' => "Samsung",
+                'key_features' => json_encode(["Intérieur de couleur platine avec accents métalliques","Finition PrintShield™","Système de gestion de température ExtendFresh™","Plateau coulissant","Étagère coulissante"]),
+                'colors' => json_encode(["black", "white", "grey", "red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "beige", "turquoise", "gold", "silver"]),
+                'simple_description' => "Four mural simple à convection véritable de 30 po avec technologie Even-Heat™",
+                'warranty_url' => "https://www.kitchenaid.com/content/dam/global/documents/202302/warranty-w11655296-revA.pdf",
+                'height' => "30 pouces",
+                'width' => "30 pouces",
+                'depth' => "24 pouces",
+                'dimensional_guide_url' => "https://www.kitchenaid.com/content/dam/global/documents/202304/repair-parts-list-w11659217-revb.pdf",
+                'name_3d' => "https://www.kitchenaid.com/content/dam/global/documents/202203/owners-manual-w11502338-revc.pdf",
+                'manual_url' => "https://www.kitchenaid.com/content/dam/global/documents/202203/owners-manual-w11502338-revc.pdf",
+                'photos' => json_encode(["3Double_Wall_Oven_with_Even-Heat_True_Convection1.jpeg","3Double_Wall_Oven_with_Even-Heat_True_Convection2.jpeg","3Double_Wall_Oven_with_Even-Heat_True_Convection3.jpeg"]),
+                'description' => "30-Inch Single Wall Oven with Even-Heat™ True Convection
+                This 30-inch single wall oven with Even-Heat™ true convection provides consistent heating and even cooking. A unique bow-tie shaped design and convection fan helps ensure there are no burnt edges or undercooked centers. The Temperature Probe delivers accurate measurement of internal temperatures of meats, poultry, and casseroles without opening the oven. Bold design details are the perfect balance of elegance and functionality.",
+                'price' => 2000,
+                'availablequantity' => 10,
+            ],
+            [
+                'id' => 11,
+                'name' => "Oven",
+                'saleable' => false,
+                'reservable' => true,
                 'category' => "Electroménager",
                 'marque' => "Samsung",
                 'key_features' => json_encode(["Intérieur de couleur platine avec accents métalliques","Finition PrintShield™","Système de gestion de température ExtendFresh™","Plateau coulissant","Étagère coulissante"]),
@@ -218,70 +283,70 @@ class EquipmentSeeder extends Seeder
 
         $comments = [
             [
-                'user_id' =>  rand(2,25),
+                'user_id' =>  rand(2,$len_users),
                 'firstname' => 'John',
                 'lastname' => 'Doe',
                 'rating' => 5,
                 'body' => "Design moderne et élégant. Finition résistante aux traces de doigts. Maintient les aliments frais plus longtemps."
             ],
             [
-                'user_id' => rand(2,25),
+                'user_id' => rand(2,$len_users),
                 'firstname' => 'Jane',
                 'lastname' => 'Doe',
                 'rating' => 4,
                 'body'=> "Très bon produit. Je recommande. Aspect haut de gamme avec des accents métalliques.Maintient des températures optimales.Fonctionnalités pratiques pour une utilisation quotidienne."
             ],
             [
-                'user_id' => rand(2,25),
+                'user_id' => rand(2,$len_users),
                 'firstname' => 'Tom',
                 'lastname' => 'Smith',
                 'rating' => 4,
                 'body'=> "Très satisfait de cet achat. Facile à utiliser et maintient parfaitement le froid."
             ],
             [
-                'user_id' => rand(2,25),
+                'user_id' => rand(2,$len_users),
                 'firstname' => 'Sarah',
                 'lastname' => 'Johnson',
                 'rating' => 5,
                 'body'=> "Un excellent produit qui vaut chaque centime. Je suis impressionné par sa capacité de stockage."
             ],
             [
-                'user_id' => rand(2,25),
+                'user_id' => rand(2,$len_users),
                 'firstname' => 'Robert',
                 'lastname' => 'Brown',
                 'rating' => 4,
                 'body'=> "Bon produit avec une finition de qualité. Je recommande fortement."
             ],
             [
-                'user_id' => rand(2,25),
+                'user_id' => rand(2,$len_users),
                 'firstname' => 'Emily',
                 'lastname' => 'Williams',
                 'rating' => 5,
                 'body'=> "Un produit très efficace avec un grand espace de stockage. L'option de distribution de glaçons est très pratique."
             ],
             [
-                'user_id' => rand(2,25),
+                'user_id' => rand(2,$len_users),
                 'firstname' => 'David',
                 'lastname' => 'Davis',
                 'rating' => 5,
                 'body'=> "Très content de cet achat. Ce produit répond à tous mes besoins."
             ],
             [
-                'user_id' => rand(2,25),
+                'user_id' => rand(2,$len_users),
                 'firstname' => 'Jessica',
                 'lastname' => 'Miller',
                 'rating' => 4,
                 'body'=> "Un excellent ajout à ma cuisine. Il a une belle allure et fonctionne très bien."
             ],
             [
-                'user_id' => rand(2,25),
+                'user_id' => rand(2,$len_users),
                 'firstname' => 'Mark',
                 'lastname' => 'Wilson',
                 'rating' => 5,
                 'body'=> "Le meilleur produit que j'ai jamais possédé. Je suis très satisfait de mon achat."
             ],
             [
-                'user_id' => rand(2,25),
+                'user_id' => rand(2,$len_users),
                 'firstname' => 'Laura',
                 'lastname' => 'Moore',
                 'rating' => 4,

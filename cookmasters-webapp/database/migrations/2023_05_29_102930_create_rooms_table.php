@@ -14,14 +14,32 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('is_active')->default(true);
             $table->string('address');
+            $table->string('city');
+            $table->string('postal_code');
+            $table->string('country');
             $table->json('photos')->nullable();
             $table->string('description');
             $table->integer('capacity');
+            $table->integer('price');
+            $table->string('type');
+            $table->json('payment_type')->nullable();
+            $table->integer('surface')->nullable();
             $table->integer('facilities')->nullable();
-            $table->integer('availabilities');
-            
-            $table->string('price');
+            $table->string('availability_days')->nullable();
+            $table->integer('minimum_reservation_hours')->nullable();
+            $table->json('reservation_hours')->nullable();
+            $table->boolean('allow_more_people')->nullable();
+            $table->integer('max_people')->nullable();
+            $table->integer('caution')->nullable();
+            $table->json('activities')->nullable();
+            $table->json('rules')->nullable();
+            $table->json('options')->nullable();
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->timestamps();
         });
     }

@@ -15,9 +15,19 @@ class RoomEquipmentSeeder extends Seeder
      */
     public function run(): void
     {
-        RoomEquipment::create([
-            'room_id' => 1,
-            'equipment_id' => 1,
-        ]);
+        $rooms = Room::all();
+
+        $equipments = Equipment::all();
+
+        $len_rooms = count($rooms);
+        $len_equipments = count($equipments);
+
+        for ($i = 0; $i < $len_rooms; $i++) {
+            $equipment = rand(3, $len_equipments);
+
+            RoomEquipment::create([
+                'room_id' => $rooms[$i]->id,
+            ]);
+        }
     }
 }
