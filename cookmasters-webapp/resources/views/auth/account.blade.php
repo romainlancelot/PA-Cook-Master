@@ -271,7 +271,7 @@
         </form>
     </div>
 
-    @if($transactions != null)
+    @if($transactionsInProcess != null)
         <hr>
         <h2>Transactions en cours</h2>
         <div class="timeline">
@@ -284,6 +284,7 @@
                     <th scope="col">En préparation</th>
                     <th scope="col">En livraison</th>
                     <th scope="col">Livrée</th>
+                    <th scope="col">Terminer</th>
                     <th scope="col">Annuler</th>
                 </tr>
             </thead>
@@ -326,6 +327,14 @@
                                 <i class="bi bi-hourglass-split"></i>
                             @endif
                         </td>
+                        <td>
+                            @if (isset($transaction->delivered_at))
+                                <a class="btn btn-success" href="{{ route('ubercook.show', $transaction->created_at) }}" title="Terminer la commande"><i class="bi bi-check-lg"></i></a>
+                                <a class="btn btn-secondary" href="{{ route('ubercook.show', $transaction->created_at) }}" title="Ajouter un commentaire"><i class="bi bi-chat-left-text"></i></a>
+                            @else
+                                <i class="bi bi-hourglass-split"></i>
+                            @endif
+                        </td>
                         </td>
                             @if (!isset($transaction->accepted_at))
                                 <td>
@@ -338,7 +347,7 @@
                                 </td>
                             @else
                                 <td>
-                                    La commande est en cours, vous ne pouvez plus l'annuler.
+                                    La commande est en cours,<br>vous ne pouvez plus l'annuler.
                                 </td>
                             @endif
                         </td>

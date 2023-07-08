@@ -24,7 +24,7 @@ return new class extends Migration
             $table->timestamp('in_delivery')->nullable();
             $table->timestamp('delivered_at')->nullable();
             $table->timestamp('canceled_at')->nullable();
-            $table->boolean('commented')->default(false);
+            $table->boolean('commented')->nullable();
             $table->string('stripe_payment_intent_id')->nullable();
             $table->timestamp('returned_at')->nullable();
         });
