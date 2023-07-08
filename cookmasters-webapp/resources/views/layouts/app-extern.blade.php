@@ -2,7 +2,6 @@
 {{-- @routes --}}
 
 @section('styles')
-
 @endsection
 
 @section('body')
@@ -23,18 +22,13 @@
     </style>
 
     <body>
-
-        @auth
-            @if (auth()->user()->role_name() == 'driver')
-                <script>window.location = "/driver";</script>
-            @endif
-        @endauth
-
         
-        @include('layouts.partials.navbar')
+        @include('layouts.partials.navbar-extern')
         @include('layouts.partials.messages')
 
-        @yield('content')
+        <main class="container">
+            @yield('content')
+        </main>
 
         @include('layouts.partials.footer')
     </body>
