@@ -149,7 +149,7 @@ public class ChartsController {
                         dataSeries.getData().add(new XYChart.Data<>(vraiAge, count));
                     }
 
-                    vraiAge.getData().add(dataSeries); // Ajoute la nouvelle série de données au graphique*/
+                    vraiAge.getData().add(dataSeries); // Ajoute la nouvelle série de données au graphique
 
                 } else {
                     // La valeur est nulle, faire quelque chose en conséquence
