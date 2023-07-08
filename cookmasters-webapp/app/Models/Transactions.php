@@ -24,6 +24,14 @@ class Transactions extends Model
         'accepted_at',
     ];
 
+    protected $casts = [
+        'accepted_at' => 'datetime',
+        'in_preparation' => 'datetime',
+        'in_delivery' => 'datetime',
+        'delivered_at' => 'datetime',
+        'returned_at' => 'datetime',
+    ];
+
     public function equipment()
     {
         return $this->belongsTo(Equipment::class);

@@ -284,6 +284,22 @@ class StripeController extends Controller
         return $return_args;
     }
 
+    /**
+     * Retrieve refund from payment intent
+     * @see https://stripe.com/docs/api/terminal/readers/refund_payment?lang=php
+     * 
+     * @param string $payment_intent
+     * @return array
+     */
+    public function retriveRefund($payment_intent)
+    {
+        $refunds = $this->stripe->refunds->all([
+            'payment_intent' => $payment_intent,
+        ]);
+
+        return $refunds->data !== null ? $refunds->data : null;
+    }
+
     public function retriveAllPaymentIntentAndInvoices($customer_id)
     {
         $paymentsIntents = $this->retriveAllPaymentIntents($customer_id);
@@ -294,17 +310,75 @@ class StripeController extends Controller
                 if ($paymentIntent->invoice == $invoice->id) {
                     $return_args[] = [
                         'invoice' => $invoice,
-                        'paymentIntent' => $paymentIntent
+                        'paymentIntent' => $paymentIntent,
+                        'refund' => $this->retriveRefund($paymentIntent->id),
                     ];
                     continue 2;
                 }
             }
             $return_args[] = [
                 'paymentIntent' => $paymentIntent,
-                'invoice' => null
+                'invoice' => null,
+                'refund' => $this->retriveRefund($paymentIntent->id),
             ];
         }
         
         return $return_args;
+    }
+
+    /**
+     * Retrieve delivery address from payment intent
+     * 
+     * @param string $payment_intent
+     * @return array
+     */
+    public function retriveDeliveryAddress($payment_intent)
+    {
+        $paymentIntent = $this->stripe->paymentIntents->retrieve(
+            $payment_intent,
+            []
+        );
+
+        return $paymentIntent->shipping->address;
+    }
+
+    /**
+     * Retrieve delivery phone from payment intent
+     * 
+     * @param string $payment_intent
+     * @return string
+     */
+    public function retriveDeliveryPhone($payment_intent)
+    {
+        $paymentIntent = $this->stripe->paymentIntents->retrieve(
+            $payment_intent,
+            []
+        );
+        $customer = $this->stripe->customers->retrieve(
+            $paymentIntent->customer,
+            []
+        );
+
+        return $customer->phone;
+    }
+
+    /**
+     * Expire checkout session
+     * 
+     * @param string $customer_id
+     * @param string $payment_intent
+     * 
+     * @return void
+     */
+    public function expireCheckout(string $customer_id, string $payment_intent): void
+    {
+        $checkout_sessions = $this->stripe->checkout->sessions->all([
+            'customer' => $customer_id,
+            'payment_intent' => $payment_intent,
+        ])->data;
+
+        $this->stripe->refunds->create([
+            'payment_intent' => $payment_intent,
+        ]);
     }
 }

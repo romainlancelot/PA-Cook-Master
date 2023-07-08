@@ -205,6 +205,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * UberCook Routes
          */
         Route::resource('/ubercook', UberCookController::class);
+        Route::group(['middleware' => ['presta']], function() {
+            Route::resource('/ubercooker', UberCookerController::class);
+            Route::get('/ubercooker/dlticket/{created_at}', 'UberCookerController@dlTicket')->name('ubercooker.dlticket');
+        });
+
+        Route::group(['middleware' => ['driver']], function() {
+            Route::resource('/driver', DriverController::class);
+        });
     });
 
     Route::group(['middleware' => ['auth', 'admin']], function() {
