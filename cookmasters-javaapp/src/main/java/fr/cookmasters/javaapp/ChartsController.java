@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import java.time.LocalDate;
 import java.time.Period;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class ChartsController {
     @FXML
@@ -21,7 +22,7 @@ public class ChartsController {
     private BarChart<String, Number> age;
 
     @FXML
-    private BarChart<String, Number> vraiAge;
+    private BarChart<Number, Number> vraiAge;
 
     @FXML
     private Button btnCamenbert;
@@ -30,6 +31,11 @@ public class ChartsController {
     // String path = "C:\\Users\\sagej\\OneDrive\\Documents\\ESGI\\2ème année\\2ème Semestre\\Java\\Projets\\APPLIJAVAPA2\\json\\data.json";
 
     private ApiConnection api = null;
+
+    HashMap<Integer, Integer> tableauAge = new HashMap<>();
+    Integer ageVariable = null;
+    Integer nombreAge = 1;
+
 
     /**
      * Constructor
@@ -54,7 +60,9 @@ public class ChartsController {
         //remettre les graph a 0:
         camenbert.getData().clear();
         camenbert1.getData().clear();
+/*
         age.getData().clear();
+*/
         //remettre les var a 0:
         pro = 0;
         free = 0;
@@ -126,6 +134,23 @@ public class ChartsController {
                     Integer spAge = years;
                     System.out.println("date de naissance : " + birthday);
                     System.out.println("age : " + years + " ans.");
+                    ageVariable = years;
+                    if (tableauAge.containsKey(ageVariable)) {
+                        Integer nombreAge = tableauAge.get(ageVariable);
+                        tableauAge.put(ageVariable, nombreAge + 1);
+                    } else {
+                        tableauAge.put(ageVariable, nombreAge);
+                        Integer nombreAge = tableauAge.get(ageVariable);
+                    }/*
+                    vraiAge.getData().clear(); // Efface toutes les séries de données existantes
+                    XYChart.Series<Number, Number> dataSeries = new XYChart.Series<>();
+                    for (int vraiAge : tableauAge.keySet()) {
+                        int count = tableauAge.get(vraiAge);
+                        dataSeries.getData().add(new XYChart.Data<>(vraiAge, count));
+                    }
+
+                    vraiAge.getData().add(dataSeries); // Ajoute la nouvelle série de données au graphique*/
+
                 } else {
                     // La valeur est nulle, faire quelque chose en conséquence
                     System.out.println("Date de naissance inconnue.");
@@ -196,7 +221,7 @@ public class ChartsController {
 
 
 
-            //nombre de ID
+           /* //nombre de ID
             XYChart.Series identifiant = new XYChart.Series();
             identifiant.setName("ID");
             for (JsonElement element:dataArray){
@@ -206,7 +231,7 @@ public class ChartsController {
                 identifiant.getData().add(new XYChart.Data(idString, id));
             }
 
-            age.getData().add(identifiant);
+            age.getData().add(identifiant);*/
 
             /*//vraiAge
             XYChart.Series revenus = new XYChart.Series();
@@ -217,6 +242,12 @@ public class ChartsController {
             }
 
             vraiAge.getData().add(identifiant);*/
+
+
+            for (Integer ageVariable : tableauAge.keySet()) {
+                System.out.println(ageVariable + " : " + tableauAge.get(ageVariable));
+            }
+
         }
 
         catch(Exception E){

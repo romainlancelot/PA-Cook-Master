@@ -11,7 +11,7 @@
    <children>
       <PieChart fx:id="camenbert" layoutX="400.0" prefHeight="190.0" prefWidth="194.0" />
       <Button fx:id="btnCamenbert" layoutX="274.0" layoutY="201.0" mnemonicParsing="false" onAction="#generate" text="Button" />
-      <BarChart fx:id="age" prefHeight="182.0" prefWidth="290.0">
+      <BarChart fx:id="vraiAge" prefHeight="182.0" prefWidth="290.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
