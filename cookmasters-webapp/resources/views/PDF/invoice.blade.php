@@ -57,6 +57,10 @@
             <div class="d-flex justify-content-end">
                 <h4>Total: {{ $subtotal }} €</h4>
                 <small>Date: {{ $transaction[0]->created_at }}</small>
+                @if ($transaction[0]->delivered_at)
+                <br>
+                <small>Delivered at: {{ $transaction[0]->delivered_at }}</small>
+                @endif
             </div>
     </body>
 </html>
