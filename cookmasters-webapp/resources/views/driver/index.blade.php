@@ -71,6 +71,7 @@
                             @else
                                 Plat livré à {{ $transaction->delivered_at->format('d/m/Y H:i') }}
                             @endif
+                            <a href="{{ route('chat.show', $transaction->user->username) }}" class="btn btn-primary mt-2">Contacter le client</a>
                             <br>tel. client : <a href="tel:{{ $transaction->phone }}">{{ $transaction->phone }}</a>
                         </td>
                         @endif
