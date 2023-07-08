@@ -13,6 +13,8 @@ class Equipment extends Model
 
     protected $fillable = [
         'name',
+        'saleable',
+        'reservable',
         'category',
         'marque',
         'key_features',
@@ -33,16 +35,19 @@ class Equipment extends Model
     /*
     * Get rooms associated to equipment
     */
+
     public function rooms()
     {
-       return $this->belongsToMany(Room::class, 'room_equipment', 'equipment_id', 'room_id');
+        return $this->belongsToMany(Room::class, 'room_equipment');
     }
+    
     public function roomOffers()
     {
-        return $this->belongsToMany(RoomOffer::class, 'room_equipment', 'equipment_id', 'room_id');
+        return $this->belongsToMany(RoomOffer::class, 'room_offer_equipment');
     }
-    public function service()
+    
+    public function comments()
     {
-        return $this->belongsToMany(Service::class, 'room_equipment', 'equipment_id', 'room_id');
+        return $this->morphMany(Comments::class, 'commentable');
     }
 }

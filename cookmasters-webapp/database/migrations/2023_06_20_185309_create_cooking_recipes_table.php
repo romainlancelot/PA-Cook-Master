@@ -21,6 +21,8 @@ return new class extends Migration
             $table->integer('difficulty');
             $table->integer('people');
             $table->boolean('deliverable')->default(false);
+            $table->string('price');
+            $table->integer('availablequantity');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
     }

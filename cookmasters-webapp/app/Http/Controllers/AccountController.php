@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transactions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,9 +20,20 @@ class AccountController extends Controller
                 $subscription = $stripe->retriveSubscription($stripe_id);
             }
         }
+
+        $transaction = Transactions::where('user_id', auth()->user()->id)->get();
+
+        $transactionsInProcess = Transactions::where('user_id', auth()->user()->id)
+            ->where('canceled_at', null)
+            ->groupBy('created_at')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return view('auth.account')->with([
             'payments' => $payments ?? null,
             'subscription' => $subscription ?? null,
+            'transactions' => $transaction->isNotEmpty() ? $transaction : null,
+            'transactionsInProcess' => $transactionsInProcess->isNotEmpty() ? $transactionsInProcess : null,
         ]);
     }
 

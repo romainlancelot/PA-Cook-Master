@@ -13,6 +13,8 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\RoomOfferController;
 use App\Http\Controllers\RoomEquipmentController;
 use App\Http\Controllers\BoutiqueController;
+use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +39,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      */
     Route::resource('/boutique', BoutiqueController::class)->name('boutique', 'boutiques.index');
     
-    Route::post('', 'CommentsController@store')->name('comments.store');
+    Route::post('/equipments/{equipment}/comments', 'CommentsController@store')->name('comments.store');
 
     /**
      * A propos Routes
@@ -59,10 +61,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     /*
      * Rooms Equipment
      */
-    Route::resource('/roomequipments', RoomEquipmentController::class);
+    // Route::resource('/roomequipments', RoomEquipmentController::class);
 
-    Route::get('/rooms/{room}/reservations/create', 'ReservationController@create')->name('reservations.create');
-    Route::post('/rooms/{room}/reservations', 'ReservationController@store')->name('reservations.store');
+    Route::get('/rooms/{room}/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');
+    Route::post('/rooms/{room}/reservations', [ReservationController::class, 'store'])->name('reservations.store');
+    
     /**
      * Romes Routes
     */
@@ -198,6 +201,18 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::put('/cooking-recipes/{cooking_recipe}', 'CookingRecipesController@update')->name('cooking-recipes.update');
         Route::delete('/cooking-recipes/{cooking_recipe}', 'CookingRecipesController@destroy')->name('cooking-recipes.destroy');
 
+        /**
+         * UberCook Routes
+         */
+        Route::resource('/ubercook', UberCookController::class);
+        Route::group(['middleware' => ['presta']], function() {
+            Route::resource('/ubercooker', UberCookerController::class);
+            Route::get('/ubercooker/dlticket/{created_at}', 'UberCookerController@dlTicket')->name('ubercooker.dlticket');
+        });
+
+        Route::group(['middleware' => ['driver']], function() {
+            Route::resource('/driver', DriverController::class);
+        });
     });
 
     Route::group(['middleware' => ['auth', 'admin']], function() {

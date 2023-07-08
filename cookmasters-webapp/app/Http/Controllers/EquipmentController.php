@@ -81,9 +81,8 @@ class EquipmentController extends Controller
         $equipment->photos = json_encode($data);
         $equipment->save();
     
-        return redirect()->route('boutiques.index')->with('success', 'Equipment created successfully');
+        return redirect()->route('boutique.index')->with('success', 'Equipment created successfully');
     }
-    
     
     /**
      * Display the specified resource.
@@ -94,6 +93,13 @@ class EquipmentController extends Controller
         $equipments->where('category', $equipment->category);
         $equipments->where('marque', $equipment->marque);
         $equipments = $equipments->get();
+        $comments = $equipment->comments()->get();
+
+        if ($comments->count() > 3) {
+            $comments = $comments->random(3);
+        } else {
+            $comments = $equipment->comments()->get();
+        }
 
         if ($equipments->count() > 3) {
             $equipments = $equipments->random(3);
@@ -104,7 +110,8 @@ class EquipmentController extends Controller
                 $equipments = Equipment::all();
             }
         }
-        return view('equipments.show', compact('equipments', 'equipment'));
+
+        return view('equipments.show', compact('equipments', 'equipment', 'comments'));
     }
 
     /**
@@ -161,7 +168,7 @@ class EquipmentController extends Controller
     public function destroy(Equipment $equipment)
     {
         $equipment->delete();
-        return redirect()->route('boutiques.index')->with('success', 'Equipment deleted successfully');
+        return redirect()->route('boutique.index')->with('success', 'Equipment deleted successfully');
     }
     
 }

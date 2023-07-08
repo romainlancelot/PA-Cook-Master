@@ -11,14 +11,14 @@ class RoomController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        // Retrieve all rooms from the database
-        $rooms = Room::paginate(6);
+    // public function index()
+    // {
+    //     // Retrieve all rooms from the database
+    //     $rooms = Room::paginate(6);
 
-        // Redirect to the index view
-        return view('rooms.index', compact('rooms'));
-    }
+    //     // Redirect to the index view
+    //     return view('boutique.index', compact('rooms'));
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -27,7 +27,6 @@ class RoomController extends Controller
     {
         return view('rooms.create');       
     }
-
     
     /**
      * Store a newly created resource in storage.
@@ -48,7 +47,7 @@ class RoomController extends Controller
         // Create a new room with the validated data
         $room = Room::create($validatedData);
         // Redirect to the index page or show success message
-        return redirect()->route('rooms.index')->with('success', 'Room created successfully');
+        return redirect()->route('boutique.index')->with('success', 'Room created successfully');
     }
 
     /**
@@ -79,7 +78,7 @@ class RoomController extends Controller
     {
         $room->update($request->all());
 
-        return redirect()->route('rooms.index')->with('success', 'Room updated successfully');
+        return redirect()->route('boutique.index')->with('success', 'Room updated successfully');
     }
 
     /**
@@ -89,6 +88,6 @@ class RoomController extends Controller
     {
         $room->delete();
 
-        return redirect()->route('rooms.index')->with('success', 'Room deleted successfully');
+        return redirect()->route('boutique.index')->with('success', 'Room deleted successfully');
     }
 }

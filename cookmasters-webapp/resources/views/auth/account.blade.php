@@ -271,6 +271,92 @@
         </form>
     </div>
 
+    @if($transactionsInProcess != null)
+        <hr>
+        <h2>Transactions en cours</h2>
+        <div class="timeline">
+        <table class="table table-striped table-hover display">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">#</th>
+                    <th scope="col">Commandée</th>
+                    <th scope="col">Acceptée</th>
+                    <th scope="col">En préparation</th>
+                    <th scope="col">En livraison</th>
+                    <th scope="col">Livrée</th>
+                    <th scope="col">Terminer</th>
+                    <th scope="col">Annuler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($transactionsInProcess as $transaction)
+                    <tr class="text-center">
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        <td>
+                            <i class="bi bi-check-lg"></i><br>
+                            {{ $transaction->created_at->format('d/m/Y à H:i') }}</td>
+                        <td>
+                            @if (isset($transaction->accepted_at))
+                                <i class="bi bi-check-lg"></i><br>
+                                {{ $transaction->accepted_at->format('d/m/Y à H:i') }}
+                            @else
+                                <i class="bi bi-hourglass-split"></i>
+                            @endif
+                        </td>
+                        <td>
+                            @if (isset($transaction->in_preparation))
+                                <i class="bi bi-check-lg"></i><br>
+                                {{ $transaction->in_preparation->format('d/m/Y à H:i') }}
+                            @else
+                                <i class="bi bi-hourglass-split"></i>
+                            @endif
+                        </td>
+                        <td>
+                            @if (isset($transaction->in_delivery))
+                                <i class="bi bi-check-lg"></i><br>
+                                {{ $transaction->in_delivery->format('d/m/Y à H:i') }}
+                            @else
+                                <i class="bi bi-hourglass-split"></i>
+                            @endif
+                        </td>
+                        <td>
+                            @if (isset($transaction->delivered_at))
+                                <i class="bi bi-check-lg"></i><br>
+                                {{ $transaction->delivered_at->format('d/m/Y à H:i') }}
+                            @else
+                                <i class="bi bi-hourglass-split"></i>
+                            @endif
+                        </td>
+                        <td>
+                            @if (isset($transaction->delivered_at))
+                                <a class="btn btn-success" href="{{ route('ubercook.show', $transaction->created_at) }}" title="Terminer la commande"><i class="bi bi-check-lg"></i></a>
+                                <a class="btn btn-secondary" href="{{ route('ubercook.show', $transaction->created_at) }}" title="Ajouter un commentaire"><i class="bi bi-chat-left-text"></i></a>
+                            @else
+                                <i class="bi bi-hourglass-split"></i>
+                            @endif
+                        </td>
+                        </td>
+                            @if (!isset($transaction->accepted_at))
+                                <td>
+                                    <form action="{{ route('ubercook.destroy', $transaction->created_at) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="canceled_at" = value="{{ now() }}">
+                                        <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                    </form>
+                                </td>
+                            @else
+                                <td>
+                                    La commande est en cours,<br>vous ne pouvez plus l'annuler.
+                                </td>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
+            
     @if ($payments != null)
         <hr>
         <h2>Historique des commandes</h2>
@@ -279,13 +365,14 @@
                 @if ($payment['invoice'])
                     <a href="{{ $payment['invoice']->hosted_invoice_url }}" class="list-group-item list-group-item-action text-success">
                 @else
-                    <a href="{{ route('cart.invoice', $payment['paymentIntent']->id) }}" class="list-group-item list-group-item-action text-success">
+                    <a href="{{ route('cart.invoice', $payment['paymentIntent']->id) }}" class="list-group-item list-group-item-action @if ($payment['refund'] == null) text-success @else text-warning @endif">
                 @endif
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">
                             {{ $payment['paymentIntent']->currency == 'eur' ? '€' : $payment['paymentIntent']->currency }} {{ $payment['paymentIntent']->amount / 100 }} | 
                             @if ($payment['paymentIntent']->status == 'succeeded')
                                 @if (isset($payment['paymentIntent']->description)) {{ $payment['paymentIntent']->description }} @else Commande sur la boutique @endif
+                                @if ($payment['refund'] != null) (remboursé le {{ date('d/m/Y', $payment['refund'][0]->created) }}) @endif
                             @else
                                 Erreur lors du paiement
                             @endif

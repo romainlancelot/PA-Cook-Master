@@ -12,7 +12,8 @@ public class ApiConnection {
     public static final String URL = "https://cookmasters.fr/api";
     public static final String URL_LOGIN = URL + "/login";
     public static final String URL_USERS = URL + "/users";
-    
+    public static final String URL_CR = URL + "/cooking-recipes";
+
     private String email;
     private String password;
     private String token;

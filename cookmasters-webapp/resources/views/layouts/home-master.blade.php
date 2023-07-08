@@ -23,6 +23,13 @@
     </style>
 
     <body>
+
+        @auth
+            @if (auth()->user()->role_name() == 'driver')
+                <script>window.location = "/driver";</script>
+            @endif
+        @endauth
+
         
         @include('layouts.partials.navbar')
         @include('layouts.partials.messages')

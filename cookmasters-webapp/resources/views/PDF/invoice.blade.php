@@ -40,12 +40,13 @@
                 </thead>
                 <tbody>
                     @foreach($transaction as $item)
-                    {{-- {{ dd($item->equipment) }}} --}}
+                        @if ($item['equipment'] != null)        @php $item_model = $item['equipment']       @endphp @endif
+                        @if ($item['cookingRecipe'] != null)    @php $item_model = $item['cookingRecipe']   @endphp @endif
                         <tr>
-                            <td>{{ $item['equipment']->name }}</td>
+                            <td>{{ $item_model->name }}</td>
                             <td>{{ $item['quantity'] }}</td>
-                            <td>{{ $item['equipment']->price }} €</td>
-                            <td>{{ $item['equipment']->price * $item['quantity'] }} €</td>
+                            <td>{{ $item_model->price }} €</td>
+                            <td>{{ $item_model->price * $item['quantity'] }} €</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -56,6 +57,10 @@
             <div class="d-flex justify-content-end">
                 <h4>Total: {{ $subtotal }} €</h4>
                 <small>Date: {{ $transaction[0]->created_at }}</small>
+                @if ($transaction[0]->delivered_at)
+                <br>
+                <small>Delivered at: {{ $transaction[0]->delivered_at }}</small>
+                @endif
             </div>
     </body>
 </html>

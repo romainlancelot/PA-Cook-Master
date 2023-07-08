@@ -2,11 +2,9 @@
 /node_modules
 /public/build
 /public/hot
-/public/storage
 /public/images/equipments
 /public/images/rooms
 /public/images/services
-/public/images/recipes
 /public/images/users
 /storage/*.key
 /vendor

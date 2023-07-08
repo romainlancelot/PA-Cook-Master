@@ -8,8 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class RoomOffer extends Model
 {
     use HasFactory;
-    public function roomEquipment()
+
+    public function room()
     {
-        return $this->belongsTo(RoomEquipment::class);
+        return $this->belongsTo(Room::class);
+    }
+
+    public function equipments()
+    {
+        return $this->belongsToMany(Equipment::class, 'room_offer_equipment');
+        // 'room_offer_equipment' est le nom de la table pivot pour RoomOffer et Equipment
     }
 }

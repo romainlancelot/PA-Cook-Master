@@ -16,25 +16,8 @@ class RoomFactory extends Factory
      */
     public function definition(): array
     {
-        // $photos = [
-        //     fake()->image('public/images/rooms', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
-        //     fake()->image('public/images/rooms', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
-        //     fake()->image('public/images/rooms', 360, 360, 'animals', true, true, 'cats', true, 'jpg'),
-        // ];
-
-        // $photos = array_map(function ($photo) {
-        //     return str_replace('public/', '', $photo);
-        // }, $photos);
 
         return [
-            'name' => fake()->name(),
-            'address' => fake()->sentence(2),
-            // 'photos' => json_encode($photos),
-            'description' => fake()->paragraph(),
-            'capacity' => fake()->randomDigit(),
-            'facilities' => fake()->sentence(2),
-            'availabilities' => fake()->sentence(5),
-            'price' => fake()->sentence(),
         ];
     }
 }

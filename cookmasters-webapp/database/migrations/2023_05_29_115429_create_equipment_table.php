@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('equipment', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('saleable')->default(true);
+            $table->boolean('reservable')->default(false);
             $table->string('category');
             $table->string('marque');
             $table->json('key_features')->nullable();

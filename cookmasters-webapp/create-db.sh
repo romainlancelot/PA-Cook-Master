@@ -1,20 +1,6 @@
 #/!bin/bash
 
+php artisan view:clear
 php artisan migrate:fresh
 
-rm ./public/images/equipments/*
-rm ./public/images/rooms/*
-rm ./public/images/services/*
-
-php artisan db:seed --class=RoomSeeder
-php artisan db:seed --class=EquipmentSeeder
-php artisan db:seed --class=RoomEquipmentSeeder
-php artisan db:seed --class=RoomOfferSeeder
-php artisan db:seed --class=ServiceSeeder
-php artisan db:seed --class=UsersSeeder
-php artisan db:seed --class=CookingRecipesSeeder
-php artisan db:seed --class=RecipesStepsSeeder
-php artisan db:seed --class=IngredientsSeeder
-php artisan db:seed --class=IngredientsRecipesSeeder
-
-php artisan view:clear
+php artisan db:seed --class=DatabaseSeeder
