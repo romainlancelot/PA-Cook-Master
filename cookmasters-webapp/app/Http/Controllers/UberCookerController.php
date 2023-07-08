@@ -77,8 +77,8 @@ class UberCookerController extends Controller
             if (!$transaction = Transactions::where('created_at', $created_at)->get()) {
                 return redirect()->route('ubercooker.index')->withErrors(['error' => 'Transaction not found']);
             }
-            if (isset($validatedData['accepted_at'])) { $status = 'accepted_at'; }
-            if (isset($validatedData['in_preparation'])) { $status = 'in_preparation'; }
+            if (isset($validatedData['accepted_at']))       { $status = 'accepted_at'; }
+            if (isset($validatedData['in_preparation']))    { $status = 'in_preparation'; }
             foreach ($transaction as $tr) {
                 $tr->$status = now();
                 $tr->save();

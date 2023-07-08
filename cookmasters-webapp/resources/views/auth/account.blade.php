@@ -284,6 +284,7 @@
                     <th scope="col">En préparation</th>
                     <th scope="col">En livraison</th>
                     <th scope="col">Livrée</th>
+                    <th scope="col">Annuler</th>
                 </tr>
             </thead>
             <tbody>
@@ -325,6 +326,22 @@
                                 <i class="bi bi-hourglass-split"></i>
                             @endif
                         </td>
+                        </td>
+                            @if (!isset($transaction->accepted_at))
+                                <td>
+                                    <form action="{{ route('ubercook.destroy', $transaction->created_at) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="canceled_at" = value="{{ now() }}">
+                                        <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                    </form>
+                                </td>
+                            @else
+                                <td>
+                                    La commande est en cours, vous ne pouvez plus l'annuler.
+                                </td>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -339,13 +356,14 @@
                 @if ($payment['invoice'])
                     <a href="{{ $payment['invoice']->hosted_invoice_url }}" class="list-group-item list-group-item-action text-success">
                 @else
-                    <a href="{{ route('cart.invoice', $payment['paymentIntent']->id) }}" class="list-group-item list-group-item-action text-success">
+                    <a href="{{ route('cart.invoice', $payment['paymentIntent']->id) }}" class="list-group-item list-group-item-action @if ($payment['refund'] == null) text-success @else text-warning @endif">
                 @endif
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">
                             {{ $payment['paymentIntent']->currency == 'eur' ? '€' : $payment['paymentIntent']->currency }} {{ $payment['paymentIntent']->amount / 100 }} | 
                             @if ($payment['paymentIntent']->status == 'succeeded')
                                 @if (isset($payment['paymentIntent']->description)) {{ $payment['paymentIntent']->description }} @else Commande sur la boutique @endif
+                                @if ($payment['refund'] != null) (remboursé le {{ date('d/m/Y', $payment['refund'][0]->created) }}) @endif
                             @else
                                 Erreur lors du paiement
                             @endif

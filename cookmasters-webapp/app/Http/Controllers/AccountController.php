@@ -25,6 +25,7 @@ class AccountController extends Controller
 
         $transactionsInProcess = Transactions::where('user_id', auth()->user()->id)
             ->where('delivered_at', null)
+            ->where('canceled_at', null)
             ->groupBy('created_at')
             ->orderBy('created_at', 'desc')
             ->get();

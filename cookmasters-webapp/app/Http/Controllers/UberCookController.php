@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CookingRecipes;
+use App\Models\Transactions;
 use Illuminate\Http\Request;
 
 class UberCookController extends Controller
@@ -50,7 +51,7 @@ class UberCookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $created_at)
     {
         //
     }
@@ -58,8 +59,26 @@ class UberCookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $created_at)
     {
-        //
+        $validatedData = $request->validate([
+            'canceled_at' => 'required|date',
+        ]);
+        try {
+            if (!$transaction = Transactions::where('created_at', $created_at)->get()) {
+                return redirect()->route('account.show')->withErrors(['error' => 'Transaction not found']);
+            }
+            $stripe = new StripeController();
+            $stripe->expireCheckout(auth()->user()->stripe_id, $transaction[0]->stripe_payment_intent_id);
+            $status = 'canceled_at';
+
+            foreach ($transaction as $tr) {
+                $tr->$status = now();
+                $tr->save();
+            }
+            return redirect()->route('account.show')->with('success', 'Transaction canceled');
+        } catch (\Throwable $th) {
+            return redirect()->route('account.show')->withErrors(['error' => 'Error canceling transaction']);
+        }
     }
 }
