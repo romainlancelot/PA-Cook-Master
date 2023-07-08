@@ -209,6 +209,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::get('/ubercooker/dlticket/{created_at}', 'UberCookerController@dlTicket')->name('ubercooker.dlticket');
         });
 
+        Route::group(['middleware' => ['driver']], function() {
+            Route::resource('/driver', DriverController::class);
+        });
     });
 
     Route::group(['middleware' => ['auth', 'admin']], function() {
