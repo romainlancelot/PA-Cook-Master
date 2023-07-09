@@ -31,7 +31,7 @@ Route::group(['namespace' => 'App\Http\Controllers\API'], function()
      * Protected Routes
      */
 
-    Route::group(['middleware' => 'auth.api'], function () {
+     Route::group(['middleware' => ['auth.api']], function () {
         /**
          * Logout
          */
@@ -41,7 +41,9 @@ Route::group(['namespace' => 'App\Http\Controllers\API'], function()
          * Get user account informations
          */
         Route::post('/account', 'AuthController@account');
+     });
 
+    Route::group(['middleware' => ['auth.api', 'admin.api']], function () {
         /**
          * get users list
          */
