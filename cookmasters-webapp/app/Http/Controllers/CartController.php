@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderConfirmation;
 use App\Models\CookingRecipes;
 use App\Models\Transactions;
 use Exception;
 use App\Models\Equipment;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use PDF;
 
 class CartController extends Controller
@@ -248,6 +250,12 @@ class CartController extends Controller
                 $equipment['equipment']->availablequantity -= $equipment['quantity'];
                 $equipment['equipment']->save();
             }
+
+            $transaction = Transactions::where('user_id', auth()->user()->id)
+                ->where('created_at', $transaction->created_at)
+                ->get();
+
+            Mail::to(auth()->user()->email)->send(new OrderConfirmation($transaction, $this->subtotal()));
 
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
