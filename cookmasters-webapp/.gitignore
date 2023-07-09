@@ -1,5 +1,7 @@
+.scripts/
 /.phpunit.cache
 /node_modules
+/public/storage
 /public/build
 /public/hot
 /public/images/equipments
