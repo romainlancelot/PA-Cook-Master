@@ -42,7 +42,9 @@ class WorkshopController extends Controller
 
     public function show(Workshop $workshop)
     {
-        return view('workshops.show', compact('workshop'));
+        $workshops = Workshop::where('user_id', $workshop->user_id)->take(3)->get();
+
+        return view('workshops.show', compact('workshop', 'workshops'));
     }
 
     public function edit(Workshop $workshop)
