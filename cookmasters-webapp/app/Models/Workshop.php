@@ -10,6 +10,11 @@ class Workshop extends Model
         'user_id', 'title', 'start_hour', 'end_hour', 'description', 'duration', 'photos', 'room_id'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function sessions()
     {
         return $this->hasMany(WorkshopSession::class);

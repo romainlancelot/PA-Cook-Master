@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Workshop;
+use App\Models\WorkshopSession;
 
 class WorkshopController extends Controller
 {
     public function index()
     {
         $workshops = Workshop::all();
+        // dd($workshops->first()->sessions->first()->start);
         return view('workshops.index', compact('workshops'));
     }
 

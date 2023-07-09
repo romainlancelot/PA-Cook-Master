@@ -9,25 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('workshops', function (Blueprint $table) {
+        Schema::create('user_workshop_session', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->string('photos')->nullable();
-            $table->float('price');
-            $table->integer('max_people');
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('workshop_session_id')->constrained();
             $table->timestamps();
         });
+        
     }
-    
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('workshops');
+        Schema::dropIfExists('user_workshop_session');
     }
 };
