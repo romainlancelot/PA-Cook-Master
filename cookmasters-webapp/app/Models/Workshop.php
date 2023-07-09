@@ -7,13 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Workshop extends Model
 {
     protected $fillable = [
-        'title', 'description', 'image', 'price', 'duration', 'room_id'
+        'user_id', 'title', 'start_hour', 'end_hour', 'description', 'duration', 'photos', 'room_id'
     ];
-
-    public function room()
-    {
-        return $this->belongsTo(Room::class);
-    }
 
     public function sessions()
     {

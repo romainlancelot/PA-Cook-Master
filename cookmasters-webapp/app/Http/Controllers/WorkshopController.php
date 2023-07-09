@@ -25,12 +25,12 @@ class WorkshopController extends Controller
             'description' => 'required',
             'price' => 'required',
             'duration' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photos' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images', 'public');
-            $validated['image'] = $path;
+        if ($request->hasFile('photos')) {
+            $path = $request->file('photos')->store('photoss', 'public');
+            $validated['photos'] = $path;
         }
 
         $workshop = Workshop::create($validated);
@@ -55,12 +55,12 @@ class WorkshopController extends Controller
             'description' => 'required',
             'price' => 'required',
             'duration' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photos' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images', 'public');
-            $validated['image'] = $path;
+        if ($request->hasFile('photos')) {
+            $path = $request->file('photos')->store('photoss', 'public');
+            $validated['photos'] = $path;
         }
 
         $workshop->update($validated);

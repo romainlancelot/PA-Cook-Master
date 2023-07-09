@@ -35,7 +35,7 @@
                         <a class="nav-link" href="{{ route('boutique.index') }}">Boutique</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Événements</a>
+                        <a class="nav-link" href="{{ route('workshops.index') }}">Atelier</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Formations</a>

@@ -29,6 +29,8 @@ use App\Http\Controllers\ReservationController;
 
 Route::group(['namespace' => 'App\Http\Controllers'], function()
 {   
+    Route::get('/', 'HomeController@index')->name('home');
+
     /**
      * Language Routes
      */
@@ -55,8 +57,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     /**
      * workshop Routes
      */
-    Route::resource('workshops', WorkshopController::class);
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('/workshops', WorkshopController::class)->name('workshops', 'workshops.index');
 
     /*
      * Rooms Equipment

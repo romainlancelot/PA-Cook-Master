@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('workshops', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
-            $table->string('image')->nullable();
+            $table->json('description');
+            $table->string('photos')->nullable();
             $table->float('price');
-            $table->string('duration');
-            $table->foreignId('room_id')->constrained();
+            $table->integer('max_people');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
