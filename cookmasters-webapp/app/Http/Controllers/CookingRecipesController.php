@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\Comments;
+use App\Models\Transactions;
 use Illuminate\Http\Request;
 use App\Models\CookingRecipes;
 use App\Models\Ingredients;
@@ -198,5 +201,41 @@ class CookingRecipesController extends Controller
         IngredientsRecipes::where('recipe_id', $recipe->id)->delete();
 
         return redirect()->route('cooking-recipes.index')->with('success', 'Recipe deleted successfully.');
+    }
+
+
+    public function commentShow($transaction_created_at)
+    {
+        $transaction = Transactions::where('created_at', $transaction_created_at)->get();
+        $recipes = [];
+        foreach ($transaction as $t) {
+            $recipes[] = CookingRecipes::find($t->cooking_recipe_id);
+        }
+
+        return view('cooking-recipes.comment')->with([
+            'transaction' => $transaction,
+            'recipes' => $recipes,
+        ]);
+    }
+
+    public function comment(Request $request, string $id)
+    {
+        $validatedData = $request->validate([
+            'comment' => 'required|string',
+            'rating' => 'required|integer',
+        ]);
+
+        if (!$recipe = CookingRecipes::find($id)) {
+            return redirect()->route('cooking-recipes.index')->withErrors(['error' => 'Recipe not found.']);
+        }
+        $comment = Comments::create([
+            'user_id' => auth()->user()->id,
+            'body' => $validatedData['comment'],
+            'rating' => $validatedData['rating'],
+        ]);
+        $comment->commentable()->associate($recipe);
+        $comment->save();
+
+        return redirect()->route('cooking-recipes.show', $id)->with('success', 'Comment added successfully.');
     }
 }

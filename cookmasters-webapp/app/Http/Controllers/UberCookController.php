@@ -53,7 +53,24 @@ class UberCookController extends Controller
      */
     public function update(Request $request, string $created_at)
     {
-        //
+        // dd($request->all());
+
+        $validatedData = $request->validate([
+            'commented' => 'required|string',
+        ]);
+        try {
+            if (!$transaction = Transactions::where('created_at', $created_at)->get()) {
+                return redirect()->route('account.show')->withErrors(['error' => 'Transaction not found']);
+            }
+
+            foreach ($transaction as $tr) {
+                $tr->commented = $validatedData['commented'];
+                $tr->save();
+            }
+            return redirect()->route('account.show')->with('success', 'Transaction updated');
+        } catch (\Throwable $th) {
+            return redirect()->route('account.show')->withErrors(['error' => 'Error updating transaction']);
+        }
     }
 
     /**

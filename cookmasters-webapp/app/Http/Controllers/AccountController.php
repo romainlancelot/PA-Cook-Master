@@ -25,10 +25,11 @@ class AccountController extends Controller
 
         $transactionsInProcess = Transactions::where('user_id', auth()->user()->id)
             ->where('canceled_at', null)
+            ->where('commented', null)
             ->groupBy('created_at')
             ->orderBy('created_at', 'desc')
             ->get();
-
+        
         return view('auth.account')->with([
             'payments' => $payments ?? null,
             'subscription' => $subscription ?? null,
