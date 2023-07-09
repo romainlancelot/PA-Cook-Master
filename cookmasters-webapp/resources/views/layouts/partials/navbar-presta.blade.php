@@ -18,8 +18,11 @@
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('chat.index') }}">Chat</a></li>
-                    </div>
+                        <a class="nav-link" href="{{ route('ubercook.index') }}">Plats commandés</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('chat.index') }}">Chat</a>
+                    </li>
                     <span class="border-start mx-3"></span>
                     @auth
                         <div class="nav-item dropdown">

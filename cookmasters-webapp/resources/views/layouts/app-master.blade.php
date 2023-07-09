@@ -22,10 +22,12 @@
     </style>
 
     <body>
-        
+
         @auth
             @if (auth()->user()->role_name() == 'driver')
-                @include('layouts.partials.navbar-extern')
+                @include('layouts.partials.navbar-driver')
+            @elseif (auth()->user()->role_name() == 'presta')
+                @include('layouts.partials.navbar-presta')
             @else
                 @include('layouts.partials.navbar')
             @endif
