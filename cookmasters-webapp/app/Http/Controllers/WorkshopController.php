@@ -10,8 +10,8 @@ class WorkshopController extends Controller
 {
     public function index()
     {
-        $workshops = Workshop::all();
-        // dd($workshops->first()->sessions->first()->start);
+        $workshops = Workshop::orderBy('created_at', 'desc')->take(9)->get();
+
         return view('workshops.index', compact('workshops'));
     }
 

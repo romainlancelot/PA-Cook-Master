@@ -202,6 +202,29 @@
     </div>
 </section>
 
+</section class="ateliers">
+    <div calss="row">
+        <h2 class="col-md-12" style="text-align:center; font-family: 'Georgia', serif;color: #5d4740;">
+        Où trouver les ateliers de cuisine de CookMaster à Paris
+        </h2>
+    </div>
+</section>
+
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="description p-4">
+                <p class="lead mb-0">
+                Cookmaster Paris est une entreprise dédiée à la passion culinaire, proposant une multitude d'ateliers allant de la cuisine traditionnelle, la pâtisserie, la boulangerie, jusqu'aux viennoiseries et bien d'autres spécialités culinaires. Nos ateliers se déroulent dans nos instituts spécialisés, répartis dans plusieurs arrondissements de Paris, créant ainsi des espaces privilégiés pour l'apprentissage et la découverte de nouvelles saveurs.    
+                </p>
+                <p class="lead mt-3">
+                Chaque institut Cookmaster offre un environnement de travail spécialement conçu pour l'apprentissage de la cuisine, où tous les amoureux de la gastronomie peuvent s'épanouir et perfectionner leurs compétences culinaires. Vous découvrirez le plaisir de cuisiner sous la direction de chefs passionnés et dévoués.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <style>
     .hide {
