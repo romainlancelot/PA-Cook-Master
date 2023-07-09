@@ -23,7 +23,16 @@
 
     <body>
         
-        @include('layouts.partials.navbar')
+        @auth
+            @if (auth()->user()->role_name() == 'driver')
+                @include('layouts.partials.navbar-extern')
+            @else
+                @include('layouts.partials.navbar')
+            @endif
+        @else
+            @include('layouts.partials.navbar')
+        @endauth
+
         @include('layouts.partials.messages')
 
         <main class="container">

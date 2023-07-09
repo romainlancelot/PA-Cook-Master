@@ -1,4 +1,4 @@
-@extends('layouts.app-extern')
+@extends('layouts.app-master')
 
 @section('title', 'Cooker')
 
