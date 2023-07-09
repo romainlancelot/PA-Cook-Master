@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('rating');
             $table->morphs('commentable'); // This adds commentable_id and commentable_type
             $table->timestamps();
-            $table->foreignId('cooking_recipe_id')->nullable()->constrained('cooking_recipes')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
