@@ -26,6 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'image',
         'phone',
+        'birthday',
         'country',
         'city',
         'address',
@@ -33,15 +34,14 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-    * Always encrypt the password when it is updated.
-    *
-    * @param $value
-    * @return string
-    */
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'birthday' => 'datetime',
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -54,13 +54,15 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    * Always encrypt the password when it is updated.
+    *
+    * @param $value
+    * @return string
+    */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
 
     /**
      * Get the role of the user.

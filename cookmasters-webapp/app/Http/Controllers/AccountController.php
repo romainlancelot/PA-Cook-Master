@@ -45,6 +45,7 @@ class AccountController extends Controller
             'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . auth()->user()->id],
             'phone' => ['nullable', 'string', 'max:255'],
+            'birthday' => ['nullable', 'date'],
             'country' => ['nullable', 'string', 'max:255'],
             'city' => ['nullable', 'string', 'max:255'],
             'address' => ['nullable', 'string', 'max:255'],

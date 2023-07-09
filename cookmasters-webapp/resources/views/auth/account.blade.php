@@ -49,6 +49,10 @@
                         <input type="text" class="form-control" placeholder="phone" value="{{ auth()->user()->phone }}" disabled>
                     </div>
                     <div class="mb-2">
+                        <label class="labels">Date of birth</label>
+                        <input type="date" class="form-control" placeholder="birthday" value="{{ auth()->user()->birthday->format('Y-m-d') }}" disabled>
+                    </div>
+                    <div class="mb-2">
                         <label class="labels">Address</label>
                         <input type="text" class="form-control" placeholder="address" value="{{ auth()->user()->address }}" disabled>
                     </div>
@@ -171,6 +175,10 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text" for="phone">Téléphone</span>
                             <input type="text" class="form-control" id="phone" name="phone" value="{{ auth()->user()->phone }}">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" for="birthday">Date de naissance</span>
+                            <input type="date" class="form-control" id="birthday" name="birthday" value="{{ auth()->user()->birthday->format('Y-m-d') }}">
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" for="address">Adresse</span>
