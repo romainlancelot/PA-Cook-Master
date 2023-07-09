@@ -70,7 +70,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      * Romes Routes
     */
     // put
-    Route::resource('/rooms', RoomController::class);
+    Route::resource('/rooms', RoomController::class)->name('rooms', 'rooms.index');
 
     Route::get('/rooms/create', 'RoomController@create')->name('rooms.create');
     Route::post('/rooms', 'RoomController@store')->name('rooms.store');

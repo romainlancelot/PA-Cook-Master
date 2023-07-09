@@ -52,16 +52,22 @@
 
 </style>
 <div class="container">
+    @php
+        $photos = json_decode($room->photos);
+    @endphp
     <div class="row">
-        <div class="col-md-12">
-            <div class="image-wrapper">
-                <img src="{{ asset('images/cookmaster_photo1.jpg') }}" alt="Mon Image" class="img-fluid">
-                <div class="caption price">100 € /heure.</div>
-                <div class="caption address">12 rue michel goutier, 94380 bonneuil sur marne</div>
-                <div class="caption room">Salle 201, Bâtiment A, 2ème étage.</div>
-            </div>
+    <div class="col-md-12">
+        <div class="image-wrapper">
+            @if(count($photos) > 0)
+                <img src="{{ asset('storage/rooms/'.$photos[0]) }}" style="width: 1920px; height: 420px;" alt="Mon Image" class="img-fluid">
+            @endif
+            <div class="caption price">{{ $room->price }} € /heure.</div>
+            <div class="caption address"> {{ $room->address }}, {{ $room->postal_code }} {{ $room->city }}</div>
+            <div class="caption room"> {{ $room->name }} </div>
         </div>
     </div>
+</div>
+
 
 <div class="row">
     <div class="col-md-4">
@@ -131,9 +137,9 @@
     </div>
     <div class="col-md-8">
                                         <div class="info-line">
-                                            <div class="info-item">Capacité max. de personnes : 40</div>
-                                            <div class="info-item">Superficie : 100 m2</div>
-                                            <div class="info-item">Type de cuisine : ATELIER CULINAIRE</div>
+                                            <div class="info-item">Capacité max. de personnes : {{ $room->capacity }} </div>
+                                            <div class="info-item">Superficie : {{ $room->surface }} m2</div>
+                                            <div class="info-item">Type de cuisine : {{$room->type }} </div>
                                         </div>
                                         <style>
                                             .line {
@@ -155,37 +161,37 @@
                                           <span class="title">Déscription</span>
                                         </div>
                                         <div id="description">
-                                            <p class="description-content">Nous disposons d’un bel espace pour accueillir des entreprises et animer des ateliers de cuisine du monde dont le but est de permettre aux participants d’échanger dans un cadre informel, autour d’une scénarisation propice à la découverte, avec des défis et des anecdotes à partager.</p>
-                                            <p class="description-content" style="display: none;">Il est possible de privatiser son espace « atelier » de pauses gourmandes pour vos journées de travail.</p>
-                                            <p class="description-content" style="display: none;">Présentation espace...</p>
-                                            <p class="description-content" style="display: none;">Un lieu parfaitement équipé pour votre journée de travail...</p>
+                                            <p> {{ $room->description }} </p>
                                             <button id="voirPlusBtn" class="btn" style="background-color: #666; color: #fff;">Voir plus</button>
                                             <button id="voirMoinsBtn" class="btn " style="display: none; background-color: #666; color: #fff;">Voir moins</button>
                                         </div>
-                                        <div class="line">
-                                          <span class="title">Photos</span>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <img src="{{ asset('images/ateliers.jpeg') }}" alt="Description de l'image 1" class="img-fluid">
+                                        
+
+                                        @if(count($photos) > 0)
+                                            <div class="line">
+                                              <span class="title">Photos</span>
                                             </div>
-                                            <div class="col-md-6 image-container">
-                                                <img src="{{ asset('images/ateliers.jpeg') }}" alt="Description de l'image 2" class="img-fluid">
-                                                <div class="overlay">
-                                                    <a href="#" id="voirPlus">Voir plus</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="additionalImages" style="display: none;">
                                             <div class="row">
-                                                <div class="col-md-6 image-container">
-                                                    <img src="{{ asset('images/ateliers.jpeg') }}" alt="Description de l'image 3" class="img-fluid">
+                                                <div class="col-md-6">
+                                                    <img src="{{ asset('storage/rooms/'.$photos[0]) }}" alt="Description de l'image 1" class="img-fluid">
                                                 </div>
                                                 <div class="col-md-6 image-container">
-                                                    <img src="{{ asset('images/ateliers.jpeg') }}" alt="Description de l'image 4" class="img-fluid">
+                                                    <img src="{{ asset('storage/rooms/'.$photos[1]) }}" alt="Description de l'image 2" class="img-fluid">
+                                                    <div class="overlay">
+                                                        <a href="#" id="voirPlus">Voir plus</a>
+                                                    </div>
                                                 </div>
-                                            </div> <!-- Il manquait cette balise de fermeture -->
-                                        </div>
+                                            </div>
+                                            <div id="additionalImages" style="display: none;">
+                                                <div class="row">
+                                                    @foreach($photos as $photo)
+                                                        <div class="col-md-6 image-container">
+                                                            <img src="{{ asset('storage/rooms/'.$photo) }}" alt="Description de l'image 4" class="img-fluid">
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @endif
                                         <div class="line">
                                           <span class="title">Prix</span>
                                         </div>
@@ -193,18 +199,18 @@
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <p><strong>Prix à l'heure HT de la cuisine :</strong> 216 €</p>
-                                                        <p><strong>Prix à l’heure (8h+) :</strong> 210 €</p>
-                                                        <p><strong>Prix à l’heure (12h+) :</strong> 180 €</p>
-                                                        <p><strong>Prix à l'heure le week-end (Samedi et Dimanche) :</strong> 216 €</p>
-                                                        <p><strong>Nombre minimum d'heures réservables :</strong> 5</p>
+                                                        <p><strong>Prix à l'heure HT de la cuisine :</strong> {{ $room->price }} €</p>
+                                                        <p><strong>Prix à l’heure (8h+) :</strong> {{$room->price - 10}} €</p>
+                                                        <p><strong>Prix à l’heure (12h+) :</strong> {{$room->price - 15}} €</p>
+                                                        <p><strong>Prix à l'heure le week-end (Samedi et Dimanche) :</strong> {{$room->price + 10}} €</p>
+                                                        <p><strong>Nombre minimum d'heures réservables :</strong> {{ $room->minimum_reservation_hours }}</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <p><strong>Permettre plus de personnes que la capacité :</strong> Oui</p>
+                                                        <p><strong>Permettre plus de personnes que la capacité :</strong> {{ $room->allow_more_people }}</p>
                                                         <p><strong>Caution :</strong> 1500 €</p>
-                                                        <p><strong>Jours disponibles :</strong> Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi, Dimanche</p>
-                                                        <p><strong>Heures réservables :</strong> 9:00h à 18:00 h</p>
-                                                        <p><strong>Maximum extra guests allowed :</strong> 45 Guests</p>
+                                                        <p><strong>Jours disponibles :</strong> {{ $room->availability_days }}</p>
+                                                        <p><strong>Heures réservables :</strong> {{$room->reservation_hours}}</p>
+                                                        <p><strong>Maximum extra guests allowed :</strong> {{$room->max_people }}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -217,8 +223,8 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <p><strong>ADRESSE COMPLÈTE :</strong> Les informations de localisation exactes sont fournies après la confirmation d'une réservation.</p>
-                                                        <p><strong>Ville :</strong> Paris</p>
-                                                        <p><strong>Code postal :</strong> 75018</p>
+                                                        <p><strong>Ville :</strong> {{ $room->address }}</p>
+                                                        <p><strong>Code postal :</strong> {{ $room->postal_code }}</p>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <p><strong>E-mail :</strong> Les informations exactes sont fournies après la confirmation d'une réservation.</p>
@@ -235,13 +241,11 @@
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <p><strong>Statut du bien :</strong> Adapté aux cours de cuisine</p>
-                                                        <p><strong>Référence de la cuisine :</strong> 35909</p>
-                                                        <p><strong>Surface :</strong> 100 m2</p>
+                                                        <p><strong>Statut du bien :</strong> {{ $room->type }}</p>
+                                                        <p><strong>Surface :</strong> {{$room->surface }} m2</p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <p><strong>MONTANT DE LA CAUTION en € (rendue à la sortie des lieux) :</strong> 1500</p>
-                                                        <p><strong>Café :</strong> 2</p>
+                                                        <p><strong>MONTANT DE LA CAUTION en € (rendue à la sortie des lieux) :</strong> {{ $room->caution }}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -253,59 +257,62 @@
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <p><strong>Activités acceptées :</strong></p>
-                                                        <ul>
-                                                            <li>Cours de cuisine</li>
-                                                            <li>Cuissons grasses, fritures</li>
-                                                            <li>Photos, shooting, vidéos</li>
-                                                        </ul>
-                                                        <p><strong>Autres caractéristiques :</strong></p>
-                                                        <ul>
-                                                            <li>Accès handicapés</li>
-                                                            <li>Batteur mélangeur</li>
-                                                            <li>Cafetière</li>
-                                                            <li>Congélateur</li>
-                                                            <li>Connexion wi-fi</li>
-                                                            <li>Four classique ménager</li>
-                                                            <li>Hotte aspirante</li>
-                                                        </ul>
+                                                        @php
+                                                        $activites = json_decode($room->activities)
+                                                        @endphp
+                                                        @if (count($activites) > 0)
+                                                            <p><strong>Activités acceptées :</strong></p>
+                                                            <ul>
+                                                                    @foreach ($activites as $activite)
+                                                                        <li> {{ $activite }}</li>
+                                                                    @endforeach
+                                                            </ul>
+                                                        @endif
+
+
+                                    
                                                     </div>
                                                     <div class="col-md-6">
+                                                        @php
+                                                        $facilities = json_decode($room->facilities)
+                                                        @endphp
+                                                        @if(count($facilities) > 0)
+
+                                                        <p><strong>Autres caractéristiques :</strong></p>
                                                         <ul>
-                                                            <li>Lave-vaisselle</li>
-                                                            <li>Micro-ondes</li>
-                                                            <li>Mixeur plongeant</li>
-                                                            <li>Plaque à induction</li>
-                                                            <li>Sauteuse (min. 30L)</li>
-                                                            <li>Télévision ou écran numérique</li>
-                                                            <li>Vaisselle (Verres, assiettes, couverts...)</li>
+                                                            @foreach($facilities as $facilitie)
+                                                            <li> {{$facilitie }}</li>
+                                                            @endforeach
                                                         </ul>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
+                                        @php
+                                        $rules = json_decode($room->rules)
+                                        @endphp
+                                        @if (count($rules) > 0)
                                         <div class="line">
                                           <span class="title">Conditions générales</span>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <ul>
-                                                            <li><del>Tabagisme autorisé<del></li>
-                                                            <li><del>Animaux domestiques autorisés</del></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <ul>
-                                                            <li><del>Fêtes autorisées</del></li>
-                                                            <li><del>Consommation d'alcool autorisée<del></li>
+                                                        @foreach ($rules as $rule)
+                                                            @endforeach
+                                                            <li><del> {{ $rule }} <del></li>
+                                                            @endif
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        
     </div>
 </div>
 

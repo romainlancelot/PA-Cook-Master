@@ -23,7 +23,6 @@ class RoomOfferController extends Controller
     public function create()
     {
         return view('roomoffers.create');
-        
     }
 
     /**

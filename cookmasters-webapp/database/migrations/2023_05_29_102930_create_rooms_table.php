@@ -26,10 +26,10 @@ return new class extends Migration
             $table->string('type');
             $table->json('payment_type')->nullable();
             $table->integer('surface')->nullable();
-            $table->integer('facilities')->nullable();
+            $table->json('facilities')->nullable();
             $table->string('availability_days')->nullable();
             $table->integer('minimum_reservation_hours')->nullable();
-            $table->json('reservation_hours')->nullable();
+            $table->json('reservation_hours')->nullable();  
             $table->boolean('allow_more_people')->nullable();
             $table->integer('max_people')->nullable();
             $table->integer('caution')->nullable();

@@ -44,7 +44,7 @@
                         <a class="nav-link" href="{{ route('services.index') }}">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('roomoffers.index') }}">Salles</a>
+                        <a class="nav-link" href="{{ route('rooms.index') }}">Salles</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuChat" role="button" data-bs-toggle="dropdown" aria-expanded="false">

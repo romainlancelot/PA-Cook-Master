@@ -11,7 +11,7 @@ class StoreRoomRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -27,7 +27,7 @@ class StoreRoomRequest extends FormRequest
             'description' => 'required',
             'capacity' => 'required|integer',
             'facilities' => 'nullable',
-            'availabilities' => 'required',
+            'availabilities' => 'nullable',
             'price' => 'required',
         ];
     }
