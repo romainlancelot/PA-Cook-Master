@@ -24,6 +24,7 @@
             <th scope="col">Description</th>
             <th scope="col">Temps de préparation</th>
             <th scope="col">Prix</th>
+            <th scope="col">Note moyenne</th>
             <th scope="col">Actions</th>
         </thead>
         <tbody>
@@ -40,6 +41,7 @@
                     <td>{{ $recipe->description }}</td>
                     <td>{{ $recipe->cooking_time }} minutes</td>
                     <td>{{ $recipe->price }}€</td>
+                    <td>@if ($recipe->averageRating() != null) {{ $recipe->averageRating() }}/5 @else Aucun avis @endif</td>
                     <td>
                         <a href="{{ route('ubercook.show', $recipe->id) }}" class="btn btn-primary">Voir le plat</a>
                     </td>

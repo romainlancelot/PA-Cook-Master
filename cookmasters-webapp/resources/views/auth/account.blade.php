@@ -329,8 +329,20 @@
                         </td>
                         <td>
                             @if (isset($transaction->delivered_at))
-                                <a class="btn btn-success" href="{{ route('ubercook.show', $transaction->created_at) }}" title="Terminer la commande"><i class="bi bi-check-lg"></i></a>
-                                <a class="btn btn-secondary" href="{{ route('ubercook.show', $transaction->created_at) }}" title="Ajouter un commentaire"><i class="bi bi-chat-left-text"></i></a>
+                                <div class="row">
+                                    <div class="col">
+                                        <form action="{{ route('ubercook.update', $transaction->created_at) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="commented" value="false">
+                                            <button type="submit" class="btn btn-success" title="Terminer la commande"><i class="bi bi-check-lg"></i></button>
+                                        </form>
+                                    </div>
+                                    <div class="col">
+                                        <a class="btn btn-secondary" href="{{ route('cooking-recipes.comment.transaction.show', $transaction->created_at) }}" title="Ajouter un commentaire"><i class="bi bi-chat-left-text"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
                             @else
                                 <i class="bi bi-hourglass-split"></i>
                             @endif

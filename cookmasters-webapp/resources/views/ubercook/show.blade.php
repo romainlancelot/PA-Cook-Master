@@ -1,6 +1,6 @@
 @extends('layouts.app-master')
 
-@section('title', "Ubercook | $recipe->name"))
+@section('title', "Ubercook | $recipe->name")
 
 @section('content')
     <div class="bg-light p-5 rounded">
@@ -10,7 +10,7 @@
                     <h1>{{ $recipe->name }}</h1>
                 </div>
                 <div class="col-2">
-                    <a href="{{ route('cooking-recipes.index') }}" class="btn btn-secondary">Back</a>
+                    <a href="{{ route('ubercook.index') }}" class="btn btn-secondary">Back</a>
                 </div>
             </div>
             <div class="card">
@@ -64,17 +64,23 @@
                     <hr class="m-5">
                     <h4>Avis</h4>
                     <div class=card-text>
-                        @if ($recipe->steps->isEmpty())
-                            <p>Aucun avis pour le moment, soyez le premier !</p>
-                        @else
-                            <ol>
-                                @foreach ($recipe->steps as $step)
-                                    <li><strong>{{ $step->title }}</strong></li>
-                                    @if ($step->description)
-                                        <p>{{ $step->description }}</p>
-                                    @endif
+                        @if ($recipe->comments()->get()->isNotEmpty())
+                            <div class="row">
+                                @foreach ($recipe->comments()->get() as $comment)
+                                    <div class="col-md-4 border border-1 rounded p-3">
+                                        @for ($i = 0; $i < $comment->rating; $i++)
+                                            <span class="text-warning">&#9733;</span>
+                                        @endfor
+                                        <blockquote>
+                                            {{ $comment->body }}
+                                        </blockquote>
+                                        <hr>
+                                        <cite><img src="{{ secure_asset($comment->user->image) }}" height="30" width="30" class="img-fluid rounded-circle"> - {{ $comment->user->lastname }} {{ $comment->user->firstname }} </cite>
+                                    </div>
                                 @endforeach
-                            </ol>
+                            </div>
+                        @else
+                            <p>Aucun avis pour le moment, soyez le premier à laisser un avis !</p>
                         @endif
                     </div>
                 </div>

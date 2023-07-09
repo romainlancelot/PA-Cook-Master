@@ -59,4 +59,19 @@ class CookingRecipes extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    /**
+     * Get the comments for the recipe.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function comments()
+    {
+        return $this->morphMany(Comments::class, 'commentable');
+    }
+
+    public function averageRating()
+    {
+        return $this->comments()->get()->isNotEmpty() ? (int)$this->comments()->avg('rating') : null;
+    }
 }

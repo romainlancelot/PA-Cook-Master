@@ -200,6 +200,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/cooking-recipes/{cooking_recipe}/edit', 'CookingRecipesController@edit')->name('cooking-recipes.edit');
         Route::put('/cooking-recipes/{cooking_recipe}', 'CookingRecipesController@update')->name('cooking-recipes.update');
         Route::delete('/cooking-recipes/{cooking_recipe}', 'CookingRecipesController@destroy')->name('cooking-recipes.destroy');
+        Route::get('/cooking-recipes/comment/transaction/{transaction_id}', 'CookingRecipesController@commentShow')->name('cooking-recipes.comment.transaction.show');
+        Route::post('/cooking-recipes/comment/{cooking_recipe}', 'CookingRecipesController@comment')->name('cooking-recipes.comment.create');
 
         /**
          * UberCook Routes
