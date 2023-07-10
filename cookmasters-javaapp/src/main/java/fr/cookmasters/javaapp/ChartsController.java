@@ -1,14 +1,24 @@
 package fr.cookmasters.javaapp;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.StackedAreaChart;
 
 import com.google.gson.*;
+
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.time.Period;
 import java.io.IOException;
@@ -17,6 +27,9 @@ import java.util.HashMap;
 public class ChartsController {
     @FXML
     private Button btnReload;
+
+    @FXML
+    private Button btnSavePdf;
 
     @FXML
     private BarChart<String, Number> graphAge;
@@ -29,6 +42,31 @@ public class ChartsController {
 
     @FXML
     private PieChart graphUsers;
+
+    @FXML
+    private TableView<User> tableUsers;
+
+    @FXML
+    private TableColumn<User, String> email;
+
+    @FXML
+    private TableColumn<User, String> firstname;
+
+    @FXML
+    private TableColumn<User, Integer> id;
+
+    @FXML
+    private TableColumn<User, String> lastname;
+
+    @FXML
+    private TableColumn<User, String> role;
+
+    @FXML
+    private TableColumn<User, String> subscription;
+
+    @FXML
+    private TableColumn<User, String> username;
+
 
     private ApiConnection api = null;
 
@@ -47,6 +85,8 @@ public class ChartsController {
     HashMap<LocalDate, Integer> tableauInscription = new HashMap<>();
     String inscriptionDate;
     Integer nombreInscription = 1;
+
+    ObservableList<User> tableauUsers = FXCollections.observableArrayList();
 
     /**
      * Constructor
@@ -107,9 +147,10 @@ public class ChartsController {
 
                 /////////////////////////////////////////////
                 //recup le pays de l'user :
+                String spPays = null;
                 JsonElement countryElement = dataList.get("country");
                 if (countryElement != null  && !(countryElement instanceof JsonNull)) {
-                    String spPays = dataList.get("country").getAsString();
+                    spPays = dataList.get("country").getAsString();
                     System.out.println("pays : " + spPays);
                 } else {
                     // La valeur est nulle, faire quelque chose en conséquence
@@ -123,8 +164,7 @@ public class ChartsController {
                 // Vérifier si la valeur n'est pas nulle
                 if (birthdayElement != null && !(birthdayElement instanceof JsonNull)) {
                     String birthdayString = birthdayElement.getAsString();
-                    LocalDate birthday = LocalDate.parse(birthdayString);
-
+                    LocalDate birthday = LocalDate.parse(birthdayString.substring(0, 10));
                     // Calculer l'âge
                     LocalDate currentDate = LocalDate.now();
                     Period age = Period.between(birthday, currentDate);
@@ -165,9 +205,10 @@ public class ChartsController {
                 /////////////////////////////////////////////
                 //recup la date d'inscription de l'user :
                 JsonElement inscriptionDate = dataList.get("created_at");
+                LocalDate inscriptionDateLocalDate = null;
                 if (inscriptionDate != null && !(inscriptionDate instanceof JsonNull)) {
                     String inscriptionDateString = inscriptionDate.getAsString();
-                    LocalDate inscriptionDateLocalDate = LocalDate.parse(inscriptionDateString.substring(0, 10));
+                    inscriptionDateLocalDate = LocalDate.parse(inscriptionDateString.substring(0, 10));
                     System.out.println("date d'inscription : " + inscriptionDateLocalDate);
                     if (tableauInscription.containsKey(inscriptionDateLocalDate)) {
                         Integer nombreInscription = tableauInscription.get(inscriptionDateLocalDate);
@@ -178,12 +219,11 @@ public class ChartsController {
                 } else {
                     System.out.println("Date d'inscription inconnue.");
                 }
-                // if (tableauInscription.containsKey(inscriptionDate)) {
-                    // Integer nombreInscription = tableauInscription.get(inscriptionDate);
-                    // tableauInscription.put(inscriptionDate, nombreInscription + 1);
-                // } else {
-                    // tableauInscription.put(inscriptionDate, nombreInscription);
-                // }
+
+                Integer userId = dataList.get("id").getAsInt();
+
+                User user = new User(userId, spFirstname, spLastname, spEmail, spUsername, subscriptionPlanType, roleName);
+                tableauUsers.add(user);
             }
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -236,6 +276,77 @@ public class ChartsController {
                 graphInscriptionDate.getData().add(series);
             });
 
+
+
+            //////////////////////////////////////
+            //ajouter les users dans la table view
+            System.out.println("usersList :");
+            id.setCellValueFactory(new PropertyValueFactory<>("id"));
+            firstname.setCellValueFactory(new PropertyValueFactory<>("firstname"));
+            lastname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+            username.setCellValueFactory(new PropertyValueFactory<>("username"));
+            email.setCellValueFactory(new PropertyValueFactory<>("email"));
+            role.setCellValueFactory(new PropertyValueFactory<>("roleName"));
+            subscription.setCellValueFactory(new PropertyValueFactory<>("subscriptionPlanType"));
+
+            tableUsers.setItems(tableauUsers);
+
+
+            /////////////////////////////////////////////
+            // generate the pdf file
+            // set onclick event on the button to save the pdf file
+
+            btnSavePdf.setOnAction(e -> {
+                System.out.println("Saving pdf...");
+                Document document = new Document();
+                try {
+                    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("rapport.pdf"));
+                    document.open();
+                    Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+                    Chunk chunk = new Chunk("Rapport", font);
+                    document.add(chunk);
+                    document.add(new Paragraph("Tableau des utilisateurs :"));
+                    document.add(new Paragraph("\n"));
+                    PdfPTable pdfTable = new PdfPTable(7);
+                    pdfTable.setWidthPercentage(100);
+                    pdfTable.setSpacingBefore(10f);
+                    pdfTable.setSpacingAfter(10f);
+                    float[] columnWidths = {1f, 1f, 1f, 1f, 1f, 1f, 1f};
+                    pdfTable.setWidths(columnWidths);
+                    PdfPCell cell1 = new PdfPCell(new Paragraph("Id"));
+                    PdfPCell cell2 = new PdfPCell(new Paragraph("Firstname"));
+                    PdfPCell cell3 = new PdfPCell(new Paragraph("Lastname"));
+                    PdfPCell cell4 = new PdfPCell(new Paragraph("Username"));
+                    PdfPCell cell5 = new PdfPCell(new Paragraph("Email"));
+                    PdfPCell cell6 = new PdfPCell(new Paragraph("Role"));
+                    PdfPCell cell7 = new PdfPCell(new Paragraph("Subscription"));
+                    pdfTable.addCell(cell1);
+                    pdfTable.addCell(cell2);
+                    pdfTable.addCell(cell3);
+                    pdfTable.addCell(cell4);
+                    pdfTable.addCell(cell5);
+                    pdfTable.addCell(cell6);
+                    pdfTable.addCell(cell7);
+
+                    for (User user : tableauUsers) {
+                        pdfTable.addCell(String.valueOf(user.getId()));
+                        pdfTable.addCell(user.getFirstname());
+                        pdfTable.addCell(user.getLastname());
+                        pdfTable.addCell(user.getUsername());
+                        pdfTable.addCell(user.getEmail());
+                        pdfTable.addCell(user.getRoleName());
+                        pdfTable.addCell(user.getSubscriptionPlanType());
+                    }
+                    document.add(pdfTable);
+                    document.close();
+                    writer.close();
+                    System.out.printf("PDF saved.");
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                } catch (DocumentException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
         } catch(Exception E){
             E.printStackTrace();
         }

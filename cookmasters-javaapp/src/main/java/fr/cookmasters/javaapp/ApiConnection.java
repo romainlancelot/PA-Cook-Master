@@ -12,7 +12,7 @@ public class ApiConnection {
     public static final String URL = "https://cookmasters.fr/api";
     public static final String URL_LOGIN = URL + "/login";
     public static final String URL_USERS = URL + "/users";
-    public static final String URL_CR = URL + "/cooking-recipes";
+    public static final String URL_COOKING_RECIPES = URL + "/cooking-recipes";
 
     private String email;
     private String password;
@@ -30,27 +30,50 @@ public class ApiConnection {
         this.password = password;
     }
 
-    
     /**
-     * Login and set token
-     * 
+     * Template for API request
+     *
+     * @param url
+     * @param method
+     * @param token
+     * @return HttpURLConnection
      * @throws IOException
-     * @return void
+     * @throws RuntimeException
      */
-    public void login() throws IOException {
-        HttpURLConnection con = (HttpURLConnection) URI.create(URL_LOGIN).toURL().openConnection();
-        con.setRequestMethod("POST");
+    private HttpURLConnection request(String url, String method, Boolean token) throws IOException, RuntimeException {
+        System.out.printf("Request %s %s\n", method, url);
+        HttpURLConnection con = (HttpURLConnection) URI.create(url).toURL().openConnection();
+        con.setRequestMethod(method);
         con.setRequestProperty("Content-Type", "application/json");
+        if (token) {
+            con.setRequestProperty("Authorization", "Bearer " + this.token);
+        }
 
-        String jsonInputString = "{\"email\": \"" + this.email + "\", \"password\": \"" + this.password + "\"}";
-        con.setDoOutput(true);
-        con.getOutputStream().write(jsonInputString.getBytes());
+        return con;
+    }
 
+    /** Check request status
+     *
+     * @param con
+     * @throws IOException
+     * @throws RuntimeException
+     */
+    private void checkStatus(HttpURLConnection con) throws IOException, RuntimeException {
         int status = con.getResponseCode();
         if (status != 200) {
             throw new RuntimeException("Failed : HTTP error code : " + status);
         }
+    }
 
+    /**
+     * Template to get json from API
+     *
+     * @param con
+     * @return json
+     * @throws IOException
+     * @throws RuntimeException
+     */
+    private JsonObject getJson(HttpURLConnection con) throws IOException, RuntimeException {
         StringBuilder content = new StringBuilder();
         Scanner scanner = new Scanner(con.getInputStream());
         while (scanner.hasNext()) {
@@ -58,10 +81,28 @@ public class ApiConnection {
         }
         scanner.close();
 
-        JsonObject jsonObject = JsonParser.parseString(content.toString()).getAsJsonObject();
-        this.token = jsonObject.get("data").getAsJsonObject().get("token").getAsString();
+        return JsonParser.parseString(content.toString()).getAsJsonObject();
+    }
 
-        System.out.println(this.token);
+
+
+    /**
+     * Login and set token
+     * 
+     * @throws IOException
+     * @return void
+     */
+    public void login() throws IOException {
+        HttpURLConnection con = this.request(URL_LOGIN, "POST", false);
+
+        String jsonInputString = "{\"email\": \"" + this.email + "\", \"password\": \"" + this.password + "\"}";
+        con.setDoOutput(true);
+        con.getOutputStream().write(jsonInputString.getBytes());
+
+        this.checkStatus(con);
+
+        JsonObject jsonObject = this.getJson(con);
+        this.token = jsonObject.get("data").getAsJsonObject().get("token").getAsString();
     }
 
     /**
@@ -71,27 +112,22 @@ public class ApiConnection {
      * @return json
      */
     public JsonObject getUsers() throws IOException {
-        HttpURLConnection con = (HttpURLConnection) URI.create(URL_USERS).toURL().openConnection();
-        con.setRequestMethod("GET");
-        con.setRequestProperty("Content-Type", "application/json");
-        con.setRequestProperty("Authorization", "Bearer " + this.token);
+        HttpURLConnection con = this.request(URL_USERS, "GET", true);
+        this.checkStatus(con);
 
-        int status = con.getResponseCode();
-        if (status != 200) {
-            throw new RuntimeException("Failed : HTTP error code : " + status);
-        }
-
-        StringBuilder content = new StringBuilder();
-        Scanner scanner = new Scanner(con.getInputStream());
-        while (scanner.hasNext()) {
-            content.append(scanner.nextLine());
-        }
-        scanner.close();
-
-        JsonObject jsonObject = JsonParser.parseString(content.toString()).getAsJsonObject();
-
-        return jsonObject;
+        return this.getJson(con);
     }
 
+    /**
+     * Get cooking recipes from API
+     * return json
+     *
+     * @return json
+     */
+    public JsonObject getCookingRecipes() throws IOException {
+        HttpURLConnection con = this.request(URL_COOKING_RECIPES, "GET", true);
+        this.checkStatus(con);
 
+        return this.getJson(con);
+    }
 }

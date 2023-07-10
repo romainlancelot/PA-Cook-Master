@@ -17,6 +17,7 @@ class CookingRecipesController extends Controller
     {
         $data = CookingRecipes::all();
         foreach ($data as $key => $value) {
+            $data[$key]['average_rating'] = $value->averageRating();
             $data[$key]['ingredients'] = $value->ingredients()->get();
         }
 
