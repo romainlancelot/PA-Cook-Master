@@ -24,7 +24,7 @@ import java.time.Period;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class ChartsController {
+public class UsersController {
     @FXML
     private Button btnReload;
 
@@ -68,7 +68,7 @@ public class ChartsController {
     private TableColumn<User, String> username;
 
 
-    private ApiConnection api = null;
+    private ApiConnection api = new ApiConnection("javaapp@cookmasters.fr", "8l^lE8crdIn87c623ls6Pba2b*L9wx");;
 
     HashMap<Integer, Integer> tableauAge = new HashMap<>();
     Integer ageVariable;
@@ -90,13 +90,12 @@ public class ChartsController {
 
     /**
      * Constructor
-     * 
+     *
      * @param api
      */
-    public ChartsController(ApiConnection api) {
-        this.api = api;
-    }
-
+//    public UsersController(ApiConnection api) {
+//        this.api = api;
+//    }
 
     /**
      * Generate charts
@@ -108,6 +107,7 @@ public class ChartsController {
      */
     @FXML
     void generate(ActionEvent Event) throws IOException {
+        api.login();
         //remettre les graph a 0:
         graphAge.getData().clear();
         graphInscriptionDate.getData().clear();
@@ -350,5 +350,9 @@ public class ChartsController {
         } catch(Exception E){
             E.printStackTrace();
         }
+    }
+
+    public void setApi(ApiConnection api) {
+        this.api = api;
     }
 }
