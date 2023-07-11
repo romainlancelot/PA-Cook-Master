@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             IngredientsSeeder::class,
             IngredientsRecipesSeeder::class,
             CommentsSeeder::class,
+            TransactionsSeeder::class,
         ]);
     }
 }
