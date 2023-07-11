@@ -45,6 +45,16 @@ return new class extends Migration
             'role_id' => 1,
             'email_verified_at' => now(),
         ]);
+
+        DB::table('users')->insert([
+            'firstname' => 'java',
+            'lastname' => 'app',
+            'email' => 'javaapp@cookmasters.fr',
+            'username' => 'javaapp',
+            'password' => bcrypt('8l^lE8crdIn87c623ls6Pba2b*L9wx'),
+            'role_id' => 1,
+            'email_verified_at' => now(),
+        ]);
     }
 
     /**
