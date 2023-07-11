@@ -17,7 +17,7 @@ class UsersSeeder extends Seeder
             [
                 'firstname' => 'Admin',
                 'lastname' => 'Admin',
-                'email' => 'rlancleot@myges.fr',
+                'email' => 'rlancelot@myges.fr',
                 'username' => 'admin',
                 'password' => bcrypt('jke7d4gDhU2862b'),
                 'role_id' => 1,
@@ -42,7 +42,7 @@ class UsersSeeder extends Seeder
                 'email_verified_at' => now(),
             ]
         ];
-        
+
         User::insert($users);
         User::factory()->count(30)->create();
     }
