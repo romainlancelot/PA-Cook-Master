@@ -41,7 +41,6 @@ public class ApiConnection {
      * @throws RuntimeException
      */
     private HttpURLConnection request(String url, String method, Boolean token) throws IOException, RuntimeException {
-        System.out.printf("Request %s %s\n", method, url);
         HttpURLConnection con = (HttpURLConnection) URI.create(url).toURL().openConnection();
         con.setRequestMethod(method);
         con.setRequestProperty("Content-Type", "application/json");
