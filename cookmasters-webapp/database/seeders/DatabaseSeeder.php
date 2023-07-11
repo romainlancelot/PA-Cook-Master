@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             CookingRecipesSeeder::class,
             RecipesStepsSeeder::class,
             IngredientsSeeder::class,
-            IngredientsRecipesSeeder::class
+            IngredientsRecipesSeeder::class,
+            CommentsSeeder::class,
         ]);
     }
 }
