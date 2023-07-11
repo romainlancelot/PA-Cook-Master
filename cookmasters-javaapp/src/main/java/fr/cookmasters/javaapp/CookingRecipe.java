@@ -9,7 +9,8 @@ public class CookingRecipe {
     private SimpleIntegerProperty cooking_time;
     private SimpleIntegerProperty difficulty;
     private SimpleIntegerProperty people;
-    private SimpleIntegerProperty rating;
+    private SimpleStringProperty rating;
+    private SimpleIntegerProperty nbOrdered;
 
 
     public CookingRecipe(
@@ -18,14 +19,28 @@ public class CookingRecipe {
         Integer cooking_time,
         Integer difficulty,
         Integer people,
-        Integer rating
+        String rating,
+        Integer nbOrdered
     ) {
         this.name = new SimpleStringProperty(name);
         this.description = new SimpleStringProperty(description);
         this.cooking_time = new SimpleIntegerProperty(cooking_time);
         this.difficulty = new SimpleIntegerProperty(difficulty);
         this.people = new SimpleIntegerProperty(people);
-        this.rating = new SimpleIntegerProperty(rating);
+        this.rating = rating == null ? new SimpleStringProperty("Unrated") : new SimpleStringProperty(rating.toString());
+        this.nbOrdered = new SimpleIntegerProperty(nbOrdered);
+    }
+
+    public int getNbOrdered() {
+        return nbOrdered.get();
+    }
+
+    public SimpleIntegerProperty nbOrderedProperty() {
+        return nbOrdered;
+    }
+
+    public void setNbOrdered(int nbOrdered) {
+        this.nbOrdered.set(nbOrdered);
     }
 
     public String getName() {
@@ -68,11 +83,11 @@ public class CookingRecipe {
         return difficulty;
     }
 
-    public int getRating() {
+    public String getRating() {
         return rating.get();
     }
 
-    public SimpleIntegerProperty ratingProperty() {
+    public SimpleStringProperty ratingProperty() {
         return rating;
     }
 
@@ -97,7 +112,7 @@ public class CookingRecipe {
         this.difficulty.set(difficulty);
     }
 
-    public void setRating(int rating) {
+    public void setRating(String rating) {
         this.rating.set(rating);
     }
 }

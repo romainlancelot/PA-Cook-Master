@@ -22,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashMap;
 
 public class CookingRecipesController {
     @FXML
@@ -34,7 +35,8 @@ public class CookingRecipesController {
     private PieChart graphOrdered;
 
     @FXML
-    private PieChart graphRating;
+    private BarChart<String, Number> graphRating;
+    HashMap<String, Integer> arrayRating = new HashMap<>();
 
     @FXML
     private TableColumn<CookingRecipe, String> name;
@@ -52,14 +54,13 @@ public class CookingRecipesController {
     private TableColumn<CookingRecipe, Integer> difficulty;
 
     @FXML
-    private TableColumn<CookingRecipe, Integer> rating;
+    private TableColumn<CookingRecipe, String> rating;
+    ObservableList<CookingRecipe> arrayCookingRecipes = FXCollections.observableArrayList();
 
     @FXML
     private TableView<CookingRecipe> tableCookingRecipes;
 
     private ApiConnection api = new ApiConnection("javaapp@cookmasters.fr", "8l^lE8crdIn87c623ls6Pba2b*L9wx");;
-
-    ObservableList<CookingRecipe> arrayCookingRecipes = FXCollections.observableArrayList();
 
 
     /**
@@ -93,13 +94,16 @@ public class CookingRecipesController {
                 Integer recipeCookingTime = dataList.get("cooking_time").getAsInt();
                 Integer recipeDifficulty = dataList.get("difficulty").getAsInt();
                 Integer recipePeople = dataList.get("people").getAsInt();
+                Integer nbOrdered = dataList.get("nb_orders").getAsInt();
 
-                Integer recipeRating = -1;
+                String recipeRating = null;
                 if (!dataList.get("average_rating").isJsonNull()) {
-                    recipeRating = dataList.get("average_rating").getAsInt();
+                    recipeRating = dataList.get("average_rating").getAsString();
                 }
 
-                CookingRecipe cookingRecipe = new CookingRecipe(recipeName, recipeDescription, recipeCookingTime, recipeDifficulty, recipePeople, recipeRating);
+                arrayRating.put(recipeName, recipeRating == null ? 0 : Integer.parseInt(recipeRating));
+
+                CookingRecipe cookingRecipe = new CookingRecipe(recipeName, recipeDescription, recipeCookingTime, recipeDifficulty, recipePeople, recipeRating, nbOrdered);
                 arrayCookingRecipes.add(cookingRecipe);
             }
 
@@ -112,16 +116,28 @@ public class CookingRecipesController {
 
             tableCookingRecipes.setItems(arrayCookingRecipes);
 
+//            for (CookingRecipe cookingRecipe:arrayCookingRecipes) {
+//                System.out.println(cookingRecipe.getName());
+//                System.out.printf("Description : %s\n", cookingRecipe.getDescription());
+//                System.out.printf("Temps de cuisson : %d\n", cookingRecipe.getCooking_time());
+//                System.out.printf("Difficulté : %d\n", cookingRecipe.getDifficulty());
+//                System.out.printf("Nombre de personnes : %d\n", cookingRecipe.getPeople());
+//                System.out.printf("Note : %d\n", cookingRecipe.getRating());
+//                System.out.println("--------------------------------------------------");
+//            }
+
+            graphOrdered.getData().clear();
             for (CookingRecipe cookingRecipe:arrayCookingRecipes) {
-                System.out.println(cookingRecipe.getName());
-                System.out.printf("Description : %s\n", cookingRecipe.getDescription());
-                System.out.printf("Temps de cuisson : %d\n", cookingRecipe.getCooking_time());
-                System.out.printf("Difficulté : %d\n", cookingRecipe.getDifficulty());
-                System.out.printf("Nombre de personnes : %d\n", cookingRecipe.getPeople());
-                System.out.printf("Note : %d\n", cookingRecipe.getRating());
-                System.out.println("--------------------------------------------------");
+                graphOrdered.getData().add(new PieChart.Data(cookingRecipe.getName(), cookingRecipe.getNbOrdered()));
             }
 
+            graphRating.getData().clear();
+            arrayRating.keySet().stream().sorted().forEach(ratingVariable -> {
+                System.out.println(ratingVariable + " : " + arrayRating.get(ratingVariable));
+                XYChart.Series<String, Number> series = new XYChart.Series<>();
+                series.getData().add(new XYChart.Data<>(ratingVariable.toString(), arrayRating.get(ratingVariable)));
+                graphRating.getData().add(series);
+            });
 
             btnSavePdf.setOnAction(e -> {
                 System.out.println("Saving pdf...");
@@ -138,7 +154,7 @@ public class CookingRecipesController {
                     pdfTable.setWidthPercentage(100);
                     pdfTable.setSpacingBefore(10f);
                     pdfTable.setSpacingAfter(10f);
-                    float[] columnWidths = {1f, 1f, 1f, 1f, 1f, 1f, 1f};
+                    float[] columnWidths = {1f, 1f, 1f, 1f, 1f, 1f};
                     pdfTable.setWidths(columnWidths);
                     PdfPCell cell1 = new PdfPCell(new Paragraph("Titre"));
                     PdfPCell cell2 = new PdfPCell(new Paragraph("Description"));
@@ -158,7 +174,7 @@ public class CookingRecipesController {
                         pdfTable.addCell(String.valueOf(cookingRecipe.getCooking_time()));
                         pdfTable.addCell(String.valueOf(cookingRecipe.getDifficulty()));
                         pdfTable.addCell(String.valueOf(cookingRecipe.getPeople()));
-                        pdfTable.addCell(String.valueOf(cookingRecipe.getRating()));
+                        pdfTable.addCell(cookingRecipe.getRating());
                     }
                     document.add(pdfTable);
                     document.close();
