@@ -8,12 +8,14 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
-    <Tab text="Utilisateurs">
-      <fx:include source="charts-view.fxml" />
-    </Tab>
-      <Tab text="Recettes">
+    <Tab text="Utilisateurs" fx:id="tabUsers">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            <fx:include source="users-view.fxml" />
+        </content>
+    </Tab>
+      <Tab text="Recettes" fx:id="tabCookingRecipes">
+        <content>
+            <fx:include source="cooking-recipes-view.fxml" />
         </content>
       </Tab>
       <Tab text="Commandes">
