@@ -50,7 +50,7 @@
                     </div>
                     <div class="mb-2">
                         <label class="labels">Date of birth</label>
-                        <input type="date" class="form-control" placeholder="birthday" value="{{ auth()->user()->birthday->format('Y-m-d') }}" disabled>
+                        <input type="date" class="form-control" placeholder="birthday" @if (auth()->user()->birthday != null) value="{{ auth()->user()->birthday->format('Y-m-d') }}" @endif disabled>
                     </div>
                     <div class="mb-2">
                         <label class="labels">Address</label>
@@ -178,7 +178,7 @@
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" for="birthday">Date de naissance</span>
-                            <input type="date" class="form-control" id="birthday" name="birthday" value="{{ auth()->user()->birthday->format('Y-m-d') }}">
+                            <input type="date" class="form-control" id="birthday" name="birthday" @if (auth()->user()->birthday != null) value="{{ auth()->user()->birthday->format('Y-m-d') }}" @endif>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" for="address">Adresse</span>
