@@ -35,16 +35,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-
-        DB::table('users')->insert([
-            'firstname' => 'Admin',
-            'lastname' => 'Admin',
-            'email' => 'rlancelot@myges.fr',
-            'username' => 'admin',
-            'password' => bcrypt('jke7d4gDhU2862b'),
-            'role_id' => 1,
-            'email_verified_at' => now(),
-        ]);
     }
 
     /**

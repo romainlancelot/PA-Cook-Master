@@ -17,7 +17,11 @@ class CommentsFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => $this->faker->numberBetween(3, 32),
+            'body' => $this->faker->realText(),
+            'rating' => $this->faker->numberBetween(1, 5),
+            'commentable_id' => $this->faker->numberBetween(1, 32),
+            'commentable_type' => $this->faker->randomElement(['App\Models\CookingRecipes']),
         ];
     }
 }
