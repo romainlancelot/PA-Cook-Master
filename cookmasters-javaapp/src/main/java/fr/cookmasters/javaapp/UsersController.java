@@ -300,7 +300,7 @@ public class UsersController {
                 System.out.println("Saving pdf...");
                 Document document = new Document();
                 try {
-                    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("rapport.pdf"));
+                    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("rapport_users.pdf"));
                     document.open();
                     Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
                     Chunk chunk = new Chunk("Rapport", font);
