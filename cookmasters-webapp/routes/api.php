@@ -41,6 +41,11 @@ Route::group(['namespace' => 'App\Http\Controllers\API'], function()
          * Get user account informations
          */
         Route::post('/account', 'AuthController@account');
+
+        /**
+         * Get courses list
+         */
+        Route::get('/courses', 'CoursesController@index');
      });
 
     Route::group(['middleware' => ['auth.api', 'admin.api']], function () {
