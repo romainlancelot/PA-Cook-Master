@@ -39,7 +39,9 @@ public class AteliersAdapter extends ArrayAdapter<Ateliers_model> {
         TextView textViewTime = convertView.findViewById(R.id.textViewTime);
         TextView textViewDescription = convertView.findViewById(R.id.textViewDescription);
 
-        Picasso.get().load(atelier.getPhotoUrl()).into(imageViewPhoto);
+        //Picasso.get().load(atelier.getPhotoUrl()).into(imageViewPhoto);
+        imageViewPhoto.setImageResource(R.drawable.image_logo);
+
         textViewTitle.setText(atelier.getTitle());
         textViewTime.setText(atelier.getStartHour() + " - " + atelier.getEndHour());
         textViewDescription.setText(atelier.getDescription());

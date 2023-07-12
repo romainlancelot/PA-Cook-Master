@@ -52,7 +52,5 @@ class WorkshopSeeder extends Seeder
             $workshopSession->workshop_id = $workshop->id;
             $workshopSession->save();
         }
-
-        
     }
 }

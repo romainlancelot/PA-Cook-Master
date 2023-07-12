@@ -19,9 +19,13 @@ CPPFLAGS += -I./$(INCLUDE)
 LDFLAGS = -L ./lib -l my -lm -lcjson -lcurl -lnotify -ljansson
 
 $(BIN): $(OBJ)
+	@echo "\033[0;31m\n\nmake run_script\033[0m\n\n"
 	make -C ./lib/my
 	$(CC) -o $@ $^ $(LDFLAGS) $(LIBS) $(LDFLAGS)
 	@echo "Build successful!"
+
+run_script:
+	bash	requirements/install_dependencies.sh
 
 build/%.o: src/%.c
 	$(CC) -c -o $@ $< $(CFLAGS) $(CPPFLAGS)

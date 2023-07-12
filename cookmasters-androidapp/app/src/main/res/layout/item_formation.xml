@@ -4,26 +4,20 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <ImageView
-        android:id="@+id/imageViewPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/photo" />
-
     <TextView
-        android:id="@+id/textViewTitle"
+        android:id="@+id/formation_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/textViewTime"
+        android:id="@+id/formation_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp" />
 
     <TextView
-        android:id="@+id/textViewDescription"
+        android:id="@+id/formation_difficulty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp" />

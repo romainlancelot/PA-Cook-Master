@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="imageViewPhoto" type="id">imageViewPhoto</item>
+    <item name="textViewTitle" type="id">textViewTitle</item>
+    <item name="textViewTime" type="id">textViewTime</item>
+    <item name="textViewDescription" type="id">textViewDescription</item>
+    <item name="formation_list" type="id">formation_list</item>
+    <item name="formation_name" type="id">formation_name</item>
+    <item name="formation_description" type="id">formation_description</item>
+    <item name="formation_difficulty" type="id">formation_difficulty</item>
+</resources>

@@ -13,47 +13,78 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LoginActivity extends AppCompatActivity {
+
+    private EditText emailField;
+    private EditText passwordField;
+    private Button loginButton;
+    private SharedPreferencesHelper sharedPreferencesHelper;
+
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        EditText usernameEditText = findViewById(R.id.username);
-        EditText passwordEditText = findViewById(R.id.password);
 
+        sharedPreferencesHelper = new SharedPreferencesHelper(this);
 
-        Button submitButton = findViewById(R.id.submit);
+        emailField = findViewById(R.id.email);
+        passwordField = findViewById(R.id.password);
+        loginButton = findViewById(R.id.login);
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        apiService = RetrofitClient.getClient().create(ApiService.class);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = usernameEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
-                SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("username", username);
-                editor.putString("password", password);
-                editor.apply();
-
-                Toast.makeText(LoginActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginActivity.this, Cours.class));
+                String email = emailField.getText().toString();
+                String password = passwordField.getText().toString();
+                login(email, password);
             }
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        EditText usernameEditText = findViewById(R.id.username);
-        EditText passwordEditText = findViewById(R.id.password);
+    private void login(String email, String password) {
+        Call<ResponseBody> call = apiService.login(email, password);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(LoginActivity.this, "excelent", Toast.LENGTH_SHORT).show();
+                    String token = null;
+                    try {
+                        token = response.body().string();
+                        sharedPreferencesHelper.saveLoginDetails(email, password, token);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    // Handle unsuccessful login
+                    Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-        SharedPreferences sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
-        String savedUsername = sharedPreferences.getString("username", "");
-        String savedPassword = sharedPreferences.getString("password", "");
-
-        usernameEditText.setText(savedUsername);
-        passwordEditText.setText(savedPassword);
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                // Handle network errors or other problems
+                Toast.makeText(LoginActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
 }

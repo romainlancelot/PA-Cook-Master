@@ -21,12 +21,7 @@
         </child>
         <!-- end Welcome to the make query Page! -->
         <!-- About Us -->
-        <child>
-          <object class="GtkButton" id="switch_config_database">
-            <property name="label" translatable="yes">Go to config database page</property>
-            <property name="visible">True</property>
-          </object>
-        </child>
+
         <!-- end About Us -->
         <!-- method_dropdown -->
         <child>
@@ -40,9 +35,6 @@
             <property name="margin_end">10</property>
             <items>
               <item translatable="yes">GET</item>
-              <item translatable="yes">POST</item>
-              <item translatable="yes">PUT</item>
-              <item translatable="yes">DELETE</item>
             </items>
             <property name="active">0</property>
           </object>
