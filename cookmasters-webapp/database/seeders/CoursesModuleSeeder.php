@@ -17,8 +17,8 @@ class CoursesModuleSeeder extends Seeder
             for ($j = 1; $j < 11; $j++) {
                 CoursesModule::factory()->create([
                     'courses_id' => $i,
-                    'previous_module_id' => $j != 1 ? $j - 1 : null,
-                    'next_module_id' => $j != 10 ? $j + 1 : null
+                    'previous_module_id' => $j != 1 ? $j*$i - 1 : null,
+                    'next_module_id' => $j != 10 ? $j*$i + 1 : null
                 ]);
             }
         }

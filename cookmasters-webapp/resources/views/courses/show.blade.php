@@ -13,7 +13,6 @@
                     <a href="{{ route('courses.index') }}" class="btn btn-secondary">Back</a>
                 </div>
             </div>
-            {{-- {{dd($recipe)}} --}}
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Description</h5>
