@@ -15,10 +15,13 @@
         android:theme="@style/Theme.Cookmasters"
         tools:targetApi="31">
         <activity
-            android:name=".InterestActivity"
+            android:name=".Atelier"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Formation"
+            android:exported="false" />
+        <activity
+            android:name=".Cours"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

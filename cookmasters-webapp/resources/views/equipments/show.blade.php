@@ -3,6 +3,7 @@
 @section('title', $equipment->name)
 
 @section('content')
+
 <style>
 .img-select {
     cursor: pointer;

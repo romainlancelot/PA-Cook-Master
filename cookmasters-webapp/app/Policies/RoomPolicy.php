@@ -29,7 +29,9 @@ class RoomPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasRole('admin')
+            ? Response::allow()
+            : Response::deny('You must be an administrator.');
     }
 
     /**
@@ -37,7 +39,9 @@ class RoomPolicy
      */
     public function update(User $user, Room $room): bool
     {
-        //
+        return $user->hasRole('admin')
+            ? Response::allow()
+            : Response::deny('You must be an administrator.');
     }
 
     /**
@@ -45,7 +49,9 @@ class RoomPolicy
      */
     public function delete(User $user, Room $room): bool
     {
-        //
+        return $user->hasRole('admin')
+            ? Response::allow()
+            : Response::deny('You must be an administrator.');
     }
 
     /**
@@ -61,6 +67,8 @@ class RoomPolicy
      */
     public function forceDelete(User $user, Room $room): bool
     {
-        //
+        return $user->hasRole('admin')
+            ? Response::allow()
+            : Response::deny('You must be an administrator.');
     }
 }

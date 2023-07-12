@@ -72,16 +72,30 @@ class User extends Authenticatable implements MustVerifyEmail
         return DB::table('roles')->where('id', $this->role_id)->value('name');
     }
 
+    public function roomReservations()
+    {
+        return $this->hasMany(RoomReservation::class);
+    }
     public function role()
     {
         return $this->belongsTo(Roles::class, 'role_id');
     }
 
+    public function workshopSessions()
+    {
+        return $this->belongsToMany(WorkshopSession::class, 'user_workshop_session');
+    }
+    
     /**
      * Get the Subscription Plan of the user.
      */
     public function subscriptionPlan()
     {
         return $this->belongsTo(SubscriptionPlans::class, 'subscription_plan_id', 'id');
+    }
+    
+    public function workshops()
+    {
+        return $this->hasMany(Workshop::class);
     }
 }

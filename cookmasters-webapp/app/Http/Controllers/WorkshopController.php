@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Workshop;
+use App\Models\WorkshopSession;
 
 class WorkshopController extends Controller
 {
     public function index()
     {
-        $workshops = Workshop::all();
+        $workshops = Workshop::orderBy('created_at', 'desc')->take(6)->get();
+
         return view('workshops.index', compact('workshops'));
     }
 
@@ -25,12 +27,12 @@ class WorkshopController extends Controller
             'description' => 'required',
             'price' => 'required',
             'duration' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photos' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images', 'public');
-            $validated['image'] = $path;
+        if ($request->hasFile('photos')) {
+            $path = $request->file('photos')->store('photoss', 'public');
+            $validated['photos'] = $path;
         }
 
         $workshop = Workshop::create($validated);
@@ -40,7 +42,9 @@ class WorkshopController extends Controller
 
     public function show(Workshop $workshop)
     {
-        return view('workshops.show', compact('workshop'));
+        $workshops = Workshop::where('user_id', $workshop->user_id)->take(3)->get();
+
+        return view('workshops.show', compact('workshop', 'workshops'));
     }
 
     public function edit(Workshop $workshop)
@@ -55,12 +59,12 @@ class WorkshopController extends Controller
             'description' => 'required',
             'price' => 'required',
             'duration' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photos' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images', 'public');
-            $validated['image'] = $path;
+        if ($request->hasFile('photos')) {
+            $path = $request->file('photos')->store('photoss', 'public');
+            $validated['photos'] = $path;
         }
 
         $workshop->update($validated);

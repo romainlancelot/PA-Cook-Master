@@ -39,10 +39,15 @@ class Room extends Model
         'user_id',
     ];
 
-    public function equipments()
-    {
-        return $this->belongsToMany(Equipment::class, 'room_equipment');
+    // public function equipments()
+    // {
+        // return $this->belongsToMany(Equipment::class, 'room_equipment');
         // 'room_equipment' est le nom de la table pivot
+    // }
+
+    public function reservations()
+    {
+        return $this->hasMany(RoomReservation::class);
     }
 
     public function roomOffers()
@@ -50,15 +55,10 @@ class Room extends Model
         return $this->hasMany(RoomOffer::class);
     }
 
-    // public function service()
+    // public function reservations()
     // {
-    //     return $this->belongsToMany(Service::class, 'room_equipment', 'room_id', 'equipment_id');
+        // return $this->hasMany(Reservation::class);
     // }
-
-    public function reservations()
-    {
-        return $this->hasMany(Reservation::class);
-    }
     
     public function json2array($json)
     {

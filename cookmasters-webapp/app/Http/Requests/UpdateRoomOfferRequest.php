@@ -11,7 +11,8 @@ class UpdateRoomOfferRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::user()->role_name() == 'admin';
+
     }
 
     /**

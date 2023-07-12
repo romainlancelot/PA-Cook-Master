@@ -10,8 +10,13 @@ class CreateWorkshopSessionsTable extends Migration
     {
         Schema::create('workshop_sessions', function (Blueprint $table) {
             $table->id();
+            $table->dateTime('start');
+            $table->dateTime('end');
+            $table->string('duration');
+            $table->string('schedule');
+            $table->integer('max_people');
             $table->foreignId('workshop_id')->constrained()->onDelete('cascade');
-            $table->datetime('session_date');
+            $table->foreignId('room_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

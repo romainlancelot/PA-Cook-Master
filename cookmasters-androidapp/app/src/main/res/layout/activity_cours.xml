@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Cours">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_alignParentBottom="true"
+      android:background="@drawable/navbar_background"
+      >
+
+    <TextView
+        android:id="@+id/navFormation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Formation"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:padding="10dp"
+        />
+
+
+    <TextView
+        android:id="@+id/navCours"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Cours"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:id="@+id/navAtelier"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Atelier"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:padding="10dp"
+        />
+
+  </LinearLayout>
+
+</RelativeLayout>

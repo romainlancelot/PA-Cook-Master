@@ -16,6 +16,11 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         @vite('resources/js/app.js')
+
+
+        <!-- full calender -->
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
+
     </head>
 
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" defer></script>

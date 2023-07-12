@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->string('image')->nullable();
+            $table->string('photos')->nullable();
             $table->float('price');
-            $table->string('duration');
-            $table->foreignId('room_id')->constrained();
+            $table->integer('max_people');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

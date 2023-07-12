@@ -11,7 +11,7 @@ class StoreRoomOfferRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::user()->role_name() == 'admin';
     }
 
     /**
@@ -22,7 +22,6 @@ class StoreRoomOfferRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
         ];
     }
 }

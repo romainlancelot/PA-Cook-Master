@@ -8,6 +8,22 @@
         height: 200px;
         object-fit: cover;
     }
+
+  .line {
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid #888;
+    line-height: 0.1em;
+    margin: 50px 0 30px; /* Ajout d'un espace supplémentaire en bas */
+  }
+  .line .title {
+    background: #fff;
+    font-size: 1.5em;
+    color: #666; /* Text color for paragraph text within the card body */
+    text-shadow: 1px 1px 1px #ccc;
+    font-weight: bold;
+  }
+
 </style>
 <h1 class='text-center' style="background-size: cover; padding: 100px 0; text-align: center;" >{{ __('index.title') }}</h1>
 
@@ -77,30 +93,24 @@
 <!-- Section "Nos services" -->
 <section class="container text-center mb-5">
     <div class="row">
-        <div class="col-md-12">
-            <h2 class="text-center">Nos services</h2>
+
+        <div class="line">
+            <span class="title">Nos services</span>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="service-item">
                 <img src="{{ asset('images/ateliers.jpeg') }}" alt="Ateliers de cuisine" class="img-crop">
                 <h3>Ateliers de cuisine</h3>
                 <p>Participez à nos ateliers de cuisine interactifs et apprenez de nouvelles recettes excitantes.</p>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="service-item">
                 <img src="{{ asset('images/cours-domicile.jpg') }}" alt="Cours animés à domicile" class="img-crop">
                 <h3>Cours animés à domicile</h3>
                 <p>Nous venons chez vous ! Bénéficiez de cours de cuisine personnalisés dans le confort de votre foyer.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="service-item">
-                <img src="{{ asset('images/degustations.jpg') }}" alt="Dégustations de produits bio" class="img-crop">
-                <h3>Dégustations de produits bio</h3>
-                <p>Découvrez la richesse des saveurs offertes par nos produits bio de haute qualité.</p>
             </div>
         </div>
     </div>

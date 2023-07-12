@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(false);
             $table->string('address');
             $table->string('city');
             $table->string('postal_code');
@@ -26,10 +26,10 @@ return new class extends Migration
             $table->string('type');
             $table->json('payment_type')->nullable();
             $table->integer('surface')->nullable();
-            $table->integer('facilities')->nullable();
-            $table->string('availability_days')->nullable();
+            $table->json('facilities')->nullable();
+            $table->json('availability_days')->nullable();
             $table->integer('minimum_reservation_hours')->nullable();
-            $table->json('reservation_hours')->nullable();
+            $table->json('reservation_hours')->nullable();  
             $table->boolean('allow_more_people')->nullable();
             $table->integer('max_people')->nullable();
             $table->integer('caution')->nullable();

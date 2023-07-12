@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\FeaturesRelationships;
 use App\Models\SubscriptionPlansFeatures;
 use App\Http\Controllers\StripeController;
+use App\Models\Room;
+use App\Models\RoomReservation;
 
 class AdminController extends Controller
 {
@@ -33,6 +35,23 @@ class AdminController extends Controller
         return view('admin.users')->with([
             'users' => User::all(),
             'roles' => Roles::all()
+        ]);
+    }
+
+    public function rooms()
+    {
+        $reservations = RoomReservation::all()->map(function($reservation) {
+            return [
+                'title' => "Salle id:" . $reservation->id,
+                'start' => $reservation->start_time,
+                'end' => $reservation->end_time,
+                'url' => route('rooms.show', $reservation->room_id),
+            ];
+        });
+        
+        return view('admin.rooms')->with([
+            'rooms' => Room::all(),
+            'reservations' => $reservations
         ]);
     }
 

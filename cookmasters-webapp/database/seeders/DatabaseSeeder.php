@@ -15,11 +15,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UsersSeeder::class,
-            RoomSeeder::class,
-            EquipmentSeeder::class,
-            // RoomEquipmentSeeder::class,
-            // RoomOfferSeeder::class,
-            // ServiceSeeder::class,
             CookingRecipesSeeder::class,
             RecipesStepsSeeder::class,
             IngredientsSeeder::class,
@@ -28,6 +23,9 @@ class DatabaseSeeder extends Seeder
             TransactionsSeeder::class,
             CoursesSeeder::class,
             CoursesModuleSeeder::class,
+            RoomSeeder::class,
+            EquipmentSeeder::class,
+            WorkshopSeeder::class,
         ]);
     }
 }

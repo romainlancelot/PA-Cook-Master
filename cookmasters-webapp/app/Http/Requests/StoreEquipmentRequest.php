@@ -12,8 +12,8 @@ class StoreEquipmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // return Auth::user()->role_name() == 'admin';
-        return true;
+        return Auth::user()->role_name() == 'admin';
+
     }
 
     /**
