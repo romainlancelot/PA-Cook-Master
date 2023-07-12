@@ -10,7 +10,7 @@ class WorkshopController extends Controller
 {
     public function index()
     {
-        $workshops = Workshop::orderBy('created_at', 'desc')->take(9)->get();
+        $workshops = Workshop::orderBy('created_at', 'desc')->take(6)->get();
 
         return view('workshops.index', compact('workshops'));
     }

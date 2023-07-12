@@ -8,6 +8,22 @@
         height: 200px;
         object-fit: cover;
     }
+
+  .line {
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid #888;
+    line-height: 0.1em;
+    margin: 50px 0 30px; /* Ajout d'un espace supplémentaire en bas */
+  }
+  .line .title {
+    background: #fff;
+    font-size: 1.5em;
+    color: #666; /* Text color for paragraph text within the card body */
+    text-shadow: 1px 1px 1px #ccc;
+    font-weight: bold;
+  }
+
 </style>
       <h1 class='text-center' style="background-size: cover; padding: 100px 0; text-align: center;" >{{ __('index.title') }}</h1>
 
@@ -78,30 +94,24 @@
     <!-- Section "Nos services" -->
     <section class="container">
     <div class="row">
-        <div class="col-md-12">
-            <h2 class="text-center">Nos services</h2>
+
+        <div class="line">
+            <span class="title">Nos services</span>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="service-item">
                 <img src="{{ asset('images/ateliers.jpeg') }}" alt="Ateliers de cuisine" class="img-crop">
                 <h3>Ateliers de cuisine</h3>
                 <p>Participez à nos ateliers de cuisine interactifs et apprenez de nouvelles recettes excitantes.</p>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="service-item">
                 <img src="{{ asset('images/cours-domicile.jpg') }}" alt="Cours animés à domicile" class="img-crop">
                 <h3>Cours animés à domicile</h3>
                 <p>Nous venons chez vous ! Bénéficiez de cours de cuisine personnalisés dans le confort de votre foyer.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="service-item">
-                <img src="{{ asset('images/degustations.jpg') }}" alt="Dégustations de produits bio" class="img-crop">
-                <h3>Dégustations de produits bio</h3>
-                <p>Découvrez la richesse des saveurs offertes par nos produits bio de haute qualité.</p>
             </div>
         </div>
     </div>
@@ -133,76 +143,74 @@
     <!-- Mise en avant des ateliers et événements -->
     <section class="container">
   <div class="row">
-    <div class="col-md-12">
-      <h2 class="text-center">Ateliers et événements à venir</h2>
-    </div>
+    <div class="line">
+            <span class="title">Ateliers à venir</span>
+        </div>
   </div>
-  <div class="row">
-    <div class="col-md-4">
-      <div class="event-item">
-        <img src="images/atelier1.jpg" alt="Atelier de cuisine">
-        <h3>Atelier de cuisine italienne</h3>
-        <p>Date : 10 septembre 2023</p>
-        <p>Thème : Les secrets de la pasta</p>
-        <p>Chef animateur : Giovanni Rossi</p>
-      </div>
+
+  <section class="container">
+    <div class="col-md-12">
+        <div class="row">
+        @foreach ($workshops as $workshop)
+            @php
+                $photos = json_decode($workshop->photos)
+            @endphp
+                <div class="col-md-4 mb-4">
+                        <a href="{{ route('workshops.show', $workshop->id) }}" class="card">
+                            <div class="card shadow-sm h-100">
+                                <div style="position: relative;">
+                                    <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ asset('storage/workshops/'.$workshop->photos) }}" alt="Equipment Name">
+                                    <div style="position: absolute; bottom: 0; left: 0; background-color: rgba(0,0,0,0.6); color: white; padding: 5px;"> {{ $workshop->price }} €</div>
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title"> {{ $workshop->name }}</h5>
+                                    <div class="mt-auto">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group row">
+                                                <div class="col-md-12">
+                                                    <p> <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#b0b2b5}</style><path d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg>  Durée : {{ $workshops->first()->sessions->first()->duration }}</p>
+                                                    <p> <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#959ca7}</style><path d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7 .1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4zM225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4C112 375.4 162.6 416 225.7 416z"/></svg>Prochain cours :  {{  $workshops->first()->sessions->first()->start }} </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+            @endforeach
+        </div>
     </div>
-    <div class="col-md-4">
-      <div class="event-item">
-        <img src="images/atelier2.jpg" alt="Atelier de pâtisserie">
-        <h3>Atelier de pâtisserie française</h3>
-        <p>Date : 15 septembre 2023</p>
-        <p>Thème : Les délices sucrés de Paris</p>
-        <p>Chef animateur : Marie Leclerc</p>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="event-item">
-        <img src="images/evenement1.jpg" alt="Dîner gastronomique">
-        <h3>Dîner gastronomique étoilé</h3>
-        <p>Date : 20 septembre 2023</p>
-        <p>Thème : La fusion des saveurs</p>
-        <p>Chef invité : Michelin Dupont</p>
-      </div>
-    </div>
-</div>
+</section>
 
     </section>
 
     <!-- Témoignages de clients satisfaits -->
     <section class="container">
   <div class="row">
-    <div class="col-md-12">
-      <h2 class="text-center">Témoignages de nos clients</h2>
-    </div>
+
+    <div class="line">
+            <span class="title">Témoignages de nos clients</span>
+        </div>
+    
   </div>
   <div class="row">
-    <div class="col-md-4">
-      <div class="testimonial-item">
-        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
-        <blockquote>
-          "J'ai participé à l'atelier de cuisine italienne et j'ai adoré ! Les chefs étaient passionnés et les recettes délicieuses. Je recommande Cook Master à tous les amateurs de bonne cuisine."
-        </blockquote>
-        <cite>- Sophie Martin</cite>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="testimonial-item">
-        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
-        <blockquote>
-          "Les dégustations de produits bio sont incroyables chez Cook Master. J'ai découvert de nouvelles saveurs et j'ai été impressionné par la qualité des produits. Une expérience gastronomique inoubliable !"
-        </blockquote>
-        <cite>- David Dupont</cite>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="testimonial-item">
-        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
-        <blockquote>
-          "Je suis très satisfait des formations professionnelles de Cook Master. J'ai acquis de nouvelles compétences et je me sens prêt à me lancer dans une carrière culinaire. Merci à toute l'équipe !"
-        </blockquote>
-        <cite>- Laura Tremblay</cite>
-      </div>
+        @foreach ($comments as $comment)  
+            <div class="col-md-4">
+                <div class="testimonial-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
+                    <div class="rating">
+                        @for ($i = 0; $i < $comment->rating; $i++)
+                            <span>&#9733;</span>
+                        @endfor
+                    </div>
+                    <blockquote>
+                        {{ $comment->body }}
+                    </blockquote>
+                    <cite>- {{ $comment->lastname }} {{ $comment->firstname }} </cite>
+                </div>
+            </div>
+        @endforeach
     </div>
   </div>
 
@@ -212,38 +220,44 @@
     <section class="container">
       <div class="row">
         <div class="col-md-12 text-center">
-          <h2>Prêt à explorer Cook Master ?</h2>
-          <p>Choisissez votre prochaine expérience culinaire dès maintenant !</p>
+ 
+          <div class="line">
+            <span class="title">Prêt à explorer Cook Master ?</span>
+        </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4 text-center">
-          <a href="#" class="btn btn-primary btn-lg">Inscrivez-vous à un atelier</a>
+        <div class="col-md-3 text-center">
+          <a href="{{  route('workshops.index') }}" class="btn btn-primary btn-lg">Inscrivez-vous à un atelier</a>
         </div>
-        <div class="col-md-4 text-center">
-          <a href="#" class="btn btn-primary btn-lg">Réservez une salle</a>
+        <div class="col-md-3 text-center">
+          <a href="{{  route('rooms.index') }}" class="btn btn-primary btn-lg">Réservez une salle</a>
         </div>
-        <div class="col-md-4 text-center">
-          <a href="#" class="btn btn-primary btn-lg">Explorez nos recettes</a>
+        <div class="col-md-3 text-center">
+          <a href="{{  route('cooking-recipes.index') }}" class="btn btn-primary btn-lg">Explorez nos recettes</a>
+        </div>
+        <div class="col-md-3 text-center">
+          <a href="{{  route('boutique.index') }}" class="btn btn-primary btn-lg">Parcourez notre boutique</a>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <a href="#" class="btn btn-secondary btn-lg">Parcourez notre boutique en ligne</a>
-        </div>
+     
+        
       </div>
     </section>
 
     <!-- Section "À propos de nous" -->
   <section class="container">
     <div class="row">
-        <div class="col-md-12">
-          <h2 class="text-center">À propos de nous</h2>
+
+
+        <div class="line">
+            <span class="title">À propos de nous</span>
         </div>
+    
       </div>
       <div class="row">
         <div class="col-md-6">
-          <img src="images/about-us.jpg" alt="À propos de nous">
+          <img src="{{ asset('images/history.png') }}" class="img-crop" alt="À propos de nous">
         </div>
         <div class="col-md-6">
           <h3>Notre histoire</h3>
@@ -272,9 +286,10 @@
     <!-- Foire aux questions (FAQ) -->
     <section class="container">
       <div class="row">
-        <div class="col-md-12">
-          <h2 class="text-center">Foire aux questions</h2>
+        <div class="line">
+            <span class="title">Foire aux questions</span>
         </div>
+
       </div>
       <div class="row">
         <div class="col-md-6">

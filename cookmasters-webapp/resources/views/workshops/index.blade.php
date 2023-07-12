@@ -75,53 +75,6 @@
     </div>
 </section>
 
-<div class="container-fluid">
-    <div class="row align-items-center">
-        <div class="col-lg-6">
-            <div class="row">
-                <div class="col-lg-4">
-                    <button class="btn btn-primary w-100" id="categoriesBtn">Catégories</button>
-                </div>
-                <div class="col-lg-4">
-                    <button class="btn btn-primary w-100" id="dateBtn">Date</button>
-                </div>
-                <div class="col-lg-4">
-                    <button class="btn btn-primary w-100" id="prixBtn">Prix</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="row hide" id="categoriesoptions">
-                <div class="col-lg-6">
-                    <select class="form-control">
-                        <option>Affichage par catégories</option>
-                        <option>Boulangerie & Viennoiseries</option>
-                        <option>Cuisine</option>
-                        <option>Les Petits CookMaster</option>
-                        <option>Pâtisserie & Confiseries</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row hide" id="prixOptions">
-                <div class="col-lg-6">
-                    <input type="number" class="form-control" placeholder="prix-min">
-                </div>
-                <div class="col-lg-6">
-                    <input type="number" class="form-control" placeholder="prix-max">
-                </div>
-            </div>
-            <div class="row hide" id="dateOptions">
-                <div class="col-lg-6">
-                    <input type="date" class="form-control" placeholder="De">
-                </div>
-                <div class="col-lg-6">
-                    <input type="date" class="form-control" placeholder="À">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <style>
 .line {

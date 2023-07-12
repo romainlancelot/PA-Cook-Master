@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Workshop;
+use App\Models\Comments;
 
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
+     * Create a new controller inst ance.
      *
      * @return void
      */
@@ -23,6 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home.index');
+
+        $workshops = Workshop::orderBy('created_at', 'desc')->take(3)->get();
+        $comments = comments::take(3)->get();
+
+        return view('home.index', compact('workshops', 'comments'));
     }
 }

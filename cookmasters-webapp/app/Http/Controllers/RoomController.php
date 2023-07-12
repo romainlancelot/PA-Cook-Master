@@ -18,11 +18,7 @@ class RoomController extends Controller
         if (!$room->id || !$room->photos || !$room->price || !$room->address || !$room->postal_code || !$room->city || !$room->name || !$room->capacity || !$room->surface || !$room->type || !$room->description || !$room->minimum_reservation_hours || !$room->allow_more_people || !$room->caution || !$room->activities || !$room->facilities || !$room->rules) {
             return false;
         }
-    
-        if (!is_array($room->photos) || !is_array($room->activities) || !is_array($room->facilities) || !is_array($room->rules)) {
-            return false;
-        }
-    
+
         return true;
     }
 
