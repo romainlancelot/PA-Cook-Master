@@ -20,35 +20,40 @@
     
     @if (isset($registered) && $registered->isNotEmpty())
         <hr>
-        <table class="table table-striped table-hover display" id="recipes-table">
+        <h2 class="text-center mb-4">Formations en cours</h2>
+        <table class="table table-striped table-hover display mb-5" id="recipes-table">
             <thead>
                 <th scope="col">#</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Description</th>
                 <th scope="col">Durée</th>
                 <th scope="col">Difficulté</th>
+                <th scope="col">Progression</th>
                 <th scope="col">Actions</th>
             </thead>
             <tbody>
                 @foreach ($registered as $course)
+                {{-- {{dd($course->course->name)}} --}}
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $course->name }}</td>
-                        <td>{{ $course->description }}</td>
-                        <td>{{ $course->duration() }}</td>
+                        <td>{{ $course->course->name }}</td>
+                        <td>{{ $course->course->description }}</td>
+                        <td>{{ $course->course->duration() }}</td>
                         <td>{{ $course->difficulty }} / 5</td>
+                        <td>{{ $course->progression() }}%</td>
                         <td>
-                            <a href="{{ route('courses.show', $course->id) }}" class="btn btn-primary">Voir la formation</a>
+                            {{$course->course->currentModule($course->course)}}
+                            <a href="{{ route('courses.module', [$course->course->id, $course->course->currentModule($course->course)]) }}" class="btn btn-success">Continuer la formation</a>
                         </td>
                         </div>
                     </div>
                 @endforeach
             </tbody>
         </table>
-        <hr>
+        <hr class="mb-4">
     @endif
 
-    <a class="btn btn-primary mb-5" href="{{ route('cooking-recipes.create') }}">Create new Cooking recipe</a>
+    <h2 class="text-center mb-4">Formations disponibles</h2>
     <table class="table table-striped table-hover display" id="recipes-table">
         <thead>
             <th scope="col">#</th>
