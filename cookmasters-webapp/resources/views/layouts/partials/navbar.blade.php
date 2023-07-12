@@ -33,7 +33,7 @@
                         <a class="nav-link" href="#">Événements</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Formations</a>
+                        <a class="nav-link" href="{{ route('courses.index') }}">Formations</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('services.index') }}">Services</a>
