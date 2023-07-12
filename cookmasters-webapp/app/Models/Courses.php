@@ -21,4 +21,39 @@ class Courses extends Model
     {
         return $this->hasMany(CoursesModule::class);
     }
+
+    public function duration()
+    {
+        $duration = 0;
+        foreach ($this->modules as $module) {
+            $duration += strtotime($module->duration) - strtotime('00:00:00');
+        }
+        return gmdate('H:i:s', $duration);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'courses_registrations');
+    }
+
+    public function registered()
+    {
+        return $this->hasMany(CoursesRegistrations::class)->where('user_id', auth()->user()->id)->exists();
+    }
+
+    public function registeredModules()
+    {
+        return $this->hasMany(CoursesRegistrations::class)->where('user_id', auth()->user()->id)->get();
+    }
+
+    public function currentModule(Courses $course)
+    {
+        $status = $this->hasMany(CoursesRegistrations::class)
+            ->where('user_id', auth()->user()->id)
+            ->where('courses_id', $course->id)
+            ->whereNotNull('courses_module_id')
+            ->first();
+
+        return $status != null ? $status->courses_module_id : 1;
+    }
 }
