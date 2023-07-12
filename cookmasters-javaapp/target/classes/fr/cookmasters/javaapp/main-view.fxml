@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <tabs>
+    <Tab fx:id="tabUsers" text="Utilisateurs">
+        <content>
+            <fx:include source="users-view.fxml" />
+        </content>
+    </Tab>
+      <Tab fx:id="tabCookingRecipes" text="Recettes">
+        <content>
+            <fx:include source="cooking-recipes-view.fxml" />
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="1200.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.cookmasters.javaapp.UsersController">
+    <children>
+  <PieChart fx:id="graphSubscriptionType" layoutX="730.0" layoutY="45.0" prefHeight="251.0" prefWidth="261.0" title="Type d'abonnement" />
+  <Button fx:id="btnReload" layoutX="395.0" layoutY="14.0" mnemonicParsing="false" onAction="#generate" text="Actualiser" />
+  <BarChart fx:id="graphAge" layoutX="14.0" layoutY="45.0" prefHeight="251.0" prefWidth="696.0" title="Age moyen">
+    <xAxis>
+      <CategoryAxis side="BOTTOM" />
+    </xAxis>
+    <yAxis>
+      <NumberAxis side="LEFT" />
+    </yAxis>
+  </BarChart>
+  <PieChart fx:id="graphUsers" layoutX="730.0" layoutY="312.0" prefHeight="272.0" prefWidth="261.0" title="Rôles utilisateurs" />
+  <BarChart fx:id="graphInscriptionDate" layoutX="14.0" layoutY="312.0" prefHeight="272.0" prefWidth="696.0" title="Date d'inscription">
+    <xAxis>
+      <CategoryAxis side="BOTTOM" />
+    </xAxis>
+    <yAxis>
+      <NumberAxis side="LEFT" />
+    </yAxis>
+  </BarChart>
+  <Button fx:id="btnSavePdf" layoutX="519.0" layoutY="14.0" mnemonicParsing="false" text="Sauvegarder (.pdf)" />
+   <TableView fx:id="tableUsers" layoutX="9.0" layoutY="595.0" prefHeight="595.0" prefWidth="982.0">
+       <columns>
+           <TableColumn fx:id="id" prefWidth="44.0" text="ID" />
+           <TableColumn fx:id="lastname" prefWidth="118.0" text="Nom" />
+           <TableColumn fx:id="firstname" prefWidth="139.0" text="Prénom" />
+           <TableColumn fx:id="username" prefWidth="127.0" text="Pseudo" />
+           <TableColumn fx:id="email" prefWidth="367.0" text="Email" />
+           <TableColumn fx:id="role" prefWidth="68.0" text="Role" />
+           <TableColumn fx:id="subscription" prefWidth="114.0" text="Abonnement" />
+       </columns>
+   </TableView>
+    </children>
+</AnchorPane>
