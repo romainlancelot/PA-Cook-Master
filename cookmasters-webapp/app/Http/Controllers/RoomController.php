@@ -12,10 +12,35 @@ class RoomController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Retrieve all rooms from the database
-        $rooms = Room::all();
+        $query = Room::query();
+
+        $filers = 0;
+        
+        if ($request->has('address')) {
+            if ($request->has('address') != '' && $request->has('address') != 'où ?'){
+                $query->where('address', $request->input('address'));
+                $filers = 1;
+            }
+        }
+    
+        if ($request->has('price_min') && $request->has('price_max')) {
+            if ($request->price_min != '' && $request->price_max != '') {
+                $query->whereBetween('price', [$request->price_min, $request->price_max]);
+                $filers = 1;
+            }
+        }
+        if ($request->has('price_min') && $request->price_min != '') {
+            $query->where('price', '>=', $request->price_min);
+            $filers = 1;
+           }
+
+        if ($filers == 0) {
+            $rooms = Room::all();
+        } else {
+            $rooms = $query->get();
+        }
 
         // Redirect to the index view
         return view('rooms.index', compact('rooms'));
@@ -80,14 +105,52 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        // $reservations = $room->reservations()->orderBy('start_date')->get();
+        $reservations = $room->reservations()
+            ->select('start_time AS start', 'end_time AS end')
+            ->get()
+            ->toArray();
+        
+        $availability_hours = "";
+        $roomhours = json_decode($room->reservation_hours);
+        for ($i = 0; $i !=  count($roomhours); $i++) {
+            $availability_hours = $availability_hours . $roomhours[$i] . "h ";
+        }
+        $roomdays = json_decode($room->availability_days);
+        $availability_days = "C'est ouvert ";
+        if (empty(array_diff((array)[1,2,3,4,5,6,7], $roomdays))) {
+            $availability_days = "Tous les jours !";
+        } else if (empty(array_diff((array)[1,2,3,4,5], $roomdays))) {
+            $availability_days = "Du lundi au vendredi !";
+        } else {
+            for ($i = 0; $i !=  count($roomdays); $i++) {
+                if ($roomdays[$i] == 1) {
+                    $availability_days = $availability_days . "Lundi";
+                }
+                if ($roomdays[$i] == 2) {
+                    $availability_days = $availability_days . " Mardi";
+                }
+                if ($roomdays[$i] == 3) {
+                    $availability_days = $availability_days . " Mercredi";
+                }
+                if ($roomdays[$i] == 4) {
+                    $availability_days = $availability_days . " Jeudi";
+                }
+                if ($roomdays[$i] == 5) {
+                    $availability_days = $availability_days . " Vendredi";
+                }
+                if ($roomdays[$i] == 6) {
+                    $availability_days = $availability_days . " Samedi";
+                }
+                if ($roomdays[$i] == 7) {
+                    $availability_days = $availability_days . " Dimanche";
+                }
+            }
+        }
 
-        return view('rooms.show', [
-            'room' => $room,
-            // 'reservations' => $reservations,
-        ]);
+        return view('rooms.show', ['room' => $room, 'reservations' => $reservations, "days" => $availability_days, "hours" => $availability_hours]);
     }
-
+    
+ 
     /**
      * Show the form for editing the specified resource.
      */
@@ -103,7 +166,7 @@ class RoomController extends Controller
     {
         $room->update($request->all());
 
-        return redirect()->route('boutique.index')->with('success', 'Room updated successfully');
+        return redirect()->route('rooms.index')->with('success', 'Room updated successfully');
     }
 
     /**
@@ -113,6 +176,6 @@ class RoomController extends Controller
     {
         $room->delete();
 
-        return redirect()->route('boutique.index')->with('success', 'Room deleted successfully');
+        return redirect()->route('admin.rooms')->with('success', 'Room deleted successfully');
     }
 }

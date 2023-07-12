@@ -38,12 +38,6 @@
                         <a class="nav-link" href="{{ route('workshops.index') }}">Atelier</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Formations</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('services.index') }}">Services</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('rooms.index') }}">Salles</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -64,10 +58,10 @@
                     <span class="border-start mx-3"></span>
                     @guest
                         <li>
-                            <a class="navbar-brand" href="{{ route('login') }}" alt="login">LOGIN</a>
+                            <a class="navbar-brand" href="{{ route('login') }}" alt="login">Se connecter</a>
                         </li>
                         <li>
-                            <a class="navbar-brand text-end" href="{{ route('register') }}" alt="login">REGISTER</a>
+                            <a class="navbar-brand text-end" href="{{ route('register') }}" alt="login">s'inscrire</a>
                         </li>
                     @endguest
                     @auth
@@ -80,15 +74,15 @@
                         <div class="nav-item dropdown">
                             <a class="navbar-brand dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="{{ secure_asset(auth()->user()->image) }}" width="45" height="45" alt="account" class="rounded-circle">
-                                ACCOUNT
+                                Account
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item" href="{{ route('account.show') }}">MON COMPTE</a></li>
+                                <li><a class="dropdown-item" href="{{ route('account.show') }}">Mon compte</a></li>
                                 @if (auth()->user()->role_name() == 'admin')
-                                    <li><a class="dropdown-item" href="{{ route('admin.index') }}">PAGE ADMIN</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('admin.index') }}">Page admin</a></li>
                                 @endif
-                                <li><a class="dropdown-item" href="{{ route('subscription-plans.index') }}">ABONNEMENTS</a></li>
-                                <li><a class="dropdown-item" href="{{ route('logout') }}">DECONNEXION</a></li>
+                                <li><a class="dropdown-item" href="{{ route('subscription-plans.index') }}">Abonnements</a></li>
+                                <li><a class="dropdown-item" href="{{ route('logout') }}">Déconnexion</a></li>
                             </ul>
                         </div>
                     @endauth

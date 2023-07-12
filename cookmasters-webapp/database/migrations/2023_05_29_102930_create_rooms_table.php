@@ -27,7 +27,7 @@ return new class extends Migration
             $table->json('payment_type')->nullable();
             $table->integer('surface')->nullable();
             $table->json('facilities')->nullable();
-            $table->string('availability_days')->nullable();
+            $table->json('availability_days')->nullable();
             $table->integer('minimum_reservation_hours')->nullable();
             $table->json('reservation_hours')->nullable();  
             $table->boolean('allow_more_people')->nullable();

@@ -17,6 +17,7 @@
                         <li><a class="dropdown-item" href="{{ route('admin.subscriptions-plans.features')}}">Gestion des features</a></li>
                     </ul>
                   </li>
+                <li><a href="{{ route('admin.rooms')}}" class="nav-link px-2 text-white">Gestion des Salles</a></li>
           
             </ul>
 

@@ -29,7 +29,7 @@ class RoomPolicy
      */
     public function create(User $user): bool
     {
-        //
+        
     }
 
     /**

@@ -70,6 +70,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return DB::table('roles')->where('id', $this->role_id)->value('name');
     }
 
+    public function roomReservations()
+    {
+        return $this->hasMany(RoomReservation::class);
+    }
     public function role()
     {
         return $this->belongsTo(Roles::class, 'role_id');

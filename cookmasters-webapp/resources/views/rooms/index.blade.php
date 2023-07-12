@@ -56,26 +56,29 @@
                         </h2>
                     </div>
                     <div class="row mt-4">
-                        <form action="/search" method="GET" class="form-inline mx-auto">
-                            <div class="search-container">
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <select name="location" class="form-control">
-                                            <option value=""> Où ?</option>
-                                            <option value="18 rue des Blancs Manteaux Paris">18 rue des Blancs Manteaux Paris</option>
-                                            <option value="42 rue de la Gastronomie Paris">42 rue de la Gastronomie Paris</option>
-                                            <option value="76 avenue Culinaire Paris">76 avenue Culinaire Paris</option>
-                                            <option value="15 rue du Goût Paris">15 rue du Goût Paris</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="date" name="date" class="form-control" placeholder="Sélectionnez une date">
-                                    </div>
-                                    <button type="submit" class="btn btn-secondary col-md-4">Rechercher</button>
-                                </div>
-                            </div>
+                    <form action="{{ route('rooms.index') }}" method="GET" class="form-inline mx-auto">
+    <div class="search-container">
+        <div class="row">
+            <div class="form-group col-md-3">
+                <select name="address" class="form-control">
+                    <option value=""> Où ?</option>
+                    <option value="18 rue des Blancs Manteaux Paris">18 rue des Blancs Manteaux Paris</option>
+                    <option value="42 rue de la Gastronomie Paris">42 rue de la Gastronomie Paris</option>
+                    <option value="76 avenue Culinaire Paris">76 avenue Culinaire Paris</option>
+                    <option value="15 rue du Goût Paris">15 rue du Goût Paris</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <input type="number" name="price_min" class="form-control" placeholder="prix min">
+            </div>
+            <div class="form-group col-md-3">
+                <input type="number" name="price_max" class="form-control" placeholder="prix max">
+            </div>
+            <button type="submit" class="btn btn-secondary col-md-3">Rechercher</button>
+        </div>
+    </div>
+</form>
 
-                        </form>
                     </div>
                 </div>
             </div>
@@ -83,7 +86,9 @@
     </div>
 </section>
 
-    <section class="container mt-5 mb-5">
+@auth
+@if (auth()->user()->role_name() == 'admin')
+<section class="container mt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-4 d-flex justify-content-around mb-3">
                 <a href="{{ route('rooms.create') }}" class="btn btn-outline-primary btn-lg">Créer une salle</a>
@@ -95,8 +100,11 @@
                 <a href="{{ route('equipment.create') }}" class="btn btn-outline-primary btn-lg">Créer un équipement</a>
             </div>
         </div>
-    </section>
-    <section class="container">
+</section>
+@endif
+@endauth
+
+<section class="container">
 
 
     <div class="row p-5">
