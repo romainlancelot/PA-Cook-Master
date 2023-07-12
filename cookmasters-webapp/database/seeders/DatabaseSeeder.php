@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
             IngredientsRecipesSeeder::class,
             CommentsSeeder::class,
             TransactionsSeeder::class,
+            CoursesSeeder::class,
+            CoursesModuleSeeder::class,
         ]);
     }
 }
