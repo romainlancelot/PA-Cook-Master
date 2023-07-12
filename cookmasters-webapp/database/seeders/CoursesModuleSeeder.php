@@ -13,12 +13,12 @@ class CoursesModuleSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 1; $i < 11; $i++) {
             for ($j = 1; $j < 11; $j++) {
                 CoursesModule::factory()->create([
-                    'course_id' => $j,
-                    'previous_module_id' => $j - 1,
-                    'next_module_id' => $j + 1,
+                    'courses_id' => $i,
+                    'previous_module_id' => $j != 1 ? $j - 1 : null,
+                    'next_module_id' => $j != 10 ? $j + 1 : null
                 ]);
             }
         }

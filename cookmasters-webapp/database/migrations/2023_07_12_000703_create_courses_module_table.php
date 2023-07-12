@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->foreignId('course_id')->constrained('courses');
+            $table->foreignId('courses_id')->constrained('courses');
             $table->integer('previous_module_id')->nullable();
             $table->integer('next_module_id')->nullable();
             $table->time('duration');
             $table->string('video');
             $table->text('introduction');            
-            $table->text('description');
+            $table->text('content');
             $table->text('conclusion');
         });
     }

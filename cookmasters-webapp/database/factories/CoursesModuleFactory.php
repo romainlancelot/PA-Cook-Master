@@ -18,11 +18,11 @@ class CoursesModuleFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'duration' => $this->faker->numberBetween(10, 60),
+            'duration' => $this->faker->time('H:i:s', '05:00:00'),
             'video' => $this->faker->url(),
-            'introduction' => $this->faker->realText(150),
-            'description' => $this->faker->realText(400),
-            'conclusion' => $this->faker->realText(150)
+            'introduction' => $this->faker->realText(500),
+            'content' => $this->faker->realText(5000),
+            'conclusion' => $this->faker->realText(500)
         ];
     }
 }
