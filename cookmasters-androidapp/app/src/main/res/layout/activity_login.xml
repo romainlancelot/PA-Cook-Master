@@ -28,6 +28,7 @@
         android:textColor="@color/white"
         android:layout_margin="10dp"
         android:padding="30dp"
+        android:inputType="textEmailAddress"
         android:background="@drawable/button_simple"
         android:layout_below="@id/sign_in"
         android:drawableLeft="@drawable/baseline_person_24"
@@ -38,6 +39,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/password"
         android:hint="Password"
+        android:inputType="textPassword"
         android:textColorHint="@color/white"
         android:textColor="@color/white"
         android:layout_margin="10dp"
@@ -47,41 +49,15 @@
         android:drawableLeft="@drawable/baseline_info_24"
         android:drawablePadding="20dp"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/password"
-        android:id="@+id/forgot_password"
-        android:text="Forgot your password?"
-        android:gravity="center"
-        android:layout_margin="10dp"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/forgot_password"
+        android:layout_below="@id/password"
         android:id="@+id/submit"
         android:layout_marginHorizontal="75dp"
         android:layout_marginTop="15dp"
         android:textColor="@color/white"
         android:text="Submit"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/submit"
-        android:id="@+id/already_have_acout"
-        android:text="Don't have an acout yet?"
-        android:gravity="center"
-        android:layout_margin="10dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/already_have_acout"
-        android:id="@+id/creat_acount"
-        android:layout_marginHorizontal="75dp"
-        android:textColor="@color/primary_color"
-        android:background="@drawable/border_color"
-        android:text="Create acount"/>
 </RelativeLayout>

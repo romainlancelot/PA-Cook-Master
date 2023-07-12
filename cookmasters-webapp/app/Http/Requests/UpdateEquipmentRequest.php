@@ -12,7 +12,6 @@ class UpdateEquipmentRequest extends FormRequest
     public function authorize(): bool
     {
         return Auth::user()->role_name() == 'admin';
-        // return true;
     }
 
     /**

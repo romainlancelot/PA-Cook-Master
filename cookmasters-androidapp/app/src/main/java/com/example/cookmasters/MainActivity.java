@@ -16,19 +16,10 @@ public class MainActivity extends AppCompatActivity {
 
         Button sign_in = findViewById(R.id.sign_in);
 
-        Button register = findViewById(R.id.creat_acount);
-
         sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            }
-        });
-
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
             }
         });
     }

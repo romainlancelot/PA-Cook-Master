@@ -9,12 +9,29 @@ use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
+
+    function checkRoomData($room) {
+        if (!$room) {
+            return false;
+        }
+    
+        if (!$room->id || !$room->photos || !$room->price || !$room->address || !$room->postal_code || !$room->city || !$room->name || !$room->capacity || !$room->surface || !$room->type || !$room->description || !$room->minimum_reservation_hours || !$room->allow_more_people || !$room->caution || !$room->activities || !$room->facilities || !$room->rules) {
+            return false;
+        }
+    
+        if (!is_array($room->photos) || !is_array($room->activities) || !is_array($room->facilities) || !is_array($room->rules)) {
+            return false;
+        }
+    
+        return true;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $query = Room::query();
+        $query = Room::query()->where('is_active', 1);
 
         $filers = 0;
         
@@ -37,7 +54,7 @@ class RoomController extends Controller
            }
 
         if ($filers == 0) {
-            $rooms = Room::all();
+            $rooms = Room::all()->where('is_active', 1);
         } else {
             $rooms = $query->get();
         }
@@ -61,18 +78,10 @@ class RoomController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'is_active' => 'boolean',
             'address' => 'required',
-            'city' => 'required',
-            'postal_code' => 'required',
-            'country' => 'required',
             'description' => 'required',
             'capacity' => 'required|integer',
             'price' => 'required|numeric',
-            'type' => 'required',
-            'surface' => 'numeric',
-            'availability_days' => 'nullable',
-            'minimum_reservation_hours' => 'numeric',
             'allow_more_people' => 'boolean',
             'max_people' => 'numeric',
             'caution' => 'numeric',
@@ -94,10 +103,9 @@ class RoomController extends Controller
         
         // assign user_id to the authenticated user
         $validatedData['user_id'] = auth()->user()->id;
-        
         $room = Room::create($validatedData);
     
-        return redirect()->route('rooms.index')->with('success', 'Room created successfully');
+        return redirect()->route('rooms.index')->with('success', 'Votre salle a bien été créée !, veuillez compléter les informations de votre salle');
     }
         
     /**
@@ -105,6 +113,9 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
+        if (!$this->checkRoomData($room)) {
+            return redirect()->route('rooms.index')->with('success', 'Inscription non terminée Veillez completer les informations de votre salle');
+        }
         $reservations = $room->reservations()
             ->select('start_time AS start', 'end_time AS end')
             ->get()

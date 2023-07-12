@@ -144,6 +144,23 @@ else
     echo -e "${RED}Unsupported package manager. Please install MySQL libraries manually.${NC}"
   fi
 fi
+# Install Jansson library and development files
+if [[ $(pkg-config --modversion jansson) ]]; then
+  echo -e "${GREEN}Jansson library already installed.${NC}"
+else
+  if [[ $(command -v apt-get) ]]; then
+    echo -e "${GREEN}Installing Jansson library and development files...${NC}"
+    sudo apt-get install libjansson-dev
+  elif [[ $(command -v dnf) ]]; then
+    echo -e "${GREEN}Installing Jansson library and development files...${NC}"
+    sudo dnf install jansson-devel
+  elif [[ $(command -v yum) ]]; then
+    echo -e "${GREEN}Installing Jansson library and development files...${NC}"
+    sudo yum install jansson-devel
+  else
+    echo -e "${RED}Unsupported package manager. Please install Jansson manually.${NC}"
+  fi
+fi
 
 # Print installation success message
 echo -e "${GREEN}All dependencies installed successfully!${NC}"

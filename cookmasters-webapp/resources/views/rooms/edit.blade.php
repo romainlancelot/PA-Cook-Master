@@ -74,7 +74,7 @@
 
         <!-- Room Minimum Reservation Hours -->
         <div class="form-group row">
-            <label for="minimum_reservation_hours" class="col-sm-2 col-form-label">Le nombre minimum de reservation par heure :</label>
+            <label for="minimum_reservation_hours" class="col-sm-2 col-form-label">Le nombre minimum heure réservable :</label>
             <div class="col-sm-10">
                 <input type="number" name="minimum_reservation_hours" id="minimum_reservation_hours" value="{{ $room->minimum_reservation_hours }}" class="form-control">
             </div>

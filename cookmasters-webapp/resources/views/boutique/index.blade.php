@@ -63,22 +63,6 @@
 
             <div class="col-md-2">
                 <form method="GET" action="{{ route('boutique.index') }}">
-                    <div class="list-group">
-                        <h3 class="my-4">Catégories</h3>
-                        <div class="form-check list-group-item">
-                            <input class="form-check-input" type="checkbox" value="Batteurs sur socle" id="Batteurs-sur-socle" name="categories[]">
-                            <label class="form-check-label" for="Batteurs-sur-socle">Batteurs sur socle</label>
-                        </div>
-                        <div class="form-check list-group-item">
-                            <input class="form-check-input" type="checkbox" value="Appareils électroménagers" id="Appareils-électroménagers" name="categories[]">
-                            <label class="form-check-label" for="Appareils-électroménagers">Appareils électroménagers</label>
-                        </div>
-                        <div class="form-check list-group-item">
-                            <input class="form-check-input" type="checkbox" value="Appareils de comptoirs" id="Appareils-de-comptoirs" name="categories[]">
-                            <label class="form-check-label" for="Appareils-de-comptoirs">Appareils de comptoirs</label>
-                        </div>
-                        <!-- Ajoutez plus de catégories si nécessaire -->
-                    </div>
                     <div>
                         <h3 class="my-4">Prix</h3>
                         <div class="row">
@@ -100,7 +84,7 @@
                 </form>                
             </div>
         <!-- Produits -->
-        
+
         <div class="col-md-10">
             <div class="row">
                 @foreach ($equipments as $equipment)
@@ -127,7 +111,7 @@
                                 </div>
                                 @auth
                                 @if (auth()->user()->role_name() == 'admin')
-                                <a href="{{ route('equipments.destroy', $equipment->id) }}" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $equipment->id }}').submit();">Delete</a>
+                                <a href="{{ route('equipments.destroy', $equipment->id) }}" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $equipment->id }}').submit();">Suprimer</a>
                                 <form id="delete-form-{{ $equipment->id }}" action="{{ route('equipments.destroy', $equipment->id) }}" method="POST" style="display: none;">
                                     @csrf
                                     @method('DELETE')

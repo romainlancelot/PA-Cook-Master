@@ -91,13 +91,11 @@
 <section class="container mt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-4 d-flex justify-content-around mb-3">
-                <a href="{{ route('rooms.create') }}" class="btn btn-outline-primary btn-lg">Créer une salle</a>
+                <a href="{{ route('rooms.create') }}" class="btn btn-outline-primary btn-lg">Ajouter une salle</a>
             </div>
+
             <div class="col-md-4 d-flex justify-content-around mb-3">
-                <a href="{{ route('roomoffer.create') }}" class="btn btn-outline-primary btn-lg">Créer une offre de salle</a>
-            </div>
-            <div class="col-md-4 d-flex justify-content-around mb-3">
-                <a href="{{ route('equipment.create') }}" class="btn btn-outline-primary btn-lg">Créer un équipement</a>
+                <a href="{{ route('equipment.create') }}" class="btn btn-outline-primary btn-lg">Ajouter un équipement</a>
             </div>
         </div>
 </section>

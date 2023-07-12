@@ -11,7 +11,7 @@ class StoreRoomRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->check();
+        return Auth::user()->role_name() == 'admin';
     }
 
     /**

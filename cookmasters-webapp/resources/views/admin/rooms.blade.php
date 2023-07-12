@@ -35,9 +35,6 @@
                         <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-primary">
                             Modifier
                         </a>
-                        <a href="{{ route('rooms.destroy', $room->id) }}" class="btn btn-danger">
-                            Supprimer
-                        </a>
                         <a href="{{ route('rooms.show', $room->id) }}" class="btn btn-info">
                             Voir les détails
                         </a>
