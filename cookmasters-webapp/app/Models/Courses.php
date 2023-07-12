@@ -54,6 +54,18 @@ class Courses extends Model
             ->whereNotNull('courses_module_id')
             ->first();
 
-        return $status != null ? $status->courses_module_id : 1;
+        if ($status == null) {
+            return $course->modules->where('previous_module_id', null)->first()->id;
+        }
+
+        return $status->courses_module_id;
+    }
+
+    public function lastModule()
+    {
+        return CoursesModule::where('courses_id', $this->id)
+            ->where('next_module_id', null)
+            ->first()
+            ->id;
     }
 }
