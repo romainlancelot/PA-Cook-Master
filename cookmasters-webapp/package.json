@@ -19,6 +19,9 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
+        "@fullcalendar/core": "^6.1.8",
+        "@fullcalendar/daygrid": "^6.1.8",
+        "@fullcalendar/web-component": "^6.1.8",
         "laravel-mix": "^6.0.19",
         "twilio-video": "^2.0.0"
     }

@@ -3,9 +3,45 @@
 @section('title', 'Room Offers')
 
 @section('content')
+<link href='https://fullcalendar.io/releases/main/core/main.css' rel='stylesheet' />
+    <link href='https://fullcalendar.io/releases/main/daygrid/main.css' rel='stylesheet' />
+    <script src='https://fullcalendar.io/releases/main/core/main.js'></script>
+    <script src='https://fullcalendar.io/releases/main/daygrid/main.js'></script>
 <style>
+.image-container {
+    position: relative;
+    text-align: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.overlay a {
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+}
+
+
 .image-wrapper {
     position: relative;
+}
+
+.description {
+    overflow: hidden;
+    position: relative;
+    max-height: calc(5 * 1.5em);
+    transition: max-height 0.3s;
+}
+
+.description.expanded {
+    max-height: none;
 }
 
 .caption {
@@ -55,7 +91,7 @@
     @php
         $photos = json_decode($room->photos);
     @endphp
-    <div class="row">
+<div class="row">
     <div class="col-md-12">
         <div class="image-wrapper">
             @if(count($photos) > 0)
@@ -68,41 +104,57 @@
     </div>
 </div>
 
+<div class="row p-5">
+
+</div>
 
 <div class="row">
     <div class="col-md-4">
+
                                         <div class="row">
                                             <div class="col-md-12 info-line">
-                                                <form style="background-color:#f9f9f9; padding: 30px; border-radius: 10px;">
-                                                    <div class="form-group info-line">
-                                                        <input type="text" class="form-control info-item" id="name" placeholder="Votre nom" style="border-radius: 5px;">
+                                            <form method="POST" action="{{ route('room.reservation.store') }}" style="background-color:#f9f9f9; border-radius: 10px;">
+                                                @csrf
+                                                <!-- Vous devez ajouter un champ caché pour l'ID de la chambre -->
+                                                <input type="hidden" name="room_id" value="{{ $room->id }}">
+                                                <div class="form-group info-line">
+                                                    <input type="text" name="name" class="form-control info-item" id="name" placeholder="Votre nom" style="border-radius: 5px;">
+                                                </div>
+                                                <div class="form-group info-line">
+                                                        <input type="email" name="email" class="form-control info-item" id="email" placeholder="Votre email" style="border-radius: 5px;">
                                                     </div>
+                                                    
                                                     <div class="form-group info-line">
-                                                        <input type="email" class="form-control info-item" id="email" placeholder="Votre email" style="border-radius: 5px;">
+                                                        <input type="tel" name="phoneNumber" class="form-control info-item" id="phoneNumber" placeholder="Votre numéro de téléphone" style="border-radius: 5px;">
                                                     </div>
+                                                    
                                                     <div class="form-group info-line">
-                                                        <input type="tel" class="form-control info-item" id="phoneNumber" placeholder="Votre numéro de téléphone" style="border-radius: 5px;">
+                                                        <input type="datetime-local" name="start_time" class="form-control info-item" id="startDate" placeholder="Date de début" style="border-radius: 5px;">
                                                     </div>
+                                                    
                                                     <div class="form-group info-line">
-                                                        <input type="date" class="form-control info-item" id="startDate" placeholder="Date de début" style="border-radius: 5px;">
+                                                        <input type="datetime-local" name="end_time" class="form-control info-item" id="endDate" placeholder="Date de fin" style="border-radius: 5px;">
                                                     </div>
+                                                    
                                                     <div class="form-group info-line">
-                                                        <input type="date" class="form-control info-item" id="endDate" placeholder="Date de fin" style="border-radius: 5px;">
-                                                    </div>
-                                                    <div class="form-group info-line">
-                                                        <select class="form-control info-item" id="numberOfPeople" style="border-radius: 5px;">
+                                                        <select class="form-control info-item" name="number_of_people" id="numberOfPeople" style="border-radius: 5px;">
                                                             @for ($i = 1; $i <= 50; $i++)
-                                                                <option>{{ $i }} Nombres de personnes</option>
+                                                                <option>{{ $i }}</option>
                                                             @endfor
                                                         </select>
                                                     </div>
+                                                    
                                                     <div class="form-group info-line">
-                                                        <textarea class="form-control info-item" id="message" rows="3" placeholder="Votre message..." style="border-radius: 5px;"></textarea>
+                                                        <textarea class="form-control info-item" name="message" id="message" rows="3" placeholder="Votre message..." style="border-radius: 5px;"></textarea>
                                                     </div>
-                                                    <div class="info-line" style="justify-content: center;">
-                                                        <button type="submit" class="btn info-item" style="background-color: #666; color: #fff;">Valider</button>
-                                                    </div>
-                                                </form>
+                                                    
+                              
+                                                <!-- autres champs de formulaire... -->
+                                                <div class="form-group info-line">
+                                                    <button type="submit" class="btn info-item" style="background-color: #666; color: #fff;">Réserver</button>
+                                                </div>
+                                            </form>
+
                                             </div>
                                         </div>
                                         <div class="row">
@@ -208,9 +260,11 @@
                                                     <div class="col-md-6">
                                                         <p><strong>Permettre plus de personnes que la capacité :</strong> {{ $room->allow_more_people }}</p>
                                                         <p><strong>Caution :</strong> 1500 €</p>
-                                                        <p><strong>Jours disponibles :</strong> {{ $room->availability_days }}</p>
-                                                        <p><strong>Heures réservables :</strong> {{$room->reservation_hours}}</p>
-                                                        <p><strong>Maximum extra guests allowed :</strong> {{$room->max_people }}</p>
+                                                        <p><strong>Jours disponibles :</strong> 
+                                                        
+                                                        </p>
+                                                        <p><strong>Heures réservables :</strong> {{ $hours }}</p>
+                                                        <p><strong>Maximum extra guests allowed :</strong> {{ $days }}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -316,11 +370,26 @@
     </div>
 </div>
 
+<div id='calendar'></div>
+
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <script>
+    let reservations = @json($reservations);
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            events: reservations
+        });
+        calendar.render();
+    });
+
+
 $(document).ready(function() {
     $("#voirPlus").click(function(e) {
         e.preventDefault(); // empêche le comportement par défaut de l'élément 'a'
@@ -336,31 +405,8 @@ $(document).ready(function() {
         }
     });
 });
-</script>
 
-<style>
-    .image-container {
-    position: relative;
-    text-align: center;
-}
 
-.overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-}
-
-.overlay a {
-    background-color: rgba(0, 0, 0, 0.5); 
-    color: white;
-    padding: 10px;
-    text-decoration: none;
-}
-
-    </style>
-<script>
 $(document).ready(function() {
     $("#voirPlusBtn").click(function() {
         $(".description-content").show();
@@ -376,17 +422,5 @@ $(document).ready(function() {
 });
 </script>
 
-<style>
-    .description {
-        overflow: hidden;
-        position: relative;
-        max-height: calc(5 * 1.5em);
-        transition: max-height 0.3s;
-    }
-
-    .description.expanded {
-        max-height: none;
-    }
-</style>
 @endsection
  

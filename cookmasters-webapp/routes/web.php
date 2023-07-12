@@ -15,6 +15,7 @@ use App\Http\Controllers\RoomEquipmentController;
 use App\Http\Controllers\BoutiqueController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\RoomReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      * Language Routes
      */
     Route::get('lang/change', 'LangController@change')->name('changeLang');
+
+
+    Route::post('/room/reservation', 'RoomReservationController@store')->name('room.reservation.store');
+
 
     /**
      * Boutiques Routes
@@ -73,12 +78,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     // put
     Route::resource('/rooms', RoomController::class)->name('rooms', 'rooms.index');
 
-    Route::get('/rooms/create', 'RoomController@create')->name('rooms.create');
-    Route::post('/rooms', 'RoomController@store')->name('rooms.store');
-    // delet
-    Route::delete('/rooms/{room}', 'RoomController@destroy')->name('rooms.destroy');
-    // update
-    Route::get('/rooms/{room}/edit', 'RoomController@edit')->name('rooms.edit');
     // Route::put('/rooms/{room}', 'RoomController@update')->name('rooms.update');
     // show
     Route::get('/rooms/{room}', 'RoomController@show')->name('rooms.show');
@@ -217,6 +216,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     });
 
     Route::group(['middleware' => ['auth', 'admin']], function() {
+
+        Route::get('/rooms/create', 'RoomController@create')->name('rooms.create');
+        Route::post('/rooms', 'RoomController@store')->name('rooms.store');
+        // delet
+        Route::delete('/rooms/{room}', 'RoomController@destroy')->name('rooms.destroy');
+        // update
+        Route::get('/rooms/{room}/edit', 'RoomController@edit')->name('rooms.edit');
         /**
          * Admin Routes
          */
@@ -225,6 +231,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         /**
          * Admin Users Routes
          */
+        Route::get('/admin/rooms', 'AdminController@rooms')->name('admin.rooms');
         Route::get('/admin/users', 'AdminController@users')->name('admin.users');
         Route::delete('/admin/users/{user}', 'AdminController@deleteUser')->name('admin.users.delete');
         Route::put('/admin/users/{id}', 'AdminController@updateUser')->name('admin.users.update');
