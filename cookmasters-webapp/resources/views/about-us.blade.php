@@ -16,7 +16,7 @@
 }
 
 </style>
-    <section class="hero" style="background-image: url('{{ asset('images/about-hero.jpg') }}'); background-size: cover; padding: 100px 0; text-align: center;">
+    <section class="hero" style="background-image: url('{{ secure_asset('images/about-hero.jpg') }}'); background-size: cover; padding: 100px 0; text-align: center;">
         <div class="container">
             <h1 class="display-4">À propos de nous</h1>
             <p class="lead">Cook Master a été fondé avec une passion profonde pour la cuisine et la gastronomie. Depuis notre ouverture en 2016, nous nous sommes engagés à offrir des expériences culinaires exceptionnelles à nos clients.</p>
@@ -33,7 +33,7 @@
                     <p>Rejoignez-nous pour célébrer ensemble la beauté et les subtilités de la cuisine française.</p>
                 </div>
                 <div class="col-md-6">
-                    <img src="{{ asset('images/history.png') }}" alt="Notre histoire" class="img-fluid">
+                    <img src="{{ secure_asset('images/history.png') }}" alt="Notre histoire" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
             <!-- Member 1 -->
             <div class="col-lg-3 col-md-6">
                 <div class="team-member">
-                    <img src="{{ asset('images/membres/membre1.png') }}" alt="John Doe" class="img-fluid  member-img">
+                    <img src="{{ secure_asset('images/membres/membre1.png') }}" alt="John Doe" class="img-fluid  member-img">
                     <h3 class="mt-3">John Doe</h3>
                     <p>Chef exécutif</p>
                 </div>
@@ -53,7 +53,7 @@
             <!-- Member 2 -->
             <div class="col-lg-3 col-md-6">
                 <div class="team-member">
-                    <img src="{{ asset('images/membres/membre2.png') }}" alt="Jane Smith" class="img-fluid  member-img">
+                    <img src="{{ secure_asset('images/membres/membre2.png') }}" alt="Jane Smith" class="img-fluid  member-img">
                     <h3 class="mt-3">Jane Smith</h3>
                     <p>Chef de cuisine</p>
                 </div>
@@ -61,7 +61,7 @@
             <!-- Member 3 -->
             <div class="col-lg-3 col-md-6">
                 <div class="team-member">
-                    <img src="{{ asset('images/membres/membre3.png') }}" alt="Robert Johnson" class="img-fluid  member-img">
+                    <img src="{{ secure_asset('images/membres/membre3.png') }}" alt="Robert Johnson" class="img-fluid  member-img">
                     <h3 class="mt-3">Robert Johnson</h3>
                     <p>Sous-chef</p>
                 </div>
@@ -69,7 +69,7 @@
             <!-- Member 4 -->
             <div class="col-lg-3 col-md-6">
                 <div class="team-member">
-                    <img src="{{ asset('images/membres/membre4.png') }}" alt="Daniel Green" class="img-fluid  member-img">
+                    <img src="{{ secure_asset('images/membres/membre4.png') }}" alt="Daniel Green" class="img-fluid  member-img">
                     <h3 class="mt-3">Daniel Green</h3>
                     <p>Head Sommelier</p>
                 </div>
@@ -77,7 +77,7 @@
             <!-- Member 5 -->
             <div class="col-lg-3 col-md-6">
                 <div class="team-member">
-                    <img src="{{ asset('images/membres/membre5.png') }}" alt="Emily Davis" class="img-fluid  member-img">
+                    <img src="{{ secure_asset('images/membres/membre5.png') }}" alt="Emily Davis" class="img-fluid  member-img">
                     <h3 class="mt-3">Emily Davis</h3>
                     <p>Pastry Chef</p>
                 </div>
@@ -85,7 +85,7 @@
             <!-- Member 6 -->
             <div class="col-lg-3 col-md-6">
                 <div class="team-member">
-                    <img src="{{ asset('images/membres/membre6.png') }}" alt="Sarah Wilson" class="img-fluid  member-img">
+                    <img src="{{ secure_asset('images/membres/membre6.png') }}" alt="Sarah Wilson" class="img-fluid  member-img">
                     <h3 class="mt-3">Sarah Wilson</h3>
                     <p>Head Server</p>
                 </div>
@@ -100,7 +100,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="{{ asset('icons/quality.jpg') }}" class="valeur-img" alt="Quality" class="card-img-top">
+                        <img src="{{ secure_asset('icons/quality.jpg') }}" class="valeur-img" alt="Quality" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title">Qualité</h5>
                             <p class="card-text">Nous nous engageons à offrir une cuisine de qualité supérieure, en utilisant les meilleurs ingrédients et techniques.</p>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="{{ asset('icons/creativity.jpg') }}" class="valeur-img" alt="Creativity" class="card-img-top">
+                        <img src="{{ secure_asset('icons/creativity.jpg') }}" class="valeur-img" alt="Creativity" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title">Créativité</h5>
                             <p class="card-text">Nous encourageons l'innovation culinaire et la découverte de nouvelles saveurs et combinaisons de goûts.</p>
@@ -118,7 +118,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="{{ asset('icons/service.jpg') }}" class="valeur-img" alt="Customer Service" class="card-img-top">
+                        <img src="{{ secure_asset('icons/service.jpg') }}" class="valeur-img" alt="Customer Service" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title">Service client</h5>
                             <p class="card-text">Nous mettons nos clients au cœur de tout ce que nous faisons, en offrant une expérience chaleureuse et accueillante.</p>
@@ -127,7 +127,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="{{ asset('icons/passion.jpg') }}" class="valeur-img" alt="Passion" class="card-img-top">
+                        <img src="{{ secure_asset('icons/passion.jpg') }}" class="valeur-img" alt="Passion" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title">Passion</h5>
                             <p class="card-text">Nous sommes passionnés par la cuisine et nous souhaitons transmettre cette passion à nos clients.</p>
@@ -143,7 +143,7 @@
         <h2 class="mb-4">Notre engagement</h2>
         <div class="row align-items-center">
             <div class="col-md-6">
-                <img src="{{ asset('icons/enjoy-your-meal.jpg') }}" alt="Notre engagement" class="img-fluid rounded">
+                <img src="{{ secure_asset('icons/enjoy-your-meal.jpg') }}" alt="Notre engagement" class="img-fluid rounded">
             </div>
             <div class="col-md-6">
                 <p class="fs-5 mb-3">Chez Cook Master, nous sommes déterminés à offrir à nos clients une expérience culinaire inoubliable. Nous nous efforçons de dépasser leurs attentes à chaque étape, en offrant des ateliers de qualité, des produits exceptionnels et un service client attentif.</p>

@@ -32,7 +32,7 @@
                         @endif
                         <td>
                             @if ($transaction->cookingRecipe->image)
-                                <img src="{{ asset($transaction->cookingRecipe->image) }}" alt="{{ $transaction->cookingRecipe->name }}" class="img-fluid" width="100">
+                                <img src="{{ secure_asset($transaction->cookingRecipe->image) }}" alt="{{ $transaction->cookingRecipe->name }}" class="img-fluid" width="100">
                             @else
                                 No image
                             @endif

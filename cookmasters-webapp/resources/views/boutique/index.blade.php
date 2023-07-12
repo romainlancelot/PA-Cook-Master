@@ -94,7 +94,7 @@
                         $photos = json_decode($equipment->photos);
                         @endphp
                         @if(count($photos) > 0)
-                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: auto; height: 120px; object-fit: cover;" src="{{ asset('storage/equipments/'.$photos[0]) }}" alt="{{ $equipment->name }}">
+                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: auto; height: 120px; object-fit: cover;" src="{{ secure_asset('storage/equipments/'.$photos[0]) }}" alt="{{ $equipment->name }}">
                         @endif
                         <div class="card-body d-flex flex-column"> <!-- Utilisation de flexbox pour l'alignement des éléments -->
                             <h5 class="card-title">{{$equipment->name}}</h5>

@@ -43,7 +43,7 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <video class="d-block w-100 h-50" autoplay loop muted>
-                    <source src="{{ asset('storage/roomoffers/Cuisine-a-louer.mp4') }}" type="video/mp4">
+                    <source src="{{ secure_asset('storage/roomoffers/Cuisine-a-louer.mp4') }}" type="video/mp4">
                 </video>
                 
                 <div class="carousel-caption d-none d-md-block text-center">
@@ -154,7 +154,7 @@
                 <a href="http://example.com/link-to-page" class="card">
                     <div class="card shadow-sm h-100">
                         <div style="position: relative;">
-                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ asset('images/ateliers.jpeg') }}" alt="Equipment Name">
+                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ secure_asset('images/ateliers.jpeg') }}" alt="Equipment Name">
                             <div style="position: absolute; bottom: 0; left: 0; background-color: rgba(0,0,0,0.6); color: white; padding: 5px;">100 € /heure</div>
                         </div>
                         <div class="card-body d-flex flex-column">
@@ -177,7 +177,7 @@
                 <a href="http://example.com/link-to-page" class="card">
                     <div class="card shadow-sm h-100">
                         <div style="position: relative;">
-                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ asset('images/ateliers.jpeg') }}" alt="Equipment Name">
+                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ secure_asset('images/ateliers.jpeg') }}" alt="Equipment Name">
                             <div style="position: absolute; bottom: 0; left: 0; background-color: rgba(0,0,0,0.6); color: white; padding: 5px;">100 € /heure</div>
                         </div>
                         <div class="card-body d-flex flex-column">
@@ -200,7 +200,7 @@
                 <a href="http://example.com/link-to-page" class="card">
                     <div class="card shadow-sm h-100">
                         <div style="position: relative;">
-                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ asset('images/ateliers.jpeg') }}" alt="Equipment Name">
+                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ secure_asset('images/ateliers.jpeg') }}" alt="Equipment Name">
                             <div style="position: absolute; bottom: 0; left: 0; background-color: rgba(0,0,0,0.6); color: white; padding: 5px;">100 € /heure</div>
                         </div>
                         <div class="card-body d-flex flex-column">
@@ -223,7 +223,7 @@
                 <a href="http://example.com/link-to-page" class="card">
                     <div class="card shadow-sm h-100">
                         <div style="position: relative;">
-                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ asset('images/ateliers.jpeg') }}" alt="Equipment Name">
+                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ secure_asset('images/ateliers.jpeg') }}" alt="Equipment Name">
                             <div style="position: absolute; bottom: 0; left: 0; background-color: rgba(0,0,0,0.6); color: white; padding: 5px;">100 € /heure</div>
                         </div>
                         <div class="card-body d-flex flex-column">
@@ -246,7 +246,7 @@
                 <a href="http://example.com/link-to-page" class="card">
                     <div class="card shadow-sm h-100">
                         <div style="position: relative;">
-                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ asset('images/ateliers.jpeg') }}" alt="Equipment Name">
+                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ secure_asset('images/ateliers.jpeg') }}" alt="Equipment Name">
                             <div style="position: absolute; bottom: 0; left: 0; background-color: rgba(0,0,0,0.6); color: white; padding: 5px;">100 € /heure</div>
                         </div>
                         <div class="card-body d-flex flex-column">
@@ -269,7 +269,7 @@
                 <a href="http://example.com/link-to-page" class="card">
                     <div class="card shadow-sm h-100">
                         <div style="position: relative;">
-                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ asset('images/ateliers.jpeg') }}" alt="Equipment Name">
+                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ secure_asset('images/ateliers.jpeg') }}" alt="Equipment Name">
                             <div style="position: absolute; bottom: 0; left: 0; background-color: rgba(0,0,0,0.6); color: white; padding: 5px;">100 € /heure</div>
                         </div>
                         <div class="card-body d-flex flex-column">
@@ -292,7 +292,7 @@
                 <a href="http://example.com/link-to-page" class="card">
                     <div class="card shadow-sm h-100">
                         <div style="position: relative;">
-                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ asset('images/ateliers.jpeg') }}" alt="Equipment Name">
+                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ secure_asset('images/ateliers.jpeg') }}" alt="Equipment Name">
                             <div style="position: absolute; bottom: 0; left: 0; background-color: rgba(0,0,0,0.6); color: white; padding: 5px;">100 € /heure</div>
                         </div>
                         <div class="card-body d-flex flex-column">
@@ -315,7 +315,7 @@
                 <a href="http://example.com/link-to-page" class="card">
                     <div class="card shadow-sm h-100">
                         <div style="position: relative;">
-                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ asset('images/ateliers.jpeg') }}" alt="Equipment Name">
+                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ secure_asset('images/ateliers.jpeg') }}" alt="Equipment Name">
                             <div style="position: absolute; bottom: 0; left: 0; background-color: rgba(0,0,0,0.6); color: white; padding: 5px;">100 € /heure</div>
                         </div>
                         <div class="card-body d-flex flex-column">
@@ -338,7 +338,7 @@
                 <a href="http://example.com/link-to-page" class="card">
                     <div class="card shadow-sm h-100">
                         <div style="position: relative;">
-                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ asset('images/ateliers.jpeg') }}" alt="Equipment Name">
+                            <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ secure_asset('images/ateliers.jpeg') }}" alt="Equipment Name">
                             <div style="position: absolute; bottom: 0; left: 0; background-color: rgba(0,0,0,0.6); color: white; padding: 5px;">100 € /heure</div>
                         </div>
                         <div class="card-body d-flex flex-column">

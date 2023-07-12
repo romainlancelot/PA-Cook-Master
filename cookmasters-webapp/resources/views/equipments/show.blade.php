@@ -47,7 +47,7 @@
                 @endphp
                 @foreach($photos as $photo)
                     <div class="col-12 mb-4">
-                        <img class="img-fluid img-thumbnail img-select" style="width: 80px; height: 80px; object-fit: cover;" src="{{ asset('storage/equipments/'.$photo) }}" alt="{{ $equipment->name }}">
+                        <img class="img-fluid img-thumbnail img-select" style="width: 80px; height: 80px; object-fit: cover;" src="{{ secure_asset('storage/equipments/'.$photo) }}" alt="{{ $equipment->name }}">
                     </div>
                 @endforeach
             </div>
@@ -55,7 +55,7 @@
 
         <div class="col-md-4">
             @if(count($photos) > 0)
-                <img id="main-image" class="img-fluid img-thumbnail" style="width: 300px; height: 300px; object-fit: cover;" src="{{ asset('storage/equipments/'.$photos[0]) }}" alt="{{ $equipment->name }}">
+                <img id="main-image" class="img-fluid img-thumbnail" style="width: 300px; height: 300px; object-fit: cover;" src="{{ secure_asset('storage/equipments/'.$photos[0]) }}" alt="{{ $equipment->name }}">
             @endif
         </div>
 
@@ -217,7 +217,7 @@
                     $photos = json_decode($e->photos);
                     @endphp
                     @if(count($photos) > 0)
-                        <img id="main-image" class="img-fluid" style="border-radius: 10px; width: auto; height: 120px; object-fit: cover;" src="{{ asset('storage/equipments/'.$photos[0]) }}" alt="{{ $e->name }}">
+                        <img id="main-image" class="img-fluid" style="border-radius: 10px; width: auto; height: 120px; object-fit: cover;" src="{{ secure_asset('storage/equipments/'.$photos[0]) }}" alt="{{ $e->name }}">
                     @endif
                     <div class="card-body d-flex flex-column"> <!-- Utilisation de flexbox pour l'alignement des éléments -->
                         <h5 class="card-title">{{$e->name}}</h5>

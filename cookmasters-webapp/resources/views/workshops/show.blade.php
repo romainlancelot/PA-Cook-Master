@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="image-wrapper" style="position: relative;">
-                <img src="{{ asset('storage/workshops/' .$workshop->photos ) }}" style="oppacity: 0.5em; width: 1920px; height: 420px; border-radius: 20px;" alt="Mon Image" class="img-fluid">
+                <img src="{{ secure_asset('storage/workshops/' .$workshop->photos ) }}" style="oppacity: 0.5em; width: 1920px; height: 420px; border-radius: 20px;" alt="Mon Image" class="img-fluid">
                 <div style="position: absolute; top: 80%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
                     <h1 style="color: white; text-shadow: 2px 2px 4px #000000;">Ateliers culinaires</h1>
                     <h3 style="color: white; text-shadow: 2px 2px 4px #000000;"> ---- Paris ---- </h3>
@@ -74,7 +74,8 @@
         Places restantes : {{ $nbPlaces }}
         </h4>
     </div>
-    <form>
+    <form action="{{ route('cart.store') }}" method="POST">
+        @csrf
         <div class="row mt-4">
             <div class="col-md-6">
                 <label for="dropdown1" style="font-family: 'Georgia', serif; color: #5d4740;">Date de cours:</label>
@@ -88,7 +89,7 @@
             </div>
             <div class="col-md-6">
                 <label for="dropdown2" style="font-family: 'Georgia', serif; color: #5d4740;">Nombres de places :</label>
-                <select class="form-select" id="dropdown2">
+                <select class="form-select" id="dropdown2" name="quantity" required>
                     <option selected>Choisir une le nombres de place...</option>
                     @for($i = 1; $i <= $nbPlaces; $i++)
                         <option value="{{ $i }}">{{ $i }} Places</option>
@@ -98,6 +99,7 @@
         </div>
         
         <div class="text-center mt-4">
+            <input type="hidden" name="workshop_id" value="{{ $workshop->id }}">
             <button class="btn btn-primary" type="submit" style="font-family: 'Georgia', serif; background-color: #5d4740; color: #ffffff;">AJOUTER AU PANIER</button>
         </div>
     </form>
@@ -165,7 +167,7 @@
                         <a href="{{ route('workshops.show', $workshop->id) }}" class="card">
                             <div class="card shadow-sm h-100">
                                 <div style="position: relative;">
-                                    <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ asset('storage/workshops/'.$workshop->photos) }}" alt="Equipment Name">
+                                    <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ secure_asset('storage/workshops/'.$workshop->photos) }}" alt="Equipment Name">
                                     <div style="position: absolute; bottom: 0; left: 0; background-color: rgba(0,0,0,0.6); color: white; padding: 5px;"> {{ $workshop->price }} €</div>
                                 </div>
                                 <div class="card-body d-flex flex-column">

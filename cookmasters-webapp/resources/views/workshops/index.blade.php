@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="image-wrapper" style="position: relative;">
-                <img src="{{ asset('images/description_atelier.png') }}" style="oppacity: 0.5em; width: 1920px; height: 420px; border-radius: 20px;" alt="Mon Image" class="img-fluid">
+                <img src="{{ secure_asset('images/description_atelier.png') }}" style="oppacity: 0.5em; width: 1920px; height: 420px; border-radius: 20px;" alt="Mon Image" class="img-fluid">
                 <div style="position: absolute; top: 80%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
                     <h1 style="color: white; text-shadow: 2px 2px 4px #000000;">Ateliers culinaires</h1>
                     <h3 style="color: white; text-shadow: 2px 2px 4px #000000;"> ---- Paris ---- </h3>
@@ -131,7 +131,7 @@
                         <a href="{{ route('workshops.show', $workshop->id) }}" class="card">
                             <div class="card shadow-sm h-100">
                                 <div style="position: relative;">
-                                    <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ asset('storage/workshops/'.$workshop->photos) }}" alt="Equipment Name">
+                                    <img id="main-image" class="img-fluid" style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;" src="{{ secure_asset('storage/workshops/'.$workshop->photos) }}" alt="Equipment Name">
                                     <div style="position: absolute; bottom: 0; left: 0; background-color: rgba(0,0,0,0.6); color: white; padding: 5px;"> {{ $workshop->price }} €</div>
                                 </div>
                                 <div class="card-body d-flex flex-column">

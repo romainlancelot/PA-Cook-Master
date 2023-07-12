@@ -95,7 +95,7 @@
     <div class="col-md-12">
         <div class="image-wrapper">
             @if(count($photos) > 0)
-                <img src="{{ asset('storage/rooms/'.$photos[0]) }}" style="width: 1920px; height: 420px;" alt="Mon Image" class="img-fluid">
+                <img src="{{ secure_asset('storage/rooms/'.$photos[0]) }}" style="width: 1920px; height: 420px;" alt="Mon Image" class="img-fluid">
             @endif
             <div class="caption price">{{ $room->price }} € /heure.</div>
             <div class="caption address"> {{ $room->address }}, {{ $room->postal_code }} {{ $room->city }}</div>
@@ -225,10 +225,10 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <img src="{{ asset('storage/rooms/'.$photos[0]) }}" alt="Description de l'image 1" class="img-fluid">
+                                                    <img src="{{ secure_asset('storage/rooms/'.$photos[0]) }}" alt="Description de l'image 1" class="img-fluid">
                                                 </div>
                                                 <div class="col-md-6 image-container">
-                                                    <img src="{{ asset('storage/rooms/'.$photos[1]) }}" alt="Description de l'image 2" class="img-fluid">
+                                                    <img src="{{ secure_asset('storage/rooms/'.$photos[1]) }}" alt="Description de l'image 2" class="img-fluid">
                                                     <div class="overlay">
                                                         <a href="#" id="voirPlus">Voir plus</a>
                                                     </div>
@@ -238,7 +238,7 @@
                                                 <div class="row">
                                                     @foreach($photos as $photo)
                                                         <div class="col-md-6 image-container">
-                                                            <img src="{{ asset('storage/rooms/'.$photo) }}" alt="Description de l'image 4" class="img-fluid">
+                                                            <img src="{{ secure_asset('storage/rooms/'.$photo) }}" alt="Description de l'image 4" class="img-fluid">
                                                         </div>
                                                     @endforeach
                                                 </div>

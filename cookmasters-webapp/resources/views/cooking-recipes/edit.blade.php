@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-md-4">
                                 @if ($recipe->image)
-                                    <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}" class="img-fluid">
+                                    <img src="{{ secure_asset($recipe->image) }}" alt="{{ $recipe->name }}" class="img-fluid">
                                 @endif
                             </div>
                         <div class="form-group">

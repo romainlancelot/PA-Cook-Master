@@ -25,14 +25,21 @@
                             </thead>
                             <tbody>
                                 @foreach($cart as $item)
+                                {{-- {{dd($item )}} --}}
                                     <tr>
                                         <td>
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    {{-- <img src="{{ asset('storage/images/'.$item['equipment']->options->photo) }}" alt="{{ $item['equipment']->name }}" class="img-fluid"> --}}
+                                                    {{-- <img src="{{ secure_asset('storage/images/'.$item['equipment']->options->photo) }}" alt="{{ $item['equipment']->name }}" class="img-fluid"> --}}
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <p>{{ $item['equipment']->name }}</p>
+                                                    <p>
+                                                        @if (isset($item['equipment']->name))
+                                                            <p>{{ $item['equipment']->name }}</p>
+                                                        @endif
+                                                        @if (isset($item['equipment']->title))
+                                                            <p>{{ $item['equipment']->title }}</p>
+                                                        @endif
                                                 </div>
                                             </div>
                                         </td>

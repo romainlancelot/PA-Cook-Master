@@ -36,21 +36,21 @@
     </div>
     <div class="carousel-inner" style="border-radius: 10px;">
         <div class="carousel-item active">
-            <img src="{{ asset('images/cookmaster_photo1.jpg') }}" class="d-block" width="1920" height="420" alt="...">
+            <img src="{{ secure_asset('images/cookmaster_photo1.jpg') }}" class="d-block" width="1920" height="420" alt="...">
             <div class="carousel-caption d-none d-md-block">
                 <h2>Formations de Cuisine</h2>
                 <p>Rejoignez nos formations de cuisine pour apprendre de nouvelles recettes et techniques.</p>  
             </div>
         </div>
         <div class="carousel-item">
-            <img src="{{ asset('images/cookmaster_photo2.jpg') }}" class="d-block" width="1920" height="420" alt="...">
+            <img src="{{ secure_asset('images/cookmaster_photo2.jpg') }}" class="d-block" width="1920" height="420" alt="...">
             <div class="carousel-caption d-none d-md-block">
                 <h2>Diplôme de Pâtisserie et Diplôme de Pâtisserie Innovation et Santé</h2>
                 <p>Apprenez les techniques de pâtisserie et découvrez les secrets des desserts les plus délicieux.</p>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="{{ asset('images/cookmaster_photo3.jpg') }}" class="d-block" width="1920" height="420" alt="...">
+            <img src="{{ secure_asset('images/cookmaster_photo3.jpg') }}" class="d-block" width="1920" height="420" alt="...">
             <div class="carousel-caption d-none d-md-block">
                 <h2>Diplôme de Cuisine en Parcours Professionnel</h2>
                 <p>Inscrivez-vous à notre formation de cuisine professionnelle et devenez un expert culinaire.</p>
@@ -101,14 +101,14 @@
     <div class="row">
         <div class="col-md-6">
             <div class="service-item">
-                <img src="{{ asset('images/ateliers.jpeg') }}" alt="Ateliers de cuisine" class="img-crop">
+                <img src="{{ secure_asset('images/ateliers.jpeg') }}" alt="Ateliers de cuisine" class="img-crop">
                 <h3>Ateliers de cuisine</h3>
                 <p>Participez à nos ateliers de cuisine interactifs et apprenez de nouvelles recettes excitantes.</p>
             </div>
         </div>
         <div class="col-md-6">
             <div class="service-item">
-                <img src="{{ asset('images/cours-domicile.jpg') }}" alt="Cours animés à domicile" class="img-crop">
+                <img src="{{ secure_asset('images/cours-domicile.jpg') }}" alt="Cours animés à domicile" class="img-crop">
                 <h3>Cours animés à domicile</h3>
                 <p>Nous venons chez vous ! Bénéficiez de cours de cuisine personnalisés dans le confort de votre foyer.</p>
             </div>
@@ -117,21 +117,21 @@
     <div class="row">
         <div class="col-md-4">
             <div class="service-item">
-                <img src="{{ asset('images/ventes-materiel.jpg') }}" alt="Ventes de matériel de cuisine" class="img-crop">
+                <img src="{{ secure_asset('images/ventes-materiel.jpg') }}" alt="Ventes de matériel de cuisine" class="img-crop">
                 <h3>Ventes de matériel de cuisine</h3>
                 <p>Parcourez notre sélection d'ustensiles de cuisine haut de gamme pour enrichir votre expérience culinaire.</p>
             </div>
         </div>
         <div class="col-md-4">
             <div class="service-item">
-                <img src="{{ asset('images/formations.jpg') }}" alt="Formations professionnelles" class="img-crop">
+                <img src="{{ secure_asset('images/formations.jpg') }}" alt="Formations professionnelles" class="img-crop">
                 <h3>Formations professionnelles</h3>
                 <p>Rejoignez nos formations professionnelles pour développer vos compétences et devenir un expert en cuisine.</p>
             </div>
         </div>
         <div class="col-md-4">
             <div class="service-item">
-                <img src="{{ asset('images/livraison.jpg') }}" alt="Repas commandés et livrés à domicile" class="img-crop">
+                <img src="{{ secure_asset('images/livraison.jpg') }}" alt="Repas commandés et livrés à domicile" class="img-crop">
                 <h3>Repas commandés et livrés à domicile</h3>
                 <p>Profitez de nos repas fraîchement préparés et livrés directement à votre porte.</p>
             </div>

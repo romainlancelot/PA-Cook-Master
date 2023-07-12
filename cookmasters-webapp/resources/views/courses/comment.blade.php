@@ -45,7 +45,7 @@
                             </div>
                             @if ($recipe->image)
                                 <div class="col-md-4">
-                                    <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}" class="img-fluid">
+                                    <img src="{{ secure_asset($recipe->image) }}" alt="{{ $recipe->name }}" class="img-fluid">
                                 </div>
                             @endif
                         </div>

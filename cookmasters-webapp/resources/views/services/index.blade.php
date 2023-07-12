@@ -1,7 +1,7 @@
 @extends('layouts.app-master')
 
 @section('styles')
-    <link href="{{ asset('assets/css/services.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/css/services.css') }}" rel="stylesheet">
 @endsection
 
 @section('title', 'Services')
@@ -16,7 +16,7 @@
         <div class="col-3">
             @foreach ($services as $service)
                 <div class="card text-bg-dark mb-3" onclick="more('{{ $service->id }}')">
-                    <img src="{{ asset(preg_replace('/public/', '', $service->json2array($service->photos)[0])) }}" class="card-img" alt="...">
+                    <img src="{{ secure_asset(preg_replace('/public/', '', $service->json2array($service->photos)[0])) }}" class="card-img" alt="...">
                     <div class="card-img-overlay">
                         <h5 class="card-title">{{ $service->name }}</h5>
                         <p class="card-text">{{ $service->description }}</p>
@@ -36,7 +36,7 @@
                         <div class="carousel-inner">
                             @foreach (preg_replace('/public/', '', $serviceInfos->json2array($serviceInfos->photos)) as $photo)
                                 <div class="carousel-item active">
-                                    <img src="{{ asset($photo) }}" class="d-block w-100" alt="...">
+                                    <img src="{{ secure_asset($photo) }}" class="d-block w-100" alt="...">
                                 </div>
                             @endforeach
                         </div>

@@ -37,7 +37,7 @@
                 <tr>
                     <td scope="row">
                         @if ($recipe->image)
-                            <img src="{{ asset($recipe->image) }}" alt="{{ $recipe->name }}" class="img-fluid" width="100">
+                            <img src="{{ secure_asset($recipe->image) }}" alt="{{ $recipe->name }}" class="img-fluid" width="100">
                         @else
                             No image
                         @endif

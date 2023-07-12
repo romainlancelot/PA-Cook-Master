@@ -38,7 +38,7 @@
                         <div class="carousel-inner">
                             @foreach (preg_replace('/public/', '', $room->json2array($room->photos)) as $photo)
                                 <div class="carousel-item active">
-                                    <img src="{{ asset($photo) }}" class="d-block w-100" alt="...">
+                                    <img src="{{ secure_asset($photo) }}" class="d-block w-100" alt="...">
                                 </div>
                             @endforeach
                         </div>
@@ -79,7 +79,7 @@
         <ul class="cards">
             @foreach ($equipments as $equipment)
             <li class="card">
-                <img class="card-img-top" src="{{ asset('storage/images/rooms/roomphoto.jpg') }}" alt="equipment Photo">
+                <img class="card-img-top" src="{{ secure_asset('storage/images/rooms/roomphoto.jpg') }}" alt="equipment Photo">
                 <div>
                     <h3 class="card-title">{{$equipment->name}}</h3>
                     <div class="card-content">
