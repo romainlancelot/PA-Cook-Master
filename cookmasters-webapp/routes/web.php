@@ -208,6 +208,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('/courses', CoursesController::class);
         Route::post('/courses/register', 'CoursesController@register')->name('courses.register');
         Route::get('/courses/{course}/module/{module}', 'CoursesController@module')->name('courses.module');
+        Route::post('/courses/module/validate', 'CoursesController@validateModule')->name('courses.module.validate');
 
         /**
          * UberCook Routes
