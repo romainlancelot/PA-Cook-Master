@@ -19,7 +19,7 @@ class CoursesRegistrations extends Model
 
     public function course()
     {
-        return $this->belongsTo(Courses::class);
+        return $this->belongsTo(Courses::class, 'courses_id');
     }
 
     public function user()
@@ -30,5 +30,25 @@ class CoursesRegistrations extends Model
     public function module()
     {
         return $this->belongsTo(CoursesModules::class);
+    }
+
+    public function progression()
+    {
+        if (!$this->courses_module_id) {
+            return 0;
+        }
+
+        $course = Courses::find($this->courses_id);
+        $modules = $course->modules;
+        $firstModule = $modules->where('previous_module_id', null)->first();
+        $total = count($modules);
+        $completed = 1;
+
+        while ($firstModule->next_module_id && $firstModule->id != $this->courses_module_id) {
+            $firstModule = $modules->where('id', $firstModule->next_module_id)->first();
+            $completed++;
+        }
+
+        return $completed / $total * 100;
     }
 }
