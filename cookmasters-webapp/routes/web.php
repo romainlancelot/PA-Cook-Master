@@ -189,7 +189,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/calendar', 'CalendarController@index')->name('calendar.index');
 
-
         /**
          * Cooking Recipes Routes
          */
@@ -202,6 +201,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::delete('/cooking-recipes/{cooking_recipe}', 'CookingRecipesController@destroy')->name('cooking-recipes.destroy');
         Route::get('/cooking-recipes/comment/transaction/{transaction_id}', 'CookingRecipesController@commentShow')->name('cooking-recipes.comment.transaction.show');
         Route::post('/cooking-recipes/comment/{cooking_recipe}', 'CookingRecipesController@comment')->name('cooking-recipes.comment.create');
+
+        /**
+         * Courses Routes
+         */
+        Route::resource('/courses', CoursesController::class);
+        Route::post('/courses/register', 'CoursesController@register')->name('courses.register');
+        Route::get('/courses/{course}/module/{module}', 'CoursesController@module')->name('courses.module');
 
         /**
          * UberCook Routes
