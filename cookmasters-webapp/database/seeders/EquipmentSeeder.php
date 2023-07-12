@@ -39,7 +39,6 @@ class EquipmentSeeder extends Seeder
                 'photos' => json_encode(["frigo.jpeg","frigo1.jpeg","frigo2.jpeg","frigo3.jpeg","frigo4.jpeg",]),
                 'description' => "26.8 Cu. Ft. Standard-Depth French Door Refrigerator with Exterior Ice and Water Dispenser
                 This standard-depth french door refrigerator keeps ingredients fresh and in easy reach with specialized spaces that make room for everything from salmon to sangria. A full-width Pull Out Tray fits platters and casserole dishes without stacking, while a Slide-Away Shelf adjusts to accommodate tall pitchers and carafes. The ExtendFresh™ Temperature Management System maintains optimal temperatures for fresh and frozen foods.",
-                'price' => 2000,
                 'availablequantity' => 10,
             ],
             [
@@ -62,7 +61,6 @@ class EquipmentSeeder extends Seeder
                 'photos' => json_encode(["2023_Color_of_the_Year_Hibiscus_Stand_Mixer1.jpeg","2023_Color_of_the_Year_Hibiscus_Stand_Mixer2.jpeg","2023_Color_of_the_Year_Hibiscus_Stand_Mixer3.jpeg","2023_Color_of_the_Year_Hibiscus_Stand_Mixer4.jpeg","2023_Color_of_the_Year_Hibiscus_Stand_Mixer.jpeg",]),
                 'description' => "30-Inch Single Wall Oven with Even-Heat™ True Convection
                 This 30-inch single wall oven with Even-Heat™ true convection provides consistent heating and even cooking. A unique bow-tie shaped design and convection fan helps ensure there are no burnt edges or undercooked centers. The Temperature Probe delivers accurate measurement of internal temperatures of meats, poultry, and casseroles without opening the oven. Bold design details are the perfect balance of elegance and functionality.",
-                'price' => 2000,
                 'availablequantity' => 10,
             ],
             [
@@ -85,7 +83,6 @@ class EquipmentSeeder extends Seeder
                 'photos' => json_encode(["24_Beverage_Center_with_Glass_Door_and_Metal-Front_Racks1.jpeg", "24_Beverage_Center_with_Glass_Door_and_Metal-Front_Racks2.jpeg", "24_Beverage_Center_with_Glass_Door_and_Metal-Front_Racks3.jpeg", "24_Beverage_Center_with_Glass_Door_and_Metal-Front_Racks4.jpeg", "24_Beverage_Center_with_Glass_Door_and_Metal-Front_Racks.jpeg"]),
                 'description' => "30-Inch Single Wall Oven with Even-Heat™ True Convection
                 This 30-inch single wall oven with Even-Heat™ true convection provides consistent heating and even cooking. A unique bow-tie shaped design and convection fan helps ensure there are no burnt edges or undercooked centers. The Temperature Probe delivers accurate measurement of internal temperatures of meats, poultry, and casseroles without opening the oven. Bold design details are the perfect balance of elegance and functionality.",
-                'price' => 2000,
                 'availablequantity' => 10,
             ],
             [
@@ -108,7 +105,6 @@ class EquipmentSeeder extends Seeder
                 'photos' => json_encode(["26.8_Cu._Ft._Standard-Depth_French_Door_Refrigerator_with_Exterior_Ice_and_Water_Dispenser1.jpeg", "26.8_Cu._Ft._Standard-Depth_French_Door_Refrigerator_with_Exterior_Ice_and_Water_Dispenser2.jpeg", "26.8_Cu._Ft._Standard-Depth_French_Door_Refrigerator_with_Exterior_Ice_and_Water_Dispenser3.jpeg", "26.8_Cu._Ft._Standard-Depth_French_Door_Refrigerator_with_Exterior_Ice_and_Water_Dispenser4.jpeg", "26.8_Cu._Ft._Standard-Depth_French_Door_Refrigerator_with_Exterior_Ice_and_Water_Dispenser.jpeg"]),
                 'description' => "30-Inch Single Wall Oven with Even-Heat™ True Convection
                 This 30-inch single wall oven with Even-Heat™ true convection provides consistent heating and even cooking. A unique bow-tie shaped design and convection fan helps ensure there are no burnt edges or undercooked centers. The Temperature Probe delivers accurate measurement of internal temperatures of meats, poultry, and casseroles without opening the oven. Bold design details are the perfect balance of elegance and functionality.",
-                'price' => 2000,
                 'availablequantity' => 10,
             ],
             [
@@ -131,7 +127,6 @@ class EquipmentSeeder extends Seeder
                 'photos' => json_encode(["26.8_Cu._Ft._Standard-Depth_French_Door_Refrigerator_with_Exterior_Ice_and_Water_Dispenser1.jpeg", "26.8_Cu._Ft._Standard-Depth_French_Door_Refrigerator_with_Exterior_Ice_and_Water_Dispenser2.jpeg", "26.8_Cu._Ft._Standard-Depth_French_Door_Refrigerator_with_Exterior_Ice_and_Water_Dispenser3.jpeg", "26.8_Cu._Ft._Standard-Depth_French_Door_Refrigerator_with_Exterior_Ice_and_Water_Dispenser4.jpeg", "26.8_Cu._Ft._Standard-Depth_French_Door_Refrigerator_with_Exterior_Ice_and_Water_Dispenser.jpeg"]),
                 'description' => "30-Inch Single Wall Oven with Even-Heat™ True Convection
                 This 30-inch single wall oven with Even-Heat™ true convection provides consistent heating and even cooking. A unique bow-tie shaped design and convection fan helps ensure there are no burnt edges or undercooked centers. The Temperature Probe delivers accurate measurement of internal temperatures of meats, poultry, and casseroles without opening the oven. Bold design details are the perfect balance of elegance and functionality.",
-                'price' => 2000,
                 'availablequantity' => 10,
             ],
             [
@@ -154,7 +149,6 @@ class EquipmentSeeder extends Seeder
                 'photos' => json_encode(["Over-The-Range_Microwave_with_Flush_Built-In_Design1.jpeg","Over-The-Range_Microwave_with_Flush_Built-In_Design2.jpeg","Over-The-Range_Microwave_with_Flush_Built-In_Design3.jpeg","Over-The-Range_Microwave_with_Flush_Built-In_Design4.jpeg","Over-The-Range_Microwave_with_Flush_Built-In_Design.jpeg"]),
                 'description' => "30-Inch Single Wall Oven with Even-Heat™ True Convection
                 This 30-inch single wall oven with Even-Heat™ true convection provides consistent heating and even cooking. A unique bow-tie shaped design and convection fan helps ensure there are no burnt edges or undercooked centers. The Temperature Probe delivers accurate measurement of internal temperatures of meats, poultry, and casseroles without opening the oven. Bold design details are the perfect balance of elegance and functionality.",
-                'price' => 2000,
                 'availablequantity' => 10,
             ],
             [
@@ -177,7 +171,6 @@ class EquipmentSeeder extends Seeder
                 'photos' => json_encode(["Semi-Automatic_Espresso_Machine1.jpeg","Semi-Automatic_Espresso_Machine2.jpeg","Semi-Automatic_Espresso_Machine3.jpeg","Semi-Automatic_Espresso_Machine.jpeg"]),
                 'description' => "30-Inch Single Wall Oven with Even-Heat™ True Convection
                 This 30-inch single wall oven with Even-Heat™ true convection provides consistent heating and even cooking. A unique bow-tie shaped design and convection fan helps ensure there are no burnt edges or undercooked centers. The Temperature Probe delivers accurate measurement of internal temperatures of meats, poultry, and casseroles without opening the oven. Bold design details are the perfect balance of elegance and functionality.",
-                'price' => 2000,
                 'availablequantity' => 10,
             ],
             [
@@ -200,7 +193,6 @@ class EquipmentSeeder extends Seeder
                 'photos' => json_encode(["Shave_Ice_Attachment1.jpeg","Shave_Ice_Attachment2.jpeg","Shave_Ice_Attachment3.jpeg","Shave_Ice_Attachment.jpeg"]),
                 'description' => "30-Inch Single Wall Oven with Even-Heat™ True Convection
                 This 30-inch single wall oven with Even-Heat™ true convection provides consistent heating and even cooking. A unique bow-tie shaped design and convection fan helps ensure there are no burnt edges or undercooked centers. The Temperature Probe delivers accurate measurement of internal temperatures of meats, poultry, and casseroles without opening the oven. Bold design details are the perfect balance of elegance and functionality.",
-                'price' => 2000,
                 'availablequantity' => 10,
             ],
             [
@@ -223,7 +215,6 @@ class EquipmentSeeder extends Seeder
                 'photos' => json_encode(["3Double_Wall_Oven_with_Even-Heat_True_Convection1.jpeg","3Double_Wall_Oven_with_Even-Heat_True_Convection2.jpeg","3Double_Wall_Oven_with_Even-Heat_True_Convection3.jpeg"]),
                 'description' => "30-Inch Single Wall Oven with Even-Heat™ True Convection
                 This 30-inch single wall oven with Even-Heat™ true convection provides consistent heating and even cooking. A unique bow-tie shaped design and convection fan helps ensure there are no burnt edges or undercooked centers. The Temperature Probe delivers accurate measurement of internal temperatures of meats, poultry, and casseroles without opening the oven. Bold design details are the perfect balance of elegance and functionality.",
-                'price' => 2000,
                 'availablequantity' => 10,
             ],
             [
@@ -246,7 +237,6 @@ class EquipmentSeeder extends Seeder
                 'photos' => json_encode(["3Double_Wall_Oven_with_Even-Heat_True_Convection1.jpeg","3Double_Wall_Oven_with_Even-Heat_True_Convection2.jpeg","3Double_Wall_Oven_with_Even-Heat_True_Convection3.jpeg"]),
                 'description' => "30-Inch Single Wall Oven with Even-Heat™ True Convection
                 This 30-inch single wall oven with Even-Heat™ true convection provides consistent heating and even cooking. A unique bow-tie shaped design and convection fan helps ensure there are no burnt edges or undercooked centers. The Temperature Probe delivers accurate measurement of internal temperatures of meats, poultry, and casseroles without opening the oven. Bold design details are the perfect balance of elegance and functionality.",
-                'price' => 2000,
                 'availablequantity' => 10,
             ],
             [
@@ -269,7 +259,6 @@ class EquipmentSeeder extends Seeder
                 'photos' => json_encode(["3Double_Wall_Oven_with_Even-Heat_True_Convection1.jpeg","3Double_Wall_Oven_with_Even-Heat_True_Convection2.jpeg","3Double_Wall_Oven_with_Even-Heat_True_Convection3.jpeg"]),
                 'description' => "30-Inch Single Wall Oven with Even-Heat™ True Convection
                 This 30-inch single wall oven with Even-Heat™ true convection provides consistent heating and even cooking. A unique bow-tie shaped design and convection fan helps ensure there are no burnt edges or undercooked centers. The Temperature Probe delivers accurate measurement of internal temperatures of meats, poultry, and casseroles without opening the oven. Bold design details are the perfect balance of elegance and functionality.",
-                'price' => 2000,
                 'availablequantity' => 10,
             ]
         ];
@@ -278,6 +267,7 @@ class EquipmentSeeder extends Seeder
 
         for ($i = 0; $i < $equipment_len; $i++) {
             $equipments[$i] = new Equipment($equipments[$i]);
+            $equipments[$i]->price = rand(20, 500);
             $equipments[$i]->save();
         }
 

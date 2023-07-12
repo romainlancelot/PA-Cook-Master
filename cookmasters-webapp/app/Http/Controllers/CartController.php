@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\OrderConfirmation;
 use App\Models\CookingRecipes;
 use App\Models\Transactions;
+use App\Models\Workshop;
 use Exception;
 use App\Models\Equipment;
 use App\Models\User;
@@ -47,9 +48,10 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1',
             'equipment_id' => 'nullable|exists:equipment,id',
             'recipe_id' => 'nullable|exists:cooking_recipes,id',
+            'workshop_id' => 'nullable|exists:workshops,id',
         ]);
 
-        if (!isset($validatedData['equipment_id']) && !isset($validatedData['recipe_id'])) {
+        if (!isset($validatedData['equipment_id']) && !isset($validatedData['recipe_id']) && !isset($validatedData['workshop_id'])) {
             return redirect()->route('cart.index')->withErrors([
                 'error' => 'No product selected!'
             ]);
@@ -60,6 +62,9 @@ class CartController extends Controller
         }
         if (isset($validatedData['recipe_id'])) {
             $equipment = CookingRecipes::findOrFail($validatedData['recipe_id']);
+        }
+        if (isset($validatedData['workshop_id'])) {
+            $equipment = Workshop::findOrFail($validatedData['workshop_id']);
         }
 
         $cart = session()->get('cart', []);
@@ -120,7 +125,7 @@ class CartController extends Controller
             $availablequantity = $cart[$id]['recipe']->availablequantity;
         }
 
-        if ($validatedData['quantity'] > $availablequantity) {
+        if ($validatedData['quantity'] > $availablequantity && !isset($cart[$id]['workshop'])) {
             $cart[$id]['quantity'] = $availablequantity;
             session()->put('cart', $cart);
             return redirect()->route('cart.index')->withErrors([
