@@ -6,6 +6,7 @@
             <select class="form-control" id="changeLang">
                 <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>English</option>
                 <option value="fr" {{ session()->get('locale') == 'fr' ? 'selected' : '' }}>France</option>
+                <option value="es" {{ session()->get('locale') == 'es' ? 'selected' : '' }}>Espangol</option>
             </select>
         </div>
     </div>
